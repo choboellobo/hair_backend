@@ -1,18 +1,27 @@
 var express = require('express'),
   router = express.Router(),
   mongoose = require('mongoose'),
-  Article = mongoose.model('Article');
+  User = require("../models/user");
 
 module.exports = function (app) {
-  app.use('/', router);
+  app.use('/user', router);
 };
 
 router.get('/', function (req, res, next) {
-  Article.find(function (err, articles) {
-    if (err) return next(err);
-    res.render('index', {
-      title: 'Generator-Express MVC',
-      articles: articles
-    });
-  });
+  User.find()
+    .then(
+      users => res.status(200).json(users)
+    )
+    .catch(
+      error => res.status(400).json({error : true, catch: error})
+    )
 });
+
+router.post("/", function(req, res, next){
+    let user = new User(req.body);
+    user.save()
+        .then(
+          newUser => res.status(201).json(newUser),
+          error => res.status(400).json({error : true, catch: error})
+        )
+})

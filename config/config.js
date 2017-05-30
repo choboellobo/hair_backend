@@ -1,7 +1,7 @@
 var path = require('path'),
     rootPath = path.normalize(__dirname + '/..'),
     env = process.env.NODE_ENV || 'development';
-
+var mongodb = 'mongodb://localhost/hair'
 var config = {
   development: {
     root: rootPath,
@@ -9,7 +9,7 @@ var config = {
       name: 'api'
     },
     port: 3000,
-    db: 'mongodb://localhost/api-development'
+    db: mongodb
   },
 
   test: {
@@ -18,7 +18,7 @@ var config = {
       name: 'api'
     },
     port: 3000,
-    db: 'mongodb://localhost/api-test'
+    db: mongodb
   },
 
   production: {
@@ -27,7 +27,7 @@ var config = {
       name: 'api'
     },
     port: 3000,
-    db: 'mongodb://localhost/api-production'
+    db: mongodb
   }
 };
 
