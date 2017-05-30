@@ -18,10 +18,31 @@ router.get('/', function (req, res, next) {
 });
 
 router.post("/", function(req, res, next){
-    let user = new User(req.body);
-    user.save()
+    let body = req.body;
+    if(!body) return res.status(403).json({error : true, message: "Body empty"})
+    User.findOne({email: body.email})
+        .then(user => {
+          if(user) res.status(403).json({error : true, message: "User exists into the database"})
+          else {
+            let u = new User(req.body);
+            u.save()
+                .then(
+                  newUser => res.status(201).json(newUser),
+                  error => res.status(400).json({error : true, catch: error})
+                )
+          }
+        })
+})
+
+router.delete("/:id", function(req,res,next){
+  let param_id = req.params.id;
+  if(param_id) {
+    User.remove({_id: param_id})
         .then(
-          newUser => res.status(201).json(newUser),
+          success => res.status(200).end(),
           error => res.status(400).json({error : true, catch: error})
         )
+  }else {
+    res.status(403).json({error : true, message: "Not id sent"})
+  }
 })
