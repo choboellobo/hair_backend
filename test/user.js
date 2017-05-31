@@ -6,7 +6,7 @@ let mongoose = require("mongoose");
 
 request = request(app);
 
-describe("Check User API", ()=>{
+describe("Test Model User", ()=>{
 	after(done => {
 		mongoose.models = {}
 		done()
