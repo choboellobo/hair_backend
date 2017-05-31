@@ -2,6 +2,7 @@ var express = require('express'),
   router = express.Router(),
   mongoose = require('mongoose'),
   User = require("../models/user");
+let jwt = require("../helpers/jwt");
 
 module.exports = function (app) {
   app.use('/user', router);

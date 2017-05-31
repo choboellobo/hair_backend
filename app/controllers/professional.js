@@ -4,11 +4,22 @@ var express = require('express'),
 	Professional = require("../models/professional"),
 	crypter = require("../helpers/crypto");
 
+let jwt = require("../helpers/jwt");
+
 	module.exports = function (app) {
 	  app.use('/professional', router);
 	};
-
-	router.get("/", function(req, res, next){
+  router.post("/login", function(req, res, next){
+    Professional.findOne({email: req.body.email, password: crypter.encrypt(req.body.password)})
+      .then(p => {
+        if(!p) return res.status(400).json({error: true, message: "Email o contraseña erroneos"})
+        res.status(200).json({
+          token: jwt.generate({_id: 15435345}),
+          professional: p
+        })
+      })
+  })
+	router.get("/", jwt.middleware, function(jwt_data, req, res, next){
 		Professional.find({},{password: 0})
 								.then(
 									professionals => res.status(200).json(professionals)

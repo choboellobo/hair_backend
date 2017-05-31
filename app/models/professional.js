@@ -18,8 +18,8 @@ var ProfessionalSchema = new Schema({
 		place: {type: String},
 		location: {type: String},
 		postal_code: {type: Number}
-	}
+	},
+  working_place: {type: Array}
 });
-
 
 module.exports = mongoose.model('Professional', ProfessionalSchema);
