@@ -62,7 +62,7 @@ describe("Test Model Professional", ()=> {
 	// 			email: "professional@professional.es",
 	// 			password: "111111",
 	// 			password_crypter: crypter.encrypt("111111"),
-	// 			firts_name: "Edu",
+	// 			first_name: "Edu",
 	// 			last_name: "Muñoz Alfonso",
 	// 			document_id: "12200109N",
 	// 			phone: "665882020",
