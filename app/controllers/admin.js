@@ -15,7 +15,6 @@ var express = require('express'),
     return {token: String, {admin: Object}}
   ******/
 	router.post("/login", function(req, res, next){
-
 		Admin.findOne({email: req.body.email, password: req.body.password},{password: 0})
       .then(a => {
         if(!a) return res.status(400).json({error: true, message: "Email o contraseña erroneos"})
