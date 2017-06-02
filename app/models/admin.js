@@ -9,7 +9,11 @@ var AdminSchema = new Schema({
 	level: {type: Number, required: true},
   type: {type: String, default: "admin"}
 },{
-	collection: "admin"
+	collection: "admin",
+  timestamps: {
+            createdAt: 'created_at',
+            updatedAt: 'updated_at'
+        }
 })
 
 module.exports = mongoose.model('admin', AdminSchema);
