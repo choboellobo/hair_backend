@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
 var ProfessionalSchema = new Schema({
   email: {type: String, required: true},
 	password: {type: String, required: true},
-	firts_name: {type: String, required: true},
+	first_name: {type: String, required: true},
 	last_name: {type: String, required: true},
 	document_id: {type: String, required: true},
 	phone: {type: Number, required: true, validate: {
