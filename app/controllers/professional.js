@@ -2,30 +2,52 @@ var express = require('express'),
   router = express.Router(),
   mongoose = require('mongoose'),
 	Professional = require("../models/professional"),
-	crypter = require("../helpers/crypto");
-
-let jwt = require("../helpers/jwt");
+	crypter = require("../helpers/crypto"),
+  jwt = require("../helpers/jwt");
 
 	module.exports = function (app) {
 	  app.use('/professional', router);
 	};
+  /*****
+    POST /professional/login
+    Mandatory {email: String, password: String}
+    return 200 {token: String, {professional: Object}}
+  ******/
   router.post("/login", function(req, res, next){
     Professional.findOne({email: req.body.email, password: crypter.encrypt(req.body.password)})
       .then(p => {
         if(!p) return res.status(400).json({error: true, message: "Email o contraseña erroneos"})
         res.status(200).json({
-          token: jwt.generate({_id: 15435345}),
+          token: jwt.generate({_id: p._id}),
           professional: p
         })
       })
   })
+  /*****
+    GET /professional
+    authorization: true
+    Filter allowed throw query params: active, first_name, last_name
+    return 200 {token: String, {professional: Object}}
+  ******/
 	router.get("/", jwt.middleware, function(jwt_data, req, res, next){
-		Professional.find({},{password: 0})
+    let query = {}
+    req.query.active ? query.active = req.query.active : null
+    req.query.first_name ? query.first_name = new RegExp(req.query.first_name) : null
+    req.query.last_name ? query.last_name = new RegExp(req.query.last_name) : null
+
+		Professional.find(query,{password: 0})
 								.then(
 									professionals => res.status(200).json(professionals)
 								)
 	})
-	router.post("/", function(req, res, next){
+
+  /*****
+    POST /professional
+    authorization: true
+    Mandatory ProfessionalModel
+    return  201 {professional: Object}
+  ******/
+	router.post("/", jwt.middleware, function(jwt_data, req, res, next){
 		let professional = req.body;
 		Professional.findOne({email: professional.email})
 								.then(
