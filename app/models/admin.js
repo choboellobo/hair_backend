@@ -6,7 +6,8 @@ var mongoose = require('mongoose'),
 var AdminSchema = new Schema({
 	email: {type: String, required: true},
 	password: {type: String, required: true},
-	level: {type: Number, required: true}
+	level: {type: Number, required: true},
+  type: {type: String, default: "admin"}
 },{
 	collection: "admin"
 })

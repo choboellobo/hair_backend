@@ -6,7 +6,7 @@ let mongoose = require("mongoose");
 let crypter = require("../app/helpers/crypto");
 request = request(app);
 
-describe("Test Model Professional", ()=> {
+describe("************ Test Model Professional", ()=> {
 	describe("POST /professional/login", ()=>{
 		it("Should return a token if email and password are right", done => {
 			request.post("/professional/login")

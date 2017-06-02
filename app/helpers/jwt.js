@@ -4,7 +4,6 @@ const jwt_key = process.env.JWT_KEY || "wtf";
 let jwt_obj = {
 	generate: function(obj){
 		var obj =  obj ||  {};
-		console.log(obj)
 		return jwt.sign(obj, jwt_key );
 	},
 	decode: function(token) {

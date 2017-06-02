@@ -18,7 +18,7 @@ var express = require('express'),
       .then(p => {
         if(!p) return res.status(400).json({error: true, message: "Email o contraseña erroneos"})
         res.status(200).json({
-          token: jwt.generate({_id: p._id}),
+          token: jwt.generate({_id: p._id, type: p.type}),
           professional: p
         })
       })
