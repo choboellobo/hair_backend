@@ -34,11 +34,15 @@ var express = require('express'),
     req.query.active ? query.active = req.query.active : null
     req.query.first_name ? query.first_name = new RegExp(req.query.first_name) : null
     req.query.last_name ? query.last_name = new RegExp(req.query.last_name) : null
+    req.query.working_place ? query.working_place = parseInt(req.query.working_place) : null
 
-		Professional.find(query,{password: 0})
+		Professional.find(query, {password: 0})
 								.then(
 									professionals => res.status(200).json(professionals)
 								)
+                .catch(
+                  error => res.status(400).json({error: error})
+                )
 	})
 
   /*****
@@ -47,7 +51,7 @@ var express = require('express'),
     Mandatory ProfessionalModel
     return  201 {professional: Object}
   ******/
-	router.post("/", jwt.middleware, function(jwt_data, req, res, next){
+	router.post("/", function( req, res, next){
 		let professional = req.body;
 		Professional.findOne({email: professional.email})
 								.then(
@@ -66,7 +70,6 @@ var express = require('express'),
 																						}
 																					)
 																					.catch(
-
 																						error => {
 																							console.log(error)
 																							res.status(400).json({error: true, catch: error})

@@ -2,6 +2,7 @@ var mongoose = require('mongoose'),
   	Schema = mongoose.Schema;
 
 var ProfessionalSchema = new Schema({
+  avatar: {type: String, default: "http://i2.esmas.com/2013/03/15/492937/cosas-que-debe-tener-un-buen-estilista-300x380.jpg"},
   email: {type: String, required: true},
 	password: {type: String, required: true},
 	first_name: {type: String, required: true},
