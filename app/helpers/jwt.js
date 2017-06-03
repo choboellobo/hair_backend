@@ -24,7 +24,19 @@ let jwt_obj = {
 			.catch(error => {
 				res.status(403).json({error: true, message: "Error decode JWT"})
 			})
-
+	},
+	middleware_admin: function(req, res, next) {
+		let token = req.headers.authorization;
+		jwt_obj.decode(token)
+			.then(
+				decode => {
+					if(decode.type === "admin") next(decode)
+					else res.status(403).json({error: true, message: "This JWT isn´t admin type"})
+				}
+			)
+			.catch(error => {
+				res.status(403).json({error: true, message: "Error decode JWT"})
+			})
 	}
 }
 module.exports = jwt_obj;
