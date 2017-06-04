@@ -22,7 +22,7 @@ let jwt_obj = {
 				decode => next(decode)
 			)
 			.catch(error => {
-				res.status(403).json({error: true, message: "Error decode JWT"})
+				res.status(401).json({error: true, message: "Error decode JWT"})
 			})
 	},
 	middleware_admin: function(req, res, next) {
@@ -31,11 +31,11 @@ let jwt_obj = {
 			.then(
 				decode => {
 					if(decode.type === "admin") next(decode)
-					else res.status(403).json({error: true, message: "This JWT isn´t admin type"})
+					else res.status(401).json({error: true, message: "This JWT isn´t admin type"})
 				}
 			)
 			.catch(error => {
-				res.status(403).json({error: true, message: "Error decode JWT"})
+				res.status(401).json({error: true, message: "Error decode JWT"})
 			})
 	}
 }

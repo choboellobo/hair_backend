@@ -40,12 +40,12 @@ describe("************ Test Model Professional", ()=> {
 								error => done(error)
 							)
 		})
-		it("Should return 403 if you are not logged", done => {
+		it("Should return 401 if you are not logged", done => {
 			request.get("/professional")
-							.expect(403)
+							.expect(401)
 							.then(
 								res => {
-									expect(res.status).to.equal(403);
+									expect(res.status).to.equal(401);
 									done()
 								},
 								error => done(error)

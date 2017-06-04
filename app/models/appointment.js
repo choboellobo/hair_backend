@@ -14,6 +14,7 @@ var AppointmentSchema = new Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Services'
     },
+    date: {type: Date, required: true},
     completed: {
       status: {type: Boolean, default: false},
       date: {type: Date}
