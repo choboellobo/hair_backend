@@ -26,5 +26,15 @@ var AppointmentSchema = new Schema({
       updatedAt: 'updated_at'
     }
   })
+  /*
+    Static method to know if an Appointment exists
+  */
+  AppointmentSchema.statics.exists = function(professional_id, date){
+    return new Promise((resolve, reject)=> {
+      this.find({professional_id: professional_id, date: date})
+            .then( a => resolve(a) )
+            .catch( error => reject(error) )
+    })
+  }
 
 module.exports = mongoose.model('Appointment', AppointmentSchema);

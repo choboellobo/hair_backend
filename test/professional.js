@@ -7,25 +7,25 @@ let crypter = require("../app/helpers/crypto");
 request = request(app);
 
 describe("************ Test Model Professional", ()=> {
-	// describe("POST /professional/login", ()=>{
-	// 	it("Should return a token if email and password are right", done => {
-	// 		request.post("/professional/login")
-	// 						.send({
-	// 							email: "professional@professional.es",
-	// 							password: "111111"
-	// 						})
-	// 						.expect(200)
-	// 						.then(
-	// 							res => {
-	// 								expect(res.status).to.equal(200)
-	// 								expect(res.body).to.have.property("token")
-	// 								expect(res.body).to.have.property("professional")
-	// 								done()
-	// 							},
-	// 							error => done(error)
-	// 						)
-	// 	})
-	// })
+	describe("POST /professional/login", ()=>{
+		it("Should return a token if email and password are right", done => {
+			request.post("/professional/login")
+							.send({
+								email: "professional@professional.es",
+								password: "111111"
+							})
+							.expect(200)
+							.then(
+								res => {
+									expect(res.status).to.equal(200)
+									expect(res.body).to.have.property("token")
+									expect(res.body).to.have.property("professional")
+									done()
+								},
+								error => done(error)
+							)
+		})
+	})
 	describe("GET /professional", ()=> {
 		it("Should return all professionals if you are logged", done => {
 			request.get("/professional")
@@ -57,7 +57,7 @@ describe("************ Test Model Professional", ()=> {
 			mongoose.models = {}
 			done()
 		})
-		it("Should create a professional if it do not exists", done => {
+		it("Should create a professional if it exists", done => {
 			let professional = {
 				email: "professional@professional.es",
 				password: "111111",
