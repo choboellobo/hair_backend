@@ -9,15 +9,19 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res, next) {
+
   var query = {}
-  if(req.query.name) query.name = req.query.name
-  User.find(query)
+  var options = {select: {password: 0}}
+    if(req.query.name) query.name = new RegExp(req.query.name)
+    if(req.query.page) options.page = req.query.page
+    User.paginate(query,options)
     .then(
       users => res.status(200).json(users)
     )
     .catch(
       error => res.status(400).json({error : true, catch: error})
     )
+
 });
 
 router.post("/", function(req, res, next){
