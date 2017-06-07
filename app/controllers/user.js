@@ -9,7 +9,9 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res, next) {
-  User.find()
+  var query = {}
+  if(req.query.name) query.name = req.query.name
+  User.find(query)
     .then(
       users => res.status(200).json(users)
     )
