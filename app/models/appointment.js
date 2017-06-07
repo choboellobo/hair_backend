@@ -1,6 +1,11 @@
 var mongoose = require('mongoose'),
-  Schema = mongoose.Schema;
-
+  Schema = mongoose.Schema,
+  mongoosePaginate = require('mongoose-paginate');
+  mongoosePaginate.paginate.options = {
+      lean:  true,
+      limit: 20,
+      sort: { date: -1 }
+  };
 var AppointmentSchema = new Schema({
     user_id : {
       type: mongoose.Schema.Types.ObjectId,
@@ -26,6 +31,7 @@ var AppointmentSchema = new Schema({
       updatedAt: 'updated_at'
     }
   })
+  AppointmentSchema.plugin(mongoosePaginate);
   /*
     Static method to know if an Appointment exists
   */

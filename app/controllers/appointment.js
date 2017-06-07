@@ -73,14 +73,15 @@ router.delete("/:appointment_id", jwt.middleware_admin, function(jwt_data, req, 
   Return: {200: ArrayAppointments, 401: No Authorization, 400: Bad request}
 */
 router.get("/", jwt.middleware_admin, function(jwt_data, req, res, next) {
-  Appointment.find({})
-    .populate('user_id', {
-      password: 0
-    })
-    .populate("professional_id", {
-      password: 0
-    })
-    .populate("service_id")
+  let options = {
+    populate: [
+      {path: "user_id", select: { password: 0 }},
+      {path:"professional_id", select: {password: 0}},
+      {path:"select_id"},
+    ]
+  };
+  if(req.query.page) options.page = req.query.page
+  Appointment.paginate({},options)
     .then(
       a => res.status(200).json(a)
     )
