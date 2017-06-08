@@ -30,13 +30,14 @@ var express = require('express'),
     return 200 {token: String, {professional: Object}}
   ******/
 	router.get("/", jwt.middleware, function(jwt_data, req, res, next){
-    let query = {}
+    let query = {};
+    let options = {select: {password: 0}};
     req.query.active ? query.active = req.query.active : null
     req.query.first_name ? query.first_name = new RegExp(req.query.first_name) : null
     req.query.last_name ? query.last_name = new RegExp(req.query.last_name) : null
     req.query.working_place ? query.working_place = parseInt(req.query.working_place) : null
-
-		Professional.find(query, {password: 0})
+    if(req.query.page) options.page = req.query.page
+		Professional.paginate(query, options)
 								.then(
 									professionals => res.status(200).json(professionals)
 								)

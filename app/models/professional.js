@@ -1,5 +1,11 @@
 var mongoose = require('mongoose'),
-  Schema = mongoose.Schema;
+  Schema = mongoose.Schema,
+  mongoosePaginate = require('mongoose-paginate');
+  mongoosePaginate.paginate.options = {
+      lean:  true,
+      limit: 20,
+      sort: { _id: -1 }
+  };
 
 var ProfessionalSchema = new Schema({
   avatar: {
@@ -64,4 +70,5 @@ var ProfessionalSchema = new Schema({
     updatedAt: 'updated_at'
   }
 });
+ProfessionalSchema.plugin(mongoosePaginate);
 module.exports = mongoose.model('Professional', ProfessionalSchema);

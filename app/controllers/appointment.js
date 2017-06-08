@@ -77,7 +77,7 @@ router.get("/", jwt.middleware_admin, function(jwt_data, req, res, next) {
     populate: [
       {path: "user_id", select: { password: 0 }},
       {path:"professional_id", select: {password: 0}},
-      {path:"select_id"},
+      {path:"service_id"},
     ]
   };
   if(req.query.page) options.page = req.query.page
