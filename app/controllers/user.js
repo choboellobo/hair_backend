@@ -10,8 +10,8 @@ module.exports = function (app) {
 
 router.get('/', function (req, res, next) {
 
-  var query = {}
-  var options = {select: {password: 0}}
+  var query = {};
+  var options = {select: {password: 0}};
     if(req.query.name) query.name = new RegExp(req.query.name)
     if(req.query.page) options.page = req.query.page
     User.paginate(query,options)

@@ -16,10 +16,10 @@ describe("************ Test Model User", ()=>{
 			request.get("/user")
 							.expect(200)
 							.then(res => {
-								expect(res.body).to.be.an("array");
-								if(res.body.length > 0) {
+								expect(res.body.docs).to.be.an("array");
+								if(res.body.total > 0) {
 									console.log(`There are ${res.body.length} items into DDBB`)
-									expect(res.body).to.have.lengthOf.above(0);
+									expect(res.body.docs).to.have.lengthOf.above(0);
 								}
 								done()
 							}, error => done(error))
@@ -30,7 +30,9 @@ describe("************ Test Model User", ()=>{
 		it("Should create a user and after remove it", done => {
 			let user = {
 				email: "yo@yo.es",
-				password: "123456"
+				password: "123456",
+        first_name: "Edu",
+        last_name: "Muñoz Alfonso"
 			}
 			request.post("/user")
 						.expect(201)

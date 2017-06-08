@@ -34,7 +34,7 @@ describe("************ Test Model Professional", ()=> {
 							.then(
 								res => {
 									expect(res.status).to.equal(200);
-									expect(res.body).to.be.an("Array")
+									expect(res.body.docs).to.be.an("Array")
 									done()
 								},
 								error => done(error)
