@@ -1,18 +1,24 @@
 var express = require('express'),
   router = express.Router(),
   mongoose = require('mongoose'),
-  User = require("../models/user");
-let jwt = require("../helpers/jwt");
+  User = require("../models/user"),
+  crypter = require("../helpers/crypto"),
+  jwt = require("../helpers/jwt");
 
 module.exports = function (app) {
   app.use('/user', router);
 };
 
+/*
+  GET /user
+  Authorization: true
+  Filter: first_name, last_name, page
+  Return: {201: Created, 401: No Authorization, 400: Bad request, 409: Conflics}
+*/
 router.get('/', function (req, res, next) {
-
   var query = {};
   var options = {select: {password: 0}};
-    if(req.query.name) query.name = new RegExp(req.query.name)
+    if(req.query.first_name) query.first_name = new RegExp(req.query.first_name)
     if(req.query.page) options.page = req.query.page
     User.paginate(query,options)
     .then(
@@ -23,24 +29,33 @@ router.get('/', function (req, res, next) {
     )
 
 });
-
+/*
+  POST /user
+  Mandatory: {email: String, password: String, first_name: String, last_name: String }
+  Return: {201: Created, 401: No Authorization, 400: Bad request, 409: Conflics}
+*/
 router.post("/", function(req, res, next){
-    let body = req.body;
-    if(!body) return res.status(403).json({error : true, message: "Body empty"})
-    User.findOne({email: body.email})
-        .then(user => {
-          if(user) res.status(403).json({error : true, message: "User exists into the database"})
+    let user = req.body;
+    console.log(user)
+    if(!user) return res.status(403).json({error : true, message: "Data empty"})
+    User.findOne({email: user.email})
+        .then(userFound => {
+          if(userFound) res.status(409).json({error : true, message: "User exists into the database"})
           else {
-            let u = new User(req.body);
+            user.password = crypter.encrypt(user.password);
+            let u = new User(user);
             u.save()
-                .then(
-                  newUser => res.status(201).json(newUser),
-                  error => res.status(400).json({error : true, catch: error})
-                )
+                .then(newUser => res.status(201).json(newUser))
+                .catch(error => res.status(400).json({error : true, catch: error}))
           }
         })
 })
 
+/*
+  DELETE /user/:id
+  Authorization: true
+  Return: {200 , body empty o 403 Error}
+*/
 router.delete("/:id", function(req,res,next){
   let param_id = req.params.id;
   if(param_id) {

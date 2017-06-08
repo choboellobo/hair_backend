@@ -26,8 +26,8 @@ var express = require('express'),
   /*****
     GET /professional
     authorization: true
-    Filter allowed throw query params: active, first_name, last_name
-    return 200 {token: String, {professional: Object}}
+    Filter allowed throw query params: active, first_name, last_name, working_place and page
+    return 200 { professional: Object}
   ******/
 	router.get("/", jwt.middleware, function(jwt_data, req, res, next){
     let query = {};

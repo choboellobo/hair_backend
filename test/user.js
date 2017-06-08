@@ -18,7 +18,7 @@ describe("************ Test Model User", ()=>{
 							.then(res => {
 								expect(res.body.docs).to.be.an("array");
 								if(res.body.total > 0) {
-									console.log(`There are ${res.body.length} items into DDBB`)
+									console.log(`There are ${res.body.total} items into DDBB`)
 									expect(res.body.docs).to.have.lengthOf.above(0);
 								}
 								done()
@@ -41,7 +41,7 @@ describe("************ Test Model User", ()=>{
 							expect(res.status).to.equal(201);
 							expect(res.body).to.have.property("_id");
 							expect(res.body).to.have.property("email", user.email);
-							expect(res.body).to.have.property("password", user.password);
+							//expect(res.body).to.have.property("password", user.password);
 							console.log("User created successfully .......")
 							return request.delete("/user/" + res.body._id).expect(200)
 						}, error => done(error))
