@@ -2,9 +2,14 @@
   "name": "api",
   "version": "0.0.1",
   "private": true,
+  "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "test": "mocha test/ -w"
+  },
+  "engines": {
+    "node": ">= 0.6.0",
+    "npm": ">= 1.0.0"
   },
   "dependencies": {
     "body-parser": "^1.13.3",
