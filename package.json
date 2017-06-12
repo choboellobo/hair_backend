@@ -8,8 +8,8 @@
     "test": "mocha test/ -w"
   },
   "engines": {
-    "node": ">= 0.6.0",
-    "npm": ">= 1.0.0"
+    "node": ">= 6.6.0",
+    "npm": ">= 3.0.0"
   },
   "dependencies": {
     "body-parser": "^1.13.3",
