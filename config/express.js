@@ -62,7 +62,7 @@ module.exports = function(app, config) {
       });
   });
 
-  app.listen(config.port, function () {
+  app.listen(config.port, config.ip, function () {
     console.log('Express server listening on port ' + config.port);
   });
 
