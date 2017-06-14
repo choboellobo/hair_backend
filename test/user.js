@@ -6,7 +6,7 @@ let mongoose = require("mongoose");
 
 request = request(app);
 
-describe("************ Test Model User", ()=>{
+describe("************ Test Model User", () => {
 	after(done => {
 		mongoose.models = {}
 		done()
@@ -32,7 +32,9 @@ describe("************ Test Model User", ()=>{
 				email: "yo@yo.es",
 				password: "123456",
         first_name: "Edu",
-        last_name: "Muñoz Alfonso"
+        last_name: "Muñoz Alfonso",
+        document_id: "12200200N",
+        address: {place:"Tirso de molina 4", location: "Valladolid", postal_code: "47010"}
 			}
 			request.post("/user")
 						.expect(201)
@@ -48,7 +50,7 @@ describe("************ Test Model User", ()=>{
 						.then((res) => {
 							expect(res.status).to.equal(200);
 							expect(res.body).to.be.empty;
-							console.log("User deleted successfully .......")
+							console.log("User deleted successfully .......");
 							done();
 						},error => done(error))
 		})
