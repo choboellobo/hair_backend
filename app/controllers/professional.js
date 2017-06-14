@@ -84,7 +84,7 @@ var express = require('express'),
 	router.patch('/:id', jwt.middleware, function (jwt_data, req, res, next) {
 		let professional = req.params.id;
 		let data = req.body;
-		if (jwt_data._id !== professional || jwt_data.status !== 'admin') return res.status(401).json({error: true, message: 'Only an admin or the same professional can update.'});
+		if (jwt_data._id !== professional && jwt_data.status !== 'admin') return res.status(401).json({error: true, message: 'Only an admin or the same professional can update.'});
 		Professional.update({_id: professional}, {$set: data})
 								.then(
 									response => res.status(200).end(),
