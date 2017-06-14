@@ -87,7 +87,8 @@ var express = require('express'),
 		if (jwt_data._id !== professional && jwt_data.type !== 'admin') return res.status(401).json({error: true, message: 'Only an admin or the same professional can update.'});
 		Professional.update({_id: professional}, {$set: data})
 								.then(
-									response => res.status(200).end(),
-									error => res.json(error)
-								);
+									response => res.status(204).end()
+								)
+								.catch(error => res.status(400).json(error)
+							);
 	});
