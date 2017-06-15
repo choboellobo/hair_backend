@@ -34,6 +34,7 @@ describe("************ Test Model User", () => {
         first_name: "Edu",
         last_name: "Muñoz Alfonso",
         document_id: "12200200N",
+        phone: "665778899",
         address: {place:"Tirso de molina 4", location: "Valladolid", postal_code: "47010"}
 			}
 			request.post("/user")
