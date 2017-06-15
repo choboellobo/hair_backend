@@ -37,7 +37,7 @@ module.exports = function(app, config) {
   });
 
   app.use(function (req, res, next) {
-    var err = new Error('Not Found');
+    var err = new Error('Not Found 404');
     err.status = 404;
     next(err);
   });

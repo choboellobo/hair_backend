@@ -35,7 +35,7 @@ var express = require('express'),
 		req.query.first_name ? query.first_name = new RegExp(req.query.first_name) : null;
 		req.query.last_name ? query.last_name = new RegExp(req.query.last_name) : null;
 		req.query.working_place ? query.working_place = parseInt(req.query.working_place) : null;
-		req.query.document_id ? query.document_id = parseInt(req.query.document_id) : null;
+		req.query.document_id ? query.document_id = req.query.document_id : null;
 		if (req.query.page) options.page = req.query.page;
 
 		Professional.paginate(query, options)
@@ -84,10 +84,11 @@ var express = require('express'),
 	router.patch('/:id', jwt.middleware, function (jwt_data, req, res, next) {
 		let professional = req.params.id;
 		let data = req.body;
-		if (jwt_data._id !== professional || jwt_data.status !== 'admin') return res.status(401).json({error: true, message: 'Only an admin or the same professional can update.'});
+		if (jwt_data._id !== professional && jwt_data.type !== 'admin') return res.status(401).json({error: true, message: 'Only an admin or the same professional can update.'});
 		Professional.update({_id: professional}, {$set: data})
 								.then(
-									response => res.status(200).end(),
-									error => res.json(error)
-								);
+									response => res.status(204).end()
+								)
+								.catch(error => res.status(400).json(error)
+							);
 	});

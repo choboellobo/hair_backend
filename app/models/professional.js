@@ -16,8 +16,8 @@ var ProfessionalSchema = new Schema({
 		unique: true,
 		validate: {
 			validator: function (email) {
-					var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-					return re.test(email);
+				var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+				return re.test(email);
 			},
 			message: 'Email incorrecto'
 		}
@@ -36,7 +36,8 @@ var ProfessionalSchema = new Schema({
 	},
 	document_id: {
 		type: String,
-		required: true
+		required: true,
+		unique: true
 	},
 	phone: {
 		type: Number,
