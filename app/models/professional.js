@@ -34,6 +34,8 @@ var ProfessionalSchema = new Schema({
 		type: String,
 		required: true
 	},
+	description: {type: String, required: true},
+	avatar: {type: String, required: true},
 	document_id: {
 		type: String,
 		required: true,
