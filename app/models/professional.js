@@ -1,6 +1,7 @@
-var mongoose = require('mongoose'),
-	Schema = mongoose.Schema,
-	mongoosePaginate = require('mongoose-paginate');
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var mongoosePaginate = require('mongoose-paginate');
+
 mongoosePaginate.paginate.options = {
 	lean: true,
 	limit: 20,
@@ -34,12 +35,34 @@ var ProfessionalSchema = new Schema({
 		type: String,
 		required: true
 	},
-	description: {type: String, required: true},
-	avatar: {type: String, required: true},
+	description: {
+		type: String,
+		required: true
+	},
+	avatar: {
+		type: String,
+		required: true
+	},
+	working_images: {
+		type: Array
+	},
+	background: {
+		type: String,
+		required: true
+	},
 	document_id: {
 		type: String,
 		required: true,
 		unique: true
+	},
+	slug: {type: String},
+	options: {
+		store: {type: Boolean},
+		home: {type: Boolean},
+		payments: {
+			card: {type: Boolean},
+			cash: {type: Boolean}
+		}
 	},
 	phone: {
 		type: Number,
@@ -51,11 +74,23 @@ var ProfessionalSchema = new Schema({
 			message: 'El numero de telefono no es correcto'
 		}
 	},
+	services: [{
+		price: Number,
+		service: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Services',
+			required: true
+		}
+	}],
 	active: {
 		type: Boolean,
 		default: false
 	},
 	address: {
+		coordinates: {
+			lat: {type: Number},
+			lng: {type: Number}
+		},
 		place: {
 			type: String
 		},
@@ -74,10 +109,20 @@ var ProfessionalSchema = new Schema({
 		default: 'professional'
 	}
 }, {
+	toObject: {
+		virtuals: true
+	},
+	toJSON: {
+		virtuals: true
+	},
 	timestamps: {
 		createdAt: 'created_at',
 		updatedAt: 'updated_at'
 	}
 });
 ProfessionalSchema.plugin(mongoosePaginate);
+ProfessionalSchema.virtual('fullname')
+.get(function () {
+	return this.first_name + ' ' + this.last_name;
+});
 module.exports = mongoose.model('Professional', ProfessionalSchema);

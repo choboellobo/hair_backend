@@ -8,10 +8,10 @@ module.exports = function (app) {
 
 router.get('/:id/*', function (req, res, next) {
 
-	Profesional.findById(req.params.id)
+	Profesional.findById(req.params.id).populate('services.service')
 		.then(
 			professional => {
-        console.log(professional);
+        console.log(professional.services);
 				res.render('detail', {professional: professional});
 			},
       error => res.json(error)
