@@ -45,6 +45,7 @@ module.exports = function(app, config) {
   if(app.get('env') === 'development'){
     app.use(function (err, req, res, next) {
       res.status(err.status || 500);
+      if(err.status === 404) return res.render('notfound');
       res.render('error', {
         message: err.message,
         error: err,
@@ -55,6 +56,7 @@ module.exports = function(app, config) {
 
   app.use(function (err, req, res, next) {
     res.status(err.status || 500);
+      if(err.status === 404) return res.render('notfound');
       res.render('error', {
         message: err.message,
         error: {},
@@ -65,5 +67,4 @@ module.exports = function(app, config) {
   app.listen(config.port, config.ip, function () {
     console.log('Express server listening on port ' + config.port);
   });
-
 };
