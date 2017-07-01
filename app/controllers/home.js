@@ -13,6 +13,15 @@ router.get('/:id', function (req, res, next) {
   Profesional.findById(req.params.id).populate('services.service')
   .then(
   professional => {
+  res.render('profile', {professional: professional});
+  },
+  error => res.render('notfound')
+  );
+});
+router.get('/:id/old', function (req, res, next) {
+  Profesional.findById(req.params.id).populate('services.service')
+  .then(
+  professional => {
   res.render('detail', {professional: professional});
   },
   error => res.render('notfound')
