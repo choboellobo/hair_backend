@@ -6,8 +6,7 @@ module.exports = function (app) {
 	app.use('/', router);
 };
 
-router.get('/:id/*', function (req, res, next) {
-
+router.get('/:id', function (req, res, next) {
 	Profesional.findById(req.params.id).populate('services.service')
 		.then(
 			professional => {

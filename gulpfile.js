@@ -5,7 +5,7 @@ var gulp = require('gulp'),
   sass = require('gulp-ruby-sass');
 
 gulp.task('sass', function () {
-  return sass('./public/css/*.scss')
+  return sass('./public/sass/*.scss')
     .pipe(gulp.dest('./public/css'))
     .pipe(livereload());
 });
