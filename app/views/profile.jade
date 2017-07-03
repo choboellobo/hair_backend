@@ -4,5 +4,29 @@ block seo
   title=professional.fullname
 block content
   .fixed-action-btn
-    a.btn-floating.btn-large.red(href="tel:#{professional.phone}")
+    a.btn-floating.btn-large.red.pulse(href="tel:#{professional.phone}")
       i.fa.fa-phone(aria-hidden="true")
+  //Header
+  .container
+    .row
+      .col.s12
+        header
+        nav.transparent.z-depth-0
+          .nav-wrapper
+            a.brand-logo logo
+            ul#nav-mobile.right.hide-on-med-and-down
+              li 
+                a(href="")
+                  i.fa.fa-scissors.left(aria-hidden="true")
+                  | Mis servicios
+              li
+                a(href="")
+                  i.fa.fa-handshake-o.left(aria-hidden="true")
+                  | Contrátame
+              li
+                a(href="")
+                  i.fa.fa-facebook-official.left(aria-hidden="true")
+                  | Mi facebook
+                  
+                  
+    

@@ -1,2 +1,11 @@
 @import "variables";
 @import "helpers";
+header{
+  height: 200px;
+  background: blue;
+}
+nav{
+  a{
+    color:black !important;
+  }
+}

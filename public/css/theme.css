@@ -1,2 +1,9 @@
-h1 {
-  color: red; }
+.font-size-2x {
+  font-size: 2em; }
+
+header {
+  height: 200px;
+  background: blue; }
+
+nav a {
+  color: black !important; }
