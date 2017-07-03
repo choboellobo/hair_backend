@@ -1,9 +1,17 @@
 .font-size-2x {
   font-size: 2em; }
 
+.shadow-text {
+  text-shadow: 1px 1px 5px black; }
+
 header {
   height: 200px;
-  background: blue; }
+  background: blue;
+  position: relative; }
+  header h4 {
+    position: absolute;
+    right: 0.5em;
+    bottom: 0; }
 
 nav a {
   color: black !important; }
