@@ -92,3 +92,13 @@ var express = require('express'),
 								.catch(error => res.status(400).json(error)
 							);
 	});
+/*
+	NO API
+*/
+  router.post('/update', function(req, res, next){
+    let p = req.session.professional
+    Professional.update({_id: p}, {$set: req.body})
+                .then(
+                  response => res.redirect(`/${p}/old`)
+                )
+  })

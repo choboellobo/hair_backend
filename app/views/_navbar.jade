@@ -1,0 +1,10 @@
+nav.transparent
+  .nav-wrapper.container
+    a.brand-logo(href='#') Logo
+    ul#nav-mobile.right.hide-on-med-and-down
+      li
+        if session.professional
+          a(href='/login') Salir
+        else
+          a(href='/login') Acceder
+      li

@@ -8,6 +8,9 @@ var bodyParser = require('body-parser');
 var compress = require('compression');
 var methodOverride = require('method-override');
 var cors = require('cors')
+var session = require('express-session')
+var multer  = require('multer')
+var path = require('path')
 
 module.exports = function(app, config) {
   var env = process.env.NODE_ENV || 'development';
@@ -19,6 +22,11 @@ module.exports = function(app, config) {
 
   // cors
   app.use(cors())
+
+  // session
+  app.use(session({
+  secret: 'keyboard cat'
+  }))
 
   // app.use(favicon(config.root + '/public/img/favicon.ico'));
   app.use(logger('dev'));

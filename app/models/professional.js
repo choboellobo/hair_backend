@@ -23,6 +23,9 @@ var ProfessionalSchema = new Schema({
 			message: 'Email incorrecto'
 		}
 	},
+  gender: {
+    type: String
+  },
 	password: {
 		type: String,
 		required: true
