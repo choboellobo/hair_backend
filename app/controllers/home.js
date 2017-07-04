@@ -32,7 +32,7 @@ router.get('/:id', function (req, res, next) {
   professional => {
   res.render('profile', {professional: professional});
   },
-  error => res.render('notfound')
+  error => next()
   );
 });
 router.get('/:id/old', function (req, res, next) {

@@ -24,7 +24,12 @@ var ProfessionalSchema = new Schema({
 		}
 	},
   gender: {
-    type: String
+    type: String,
+    required: true
+  },
+  birthday: {
+    type: Date,
+    required: true
   },
 	password: {
 		type: String,
@@ -39,8 +44,7 @@ var ProfessionalSchema = new Schema({
 		required: true
 	},
 	description: {
-		type: String,
-		required: true
+		type: String
 	},
 	avatar: {
 		type: String,
@@ -50,13 +54,10 @@ var ProfessionalSchema = new Schema({
 		type: Array
 	},
 	background: {
-		type: String,
-		required: true
+		type: String
 	},
 	document_id: {
-		type: String,
-		required: true,
-		unique: true
+		type: String
 	},
 	slug: {type: String},
 	options: {
@@ -64,7 +65,7 @@ var ProfessionalSchema = new Schema({
 		home: {type: Boolean},
 		payments: {
 			card: {type: Boolean},
-			cash: {type: Boolean}
+			cash: {type: Boolean, default: true}
 		}
 	},
 	phone: {
