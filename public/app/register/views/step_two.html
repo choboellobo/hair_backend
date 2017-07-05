@@ -1,0 +1,49 @@
+<section class="container">
+  <div class="row">
+    <div class="col s12">
+      <h4>Para ofrecer un mejor servicio a tus clientes debes darles más información</h4>
+      <p>Por favor rellena estos datos y asi ellos podras encontrarte mas facilmente</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4" ng-repeat="option in vm.options">
+      <div class="card">
+        <div class="card-content center-align">
+          <i class="fa fa-4x" ng-class="option.icon"></i>
+          <p>{{option.name}}</p>
+        </div>
+        <div class="card-action">
+          <div class="switch">
+            <label>
+              No
+              <input type="checkbox" ng-model="vm.professional.options[option.model]">
+              <span class="lever"></span>
+              Si
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 input-field">
+      <input type="text" id="address" ng-keyup="vm.getAddress(vm.address)" ng-model="vm.address">
+      <label for="address">Dirección</label>
+      <div class="row" ng-if="vm.addressResults">
+        <div class="col s12">
+          <div class="collection">
+            <a href="" ng-click="vm.setAddress(item);" class="collection-item" ng-repeat="item in vm.addressResults">{{item.formatted_address}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12">
+      <button ng-disabled="!vm.complete" class="btn" ng-click="vm.updateProfessional()">Terminar registro</button>
+      <div class="card-panel red white-text" ng-show="vm.error">
+        Hubo un error intentelo de nuevo mas tarde.
+      </div>
+    </div>
+  </div>
+</section>

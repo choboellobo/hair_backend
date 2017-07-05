@@ -29,18 +29,18 @@ router.post('/login', function(req, res, next){
 router.get('/:id', function (req, res, next) {
   Profesional.findById(req.params.id).populate('services.service')
   .then(
-  professional => {
-  res.render('profile', {professional: professional});
+    professional => {
+      res.render('profile', {professional: professional});
   },
-  error => next()
+    error => next()
   );
 });
 router.get('/:id/old', function (req, res, next) {
   Profesional.findById(req.params.id).populate('services.service')
   .then(
-  professional => {
-  res.render('detail', {professional: professional, session: req.session});
+    professional => {
+      res.render('detail', {professional: professional, session: req.session});
   },
-  error => res.render('notfound')
+    error => res.render('notfound')
   );
 });

@@ -12,7 +12,6 @@ block content
   .container
     .row
       .col.s12
-        // Header
         if professional.background
           header.z-depth-1(style="background-image:url('#{professional.background}')")
         else
@@ -60,9 +59,9 @@ block content
           .card-image.waves-effect.waves-light
             a(href="/")
               if professional.options.store
-                img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.place},#{professional.address.location},España&zoom=13&size=300x200&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
+                img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.place},#{professional.address.location},España&zoom=13&size=600x400&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
               else
-                img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.location},España&zoom=13&size=300x200&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
+                img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.location},España&zoom=13&size=600x400&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
           .card-content
             if professional.options.store
               p Ven a verme a mi local en #[strong= professional.address.place + ' ' + professional.address.location]
