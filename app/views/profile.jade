@@ -1,7 +1,8 @@
 extends layout
 block seo
-  link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Bellefair")
   title=professional.fullname
+block extra-head
+  link(href="https://fonts.googleapis.com/css?family=Kurale" rel="stylesheet")
 block content
   .fixed-action-btn
     a.btn-floating.btn-large.red.pulse(href="tel:#{professional.phone}")
@@ -11,10 +12,11 @@ block content
     .row
       .col.s12
         header
-          h4.white-text.shadow-text #{professional.first_name} #{professional.last_name}
+          h4.white-text.shadow-text.hide-on-med-and-down #{professional.fullname}
         nav.transparent.z-depth-0
           .nav-wrapper
-            a.brand-logo logo
+            a.brand-logo
+              img.responsive-img(src="#{professional.avatar}")
             ul#nav-mobile.right.hide-on-med-and-down
               li 
                 a(href="")
@@ -28,6 +30,11 @@ block content
                 a(href="")
                   i.fa.fa-facebook-official.left(aria-hidden="true")
                   | Mi facebook
+    .row.hide-on-large-only
+      .col.s12.center-align
+         h5.kurale-font #{professional.fullname}
+      
+      
                   
                   
     
