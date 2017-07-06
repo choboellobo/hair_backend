@@ -1,44 +1,66 @@
 extends layout
 block seo
-  title=professional.fullname
+	title=professional.fullname
 block extra-head
-  link(href="https://fonts.googleapis.com/css?family=Kurale" rel="stylesheet")
+	link(href="https://fonts.googleapis.com/css?family=Kurale" rel="stylesheet")
 block content
-  .fixed-action-btn
-    a.btn-floating.btn-large.red.pulse(href="tel:#{professional.phone}")
-      i.fa.fa-phone(aria-hidden="true")
-  //Header
-  .container
-    .row
-      .col.s12
-        if professional.background 
-          header.background-image(style="background-image:url(#{professional.background})")
-            h4.white-text.shadow-text.hide-on-med-and-down #{professional.fullname}
-        else 
-          header
-            h4.white-text.shadow-text.hide-on-med-and-down #{professional.fullname}
-        nav.transparent.z-depth-0
-          .nav-wrapper
-            a.brand-logo
-              img.responsive-img(src="#{professional.avatar}")
-            ul#nav-mobile.right.hide-on-med-and-down
-              li 
-                a(href="")
-                  i.fa.fa-scissors.left(aria-hidden="true")
-                  | Mis servicios
-              li
-                a(href="")
-                  i.fa.fa-handshake-o.left(aria-hidden="true")
-                  | Contrátame
-              li
-                a(href="")
-                  i.fa.fa-facebook-official.left(aria-hidden="true")
-                  | Mi facebook
-    .row.hide-on-large-only
-      .col.s12.center-align
-         h5.kurale-font #{professional.fullname}
-      
-      
-                  
-                  
-    
+	.fixed-action-btn
+		a.btn-floating.btn-large.red.pulse(href="tel:#{professional.phone}")
+			i.fa.fa-phone(aria-hidden="true")
+	//Header
+	.container
+		.row
+			.col.s12
+				if professional.background 
+					header.background-image(style="background-image:url(#{professional.background})")
+						h4.white-text.shadow-text.hide-on-med-and-down #{professional.fullname}
+				else 
+					header
+						h4.white-text.shadow-text.hide-on-med-and-down #{professional.fullname}
+				nav.transparent.z-depth-0
+					.nav-wrapper
+						a.brand-logo
+							img.responsive-img(src="#{professional.avatar}")
+						ul#nav-mobile.right.hide-on-med-and-down
+							li 
+								a(href="")
+									i.fa.fa-scissors.left(aria-hidden="true")
+									| Mis servicios
+							li
+								a(href="")
+									i.fa.fa-handshake-o.left(aria-hidden="true")
+									| Contrátame
+							li
+								a(href="")
+									i.fa.fa-facebook-official.left(aria-hidden="true")
+									| Mi facebook
+		// div del nombre del perfil que se oculta en escritorio
+		.row.hide-on-large-only
+			.col.s12.center-align
+				h5.kurale-font #{professional.fullname}
+		.row
+			.col.s12.m8
+				p !{professional.description}
+				.chip.black-text
+					i.fa.fa-home(aria-hidden="true")
+					| Trabajo a domicilio
+			.col.s12.m4
+				.card
+					.card-image.tooltipped(data-tooltip="#{professional.address.place} #{professional.address.location}")
+						img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.place},#{professional.address.location},España&zoom=13&size=300x200&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
+					.card-content.hide-on-large-only
+						p Ven a verme a mi local en #[strong #{professional.address.place} #{professional.address.location}]
+					.card-action.center-align
+						small Pagos aceptados
+						br
+						i.tooltipped(class="fa fa-money fa-2x" aria-hidden="true"  data-position="bottom" data-delay="50" data-tooltip="Efectivo")
+						i.tooltipped(class="fa fa-cc-visa fa-2x" aria-hidden="true"  data-position="bottom" data-delay="50" data-tooltip="Pago con Visa")
+						i.tooltipped(class="fa fa-cc-mastercard fa-2x" aria-hidden="true"  data-position="bottom" data-delay="50" data-tooltip="Pago con MasterCard")
+					.card-action.center-align
+						.chip.black-text
+							i.fa.fa-home(aria-hidden="true")
+							| Trabajo a domicilio
+						
+						
+				
+					
