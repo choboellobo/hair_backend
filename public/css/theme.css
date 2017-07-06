@@ -1,2 +1,6 @@
-h1 {
-  color: red; }
+nav#main a {
+  color: black !important; }
+nav#main .brand-logo {
+  height: inherit; }
+  nav#main .brand-logo img {
+    height: inherit; }

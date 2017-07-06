@@ -11,18 +11,18 @@ router.get('/', function (req, res, next) {
   res.render('index');
 });
 router.get('/login', function(req, res, next) {
-  res.render('login')
+  res.render('login', {session: req.session})
 })
 router.post('/login', function(req, res, next){
   Professional.findOne({email: req.body.email, password: crypter.encrypt(req.body.password)})
               .then(
                 professional => {
-                  if(!professional) return res.render('login', {error: true})
+                  if(!professional) return res.render('login', {error: true, session: req.session})
                   req.session.professional = professional._id
                   res.redirect(`/${professional._id}/old`);
                 },
                 error => {
-                  res.render('login', {error: true})
+                  res.render('login', {error: true, session: req.session})
                 }
               )
 })
