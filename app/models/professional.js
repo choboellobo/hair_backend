@@ -26,7 +26,8 @@ var ProfessionalSchema = new Schema({
   slug: {type: String},
   gender: {
     type: String,
-    required: true
+    required: true,
+		index: true
   },
   birthday: {
     type: Date,

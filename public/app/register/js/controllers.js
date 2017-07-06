@@ -1,5 +1,6 @@
 angular.module('register')
 .controller('step_one', function($scope, api, $state){
+  $state.go('step_two')
   let vm = this;
       vm.loading = false
       vm.professional = {

@@ -2,6 +2,7 @@
   height: 100vh;
 }
 .background {
+  overflow: hidden;
   position: relative;
   background-repeat: no-repeat;
   background-size: cover;

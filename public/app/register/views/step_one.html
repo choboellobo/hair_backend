@@ -1,12 +1,15 @@
 <div class="row valign-wrapper">
   <div class="fullscreen background col s12 m8 hide-on-med-and-down" style="background-image: url(https://image.shutterstock.com/z/stock-photo-female-hairdresser-smiling-making-hairstyle-to-girl-in-beauty-salon-518189275.jpg)">
-    <img class="logo-background-right" src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png" width="150px" alt="">
+    <img class="fadeInRight animated logo-background-right" src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png" width="150px" alt="">
   </div>
   <div class="col s12 l4">
     <div class="row">
       <form novalidate name="form" ng-submit="$event.preventDefault()">
         <div class="col s12">
-          <h5>Registrate gratis</h5>
+          <h5>¡Crea una cuenta gratis!</h5>
+          <p>
+            Lorem Ipsum es <strong>relleno</strong> el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha
+          </p>
         </div>
         <div class="col s12 m6 input-field">
           <input type="text" id="first_name" name="first_name" required class="validate" ng-model="vm.professional.first_name" minlength="1">
@@ -25,7 +28,7 @@
           <label for="password" data-error="Minimo 6 caracteres">Contraseña</label>
         </div>
         <div class="col s12 m6 input-field">
-          <input type="text" id="phone" name="phone" required class="validate" pattern="^[9|6|7][0-9]{8}$" ng-model="vm.professional.phone">
+          <input type="text" id="phone" name="phone" required class="validate" pattern="^[9|6|7][0-9]{8}$" ng-model="vm.professional.phone" maxlength="9">
           <label for="phone" data-error="Escriba un teléfono valido">Teléfono</label>
         </div>
         <div class="col s12 m6 input-field">
@@ -43,7 +46,7 @@
         <div class="row">
           <div class="col s12">
             <input type="checkbox" id="lopd" ng-model="vm.professional.lopd" required>
-            <label for="lopd">He leído y acepto las condiciones generales de uso y el aviso de protección de datos personales y publicidad.*</label>
+            <label for="lopd">He leído y acepto las condiciones generales de uso y el aviso de protección de datos personales y publicidad.</label>
           </div>
         </div>
         <div class="col s12">
@@ -53,7 +56,10 @@
           <div class="card-panel red white-text" ng-show="vm.error">
             {{vm.error}}
           </div>
-          <button ng-disabled="form.$invalid || vm.loading" class="btn" ng-click="vm.registerProfessional()">Registrarme</button>
+          <button ng-class="{'rubberBand animated' : form.$valid}" ng-disabled="form.$invalid || vm.loading" class="btn" ng-click="vm.registerProfessional()">
+            <i class="fa fa-paper-plane-o left" aria-hidden="true"></i>
+            Registrarse
+          </button>
         </div>
       </form>
     </div>
