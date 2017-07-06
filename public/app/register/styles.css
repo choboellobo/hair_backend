@@ -1,0 +1,28 @@
+.fullscreen {
+  height: 100vh;
+}
+.background {
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.logo-background-right {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+.logo-background-left {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+}
+nav {
+  margin-bottom: 2em;
+}
+.brand-logo {
+  height: inherit;
+}
+.brand-logo img {
+  height: inherit;
+}

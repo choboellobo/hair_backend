@@ -7,6 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/components/materialize/dist/css/materialize.min.css">
+  <link rel="stylesheet" href="/app/register/styles.css">
   <script src="/components/jquery/dist/jquery.min.js"></script>
   <script src="/components/materialize/dist/js/materialize.min.js"></script>
   <title>Date de alta en nuestra plataforma</title>
@@ -15,7 +16,17 @@
 
 </head>
 <body>
-   <ui-view></ui-view>
+  <div class="navbar-fixed hide-on-large-only">
+    <nav class="white">
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png">
+          </a>
+        </div>
+    </nav>
+  </div>
+
+  <ui-view></ui-view>
   <script src="/app/register/js/app.js"></script>
   <script src="/app/register/js/controllers.js"></script>
   <script src="/app/register/js/services.js"></script>
