@@ -1,11 +1,11 @@
 var express = require('express'),
   router = express.Router(),
   mongoose = require('mongoose'),
-  Service = require("../models/service"),
-	jwt = require("../helpers/jwt");
+  Service = require("../../models/service"),
+	jwt = require("../../helpers/jwt");
 
 module.exports = function (app) {
-  app.use('/service', router);
+  app.use('/api/service', router);
 };
 /*****
   GET /service

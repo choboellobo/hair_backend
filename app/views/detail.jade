@@ -12,10 +12,12 @@ block content
   .container
     .row
       .col.s12
-        // Header
-        header.z-depth-1(style="background-image:url('#{professional.background}')")
-          .title.white-text.hide-on-med-and-down
-            div #{professional.fullname}
+        if professional.background
+          header.z-depth-1(style="background-image:url('#{professional.background}')")
+        else
+          header.z-depth-1
+            .title.white-text.hide-on-med-and-down
+              div #{professional.fullname}
       .col.s12
         nav.transparent.z-depth-0
           .nav-wrapper
@@ -42,8 +44,8 @@ block content
         h4.bellefair Sobre mi
         if professional.id == session.professional
           .row
-            form(action="/professional/update" method="post")
-              textarea.materialize-textarea(maxlenght="500" placeholder="Escribe aquí" required name="description")=professional.description
+            form(novalidate action="/professional/update" method="post")
+              textarea(maxlenght="500" placeholder="Escribe aquí" required name="description")=professional.description
               button.btn(type="submit") Actualizar descripción
         else
           div!=professional.description
@@ -57,9 +59,9 @@ block content
           .card-image.waves-effect.waves-light
             a(href="/")
               if professional.options.store
-                img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.place},#{professional.address.location},España&zoom=13&size=300x200&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
+                img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.place},#{professional.address.location},España&zoom=13&size=600x400&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
               else
-                img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.location},España&zoom=13&size=300x200&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
+                img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.location},España&zoom=13&size=600x400&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
           .card-content
             if professional.options.store
               p Ven a verme a mi local en #[strong= professional.address.place + ' ' + professional.address.location]
@@ -100,38 +102,57 @@ block content
     .row#myservices
       .col.s12
         h4.bellefair Mis servicios
-      each service in professional.services
-        .col.s12.m4
-          .card.hoverable
-            .card-image
-              img(src=service.service.image, alt="")
-            .card-content
-              span.card-title=service.service.name
-              p Precio del servicio desde: #[strong=service.price] €
+      if professional.services.length > 0
+        each service in professional.services
+          .col.s12.m4
+            .card.hoverable
+              .card-image
+                img(src=service.service.image, alt="")
+              .card-content
+                span.card-title=service.service.name
+                p Precio del servicio desde: #[strong=service.price] €
+      else
+        .col.s12.center-align
+          i(class="fa fa-quote-right fa-3x" aria-hidden="true")
+          p Todavia no se han publicado los servicios
+
     .row.hide-on-large-only
       .col.s12
         h4.bellefair Mis trabajos
-      .col.s12
-        .carousel
-          each image in professional.working_images
-            a.carousel-item
-              img(src=image)
+      if professional.working_images.length > 0
+        .col.s12
+          .carousel
+            each image in professional.working_images
+              a.carousel-item
+                img(src=image)
+      else
+        .col.s12.center-align
+          i(class="fa fa-picture-o fa-3x" aria-hidden="true")
+          p Todavia no hay imagenes
+
     .row.hide-on-med-and-down
       .col.s12
         h4.bellefair Mis trabajos
-      each image in professional.working_images
+      if professional.working_images.length > 0
+        each image in professional.working_images
+          .col.s12.m4
+            .card
+              .card-image
+                img.materialboxed(src=image.url)
+                if professional.id == session.professional
+                  a.btn-floating.halfway-fab.waves-effect.waves-light.btn-large.red(href="/upload/working_images/#{image.public_id}/delete")
+                    i(class="fa fa-trash-o left" aria-hidden="true")
+              if professional.id == session.professional
+                .card-content
+                  ul
+                    li Tamaño #{image.width} x #{image.height}
+                    li ID #{image.public_id}
+      else
         .col.s12.m4
           .card
-            .card-image
-              img.materialboxed(src=image.url)
-              if professional.id == session.professional
-                a.btn-floating.halfway-fab.waves-effect.waves-light.btn-large.red(href="/upload/working_images/#{image.public_id}/delete")
-                  i(class="fa fa-trash-o left" aria-hidden="true")
-            if professional.id == session.professional
-              .card-content
-                ul
-                  li Tamaño #{image.width} x #{image.height}
-                  li ID #{image.public_id}
+            .card-content.center-align
+              i(class="fa fa-picture-o fa-3x" aria-hidden="true")
+              p Todavia no hay imagenes
       if professional.id == session.professional
         .col.s12.m4
           .card
@@ -158,6 +179,9 @@ block content
           button.btn(type="submit") Enviar
   include _footer
   script.
+    $().ready(function(){
+      tinymce.init({ height: 300,selector:'textarea',menubar: false,  toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent'});
+    })
     $('[type="checkbox"]').on('click', function(){
       let $checkbox = $(this);
       if($checkbox.is(":checked")) $checkbox.val("true")
@@ -181,4 +205,3 @@ block content
     $('.tooltipped').tooltip({delay: 50});
     $('.carousel').carousel();
     $('.materialboxed').materialbox();
-    tinymce.init({ height: 300,selector:'textarea',menubar: false,  toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent'});

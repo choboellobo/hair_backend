@@ -23,8 +23,15 @@ var ProfessionalSchema = new Schema({
 			message: 'Email incorrecto'
 		}
 	},
+  slug: {type: String},
   gender: {
-    type: String
+    type: String,
+    required: true,
+		index: true
+  },
+  birthday: {
+    type: Date,
+    required: true
   },
 	password: {
 		type: String,
@@ -39,8 +46,7 @@ var ProfessionalSchema = new Schema({
 		required: true
 	},
 	description: {
-		type: String,
-		required: true
+		type: String
 	},
 	avatar: {
 		type: String,
@@ -50,13 +56,10 @@ var ProfessionalSchema = new Schema({
 		type: Array
 	},
 	background: {
-		type: String,
-		required: true
+		type: String
 	},
 	document_id: {
-		type: String,
-		required: true,
-		unique: true
+		type: String
 	},
 	slug: {type: String},
 	options: {
@@ -64,7 +67,7 @@ var ProfessionalSchema = new Schema({
 		home: {type: Boolean},
 		payments: {
 			card: {type: Boolean},
-			cash: {type: Boolean}
+			cash: {type: Boolean, default: true}
 		}
 	},
 	phone: {
@@ -127,5 +130,25 @@ ProfessionalSchema.plugin(mongoosePaginate);
 ProfessionalSchema.virtual('fullname')
 .get(function () {
 	return this.first_name + ' ' + this.last_name;
+});
+ProfessionalSchema.pre('save', function(next) {
+  function removeAccents(s){
+      var r=s.toLowerCase();
+      r = r.replace(new RegExp(/\s/g),"");
+      r = r.replace(new RegExp(/[àáâãäå]/g),"a");
+      r = r.replace(new RegExp(/æ/g),"ae");
+      r = r.replace(new RegExp(/ç/g),"c");
+      r = r.replace(new RegExp(/[èéêë]/g),"e");
+      r = r.replace(new RegExp(/[ìíîï]/g),"i");
+      r = r.replace(new RegExp(/ñ/g),"n");
+      r = r.replace(new RegExp(/[òóôõö]/g),"o");
+      r = r.replace(new RegExp(/œ/g),"oe");
+      r = r.replace(new RegExp(/[ùúûü]/g),"u");
+      r = r.replace(new RegExp(/[ýÿ]/g),"y");
+      r = r.replace(new RegExp(/\W/g),"");
+      return r;
+  };
+  this.slug = removeAccents(this.first_name).replace(/ /g, "-").toLowerCase()+"-"+removeAccents(this.last_name).replace(/ /g, "-").toLowerCase()
+  next()
 });
 module.exports = mongoose.model('Professional', ProfessionalSchema);
