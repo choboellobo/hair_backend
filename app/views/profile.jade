@@ -60,7 +60,31 @@ block content
 						.chip.black-text
 							i.fa.fa-home(aria-hidden="true")
 							| Trabajo a domicilio
-						
+		.row 
+			.col.s12
+				h5 Mis trabajos
+			each image in professional.working_images
+				.col.s12.m4
+					.card
+						.card-image
+							img(src="#{image}")
+							a.btn-floating.btn-large.halfway-fab.waves-effect.waves-light.red
+								i.fa.fa-trash(aria-hidden="true")
+						.card-content
+							p Lorem Ipsum
+			.col.s12.m4
+				.card
+					.card-content
+						form
+							.file-field.input-field
+								.btn
+									i.fa.fa-camera(aria-hidden="true")
+									input(type="file" accept="image/*")
+								.file-path-wrapper
+									input.file-path.validate(type="text" placeholder="Sube una foto")
+										
+							
+
 						
 				
 					
