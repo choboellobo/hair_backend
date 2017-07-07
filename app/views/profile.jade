@@ -60,7 +60,7 @@ block content
 						.chip.black-text
 							i.fa.fa-home(aria-hidden="true")
 							| Trabajo a domicilio
-		.row 
+		section.row 
 			.col.s12
 				h5 Mis trabajos
 			each image in professional.working_images
@@ -68,10 +68,12 @@ block content
 					.card
 						.card-image
 							img(src="#{image}")
+							// Este botón se oculta en caso de no estar logeado
 							a.btn-floating.btn-large.halfway-fab.waves-effect.waves-light.red
 								i.fa.fa-trash(aria-hidden="true")
 						.card-content
 							p Lorem Ipsum
+			// Esta card se oculta en caso de no estar logeado.
 			.col.s12.m4
 				.card
 					.card-content
