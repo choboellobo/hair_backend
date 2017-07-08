@@ -40,10 +40,21 @@ block content
 				h5.kurale-font #{professional.fullname}
 		.row
 			.col.s12.m8
-				p !{professional.description}
-				.chip.black-text
-					i.fa.fa-home(aria-hidden="true")
-					| Trabajo a domicilio
+				.row
+					.col.s12
+						h5 Sobre mi
+					.col.s12
+						p !{professional.description}
+				.row
+					.col.s12
+						h5 Datos de interés
+					.col.s12
+						p
+							strong Horario:
+							span Lorem Ipsum
+						p
+							strong Teléfono:
+							span #{professional.phone}
 			.col.s12.m4
 				.card
 					.card-image.tooltipped(data-tooltip="#{professional.address.place} #{professional.address.location}")
@@ -60,11 +71,30 @@ block content
 						.chip.black-text
 							i.fa.fa-home(aria-hidden="true")
 							| Trabajo a domicilio
-		section.row 
+		section.row
+			.col.s12
+				h5 Mis servicios
+			.col.s12.m4
+				.card
+					.card-image
+						img(src="http://oferplan-resizer.lavozdegalicia.es/resizer/resizer.php?imagen=http%3A%2F%2Foferplan.lavozdegalicia.es%2F%2Fimages%2Fsized%2Fimages%2FFotolia_79409730_Subscription_BAJA3-619x391.jpg&nuevoancho=493&nuevoalto=278&crop=1")
+					.card-content.center-align
+						span.card-title
+							strong Lavar y peinar
+				
+			
+		section.row
 			.col.s12
 				h5 Mis trabajos
+			//Carrusel para móvil
+			.col.s12.hide-on-large-only
+				.carousel
+					each image in professional.working_images
+						a.carousel-item
+							img(src="#{image}")
+			//Cards para escritorio
 			each image in professional.working_images
-				.col.s12.m4
+				.col.s12.m4.hide-on-med-and-down
 					.card
 						.card-image
 							img(src="#{image}")
@@ -84,9 +114,6 @@ block content
 									input(type="file" accept="image/*")
 								.file-path-wrapper
 									input.file-path.validate(type="text" placeholder="Sube una foto")
-										
-							
-
-						
-				
-					
+	// Función del carrusel
+	script.
+			$('.carousel').carousel();
