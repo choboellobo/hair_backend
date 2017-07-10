@@ -3,6 +3,7 @@ block seo
   script(src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=18dzt1iu3jwtqqds3zc59s6b0r8eefaddk24wecginebhns8")
   link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Bellefair")
   link(rel="stylesheet", href="/css/style.css")
+  link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css")
   title=professional.fullname
 block content
   .fixed-action-btn
@@ -12,6 +13,8 @@ block content
   .container
     .row
       .col.s12
+        a.btn-floating(href="#modal-crop")
+          i(class="fa fa-pencil" aria-hidden="true")
         if professional.background
           header.z-depth-1(style="background-image:url('#{professional.background}')")
         else
@@ -162,7 +165,7 @@ block content
                   .btn
                     span
                       i(class="fa fa-camera" aria-hidden="true")
-                    input(accept="image/*" type='file' name="working_images" data-form="working_images")
+                    input.images-works(accept="image/*" type='file' name="working_images" data-form="working_images")
                   .file-path-wrapper
                     input.file-path.validate(type='text', placeholder='Sube tu imagen')
     if professional.id != session.professional
@@ -178,6 +181,22 @@ block content
         .col.s12.m6.input-field
           button.btn(type="submit") Enviar
   include _footer
+  // Modal
+  #modal-crop.modal.modal-fixed-footer(style="width:60%")
+    .modal-content
+      h4 Modal Header
+      form.file-field.input-field
+        .btn
+          span
+            i(class="fa fa-camera" aria-hidden="true")
+          input.images-works(accept="image/*" type='file' name='upload-background')
+        .file-path-wrapper
+          input.file-path.validate(type='text', placeholder='Sube tu imagen')
+      img#crop(style="max-width: 100%")
+    .modal-footer
+      a.modal-action.modal-close.waves-effect.waves-green.btn-flat(href='#!') Cerrar
+      a.modal-action.waves-effect.waves-green.btn-flat(href='#!')(cut) Guardar Imagen
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.js")
   script.
     $().ready(function(){
       tinymce.init({ height: 300,selector:'textarea',menubar: false,  toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent'});
@@ -187,7 +206,7 @@ block content
       if($checkbox.is(":checked")) $checkbox.val("true")
       else $checkbox.val("false")
     })
-    $('[type="file"]').on('change', function(e) {
+    $('.images-works[type="file"]').on('change', function(e) {
       let input = $(this)
       let file = e.target.files[0];
       let reader = new FileReader();
@@ -205,3 +224,29 @@ block content
     $('.tooltipped').tooltip({delay: 50});
     $('.carousel').carousel();
     $('.materialboxed').materialbox();
+    $('#modal-crop').modal({
+      ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+          $('#modal-crop input[type="file"]').on('change', function(e){
+            let file = e.target.files[0];
+            let reader = new FileReader();
+                reader.onload = function(e){
+                  $('#modal-crop img').attr('src', e.target.result)
+                  $('#crop').cropper({
+                   aspectRatio: 16 / 9,
+                   viewMode: 2
+                  })
+                }
+                reader.readAsDataURL(file)
+          })
+        },
+        complete: function() {
+          $('#crop').cropper('destroy');
+          $('#modal-crop img').attr('src', null)
+          $('#modal-crop form')[0].reset()
+        }
+    });
+    $('#modal-crop a[cut]').on('click', function(){
+      let image = $('#crop').cropper('getCroppedCanvas').toDataURL('image/jpeg')
+      $('header').css('background-image','url('+image+')')
+      $('#modal-crop').modal('close')
+    })

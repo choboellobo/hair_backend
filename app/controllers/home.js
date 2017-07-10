@@ -39,6 +39,7 @@ router.get('/:id/old', function (req, res, next) {
   Professional.findById(req.params.id).populate('services.service')
   .then(
     professional => {
+      console.log(professional)
       res.render('detail', {professional: professional, session: req.session});
   },
     error => res.render('notfound')
