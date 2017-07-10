@@ -38,3 +38,11 @@ nav{
 		}
 	}
 }
+#slide-out{
+	.user-view{
+		a{
+			@extend .shadow-text;
+		}
+	}
+	
+}
