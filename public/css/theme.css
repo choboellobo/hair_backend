@@ -4,7 +4,7 @@
 .font-size-2x {
   font-size: 2em; }
 
-.shadow-text {
+.shadow-text, #slide-out .user-view a {
   text-shadow: 1px 1px 5px black; }
 
 .background-image {
