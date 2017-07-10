@@ -69,18 +69,43 @@ block content
 				.row
 					.col.s12
 						h5 Sobre mi
-					.col.s12
-						p !{professional.description}
+					if professional._id == session.professional
+						.col.s12
+							form(action="/professional/update" method="post")
+								.input-field
+									textarea.materialize-textarea#description(required name="description" maxlenght="500" data-length="500") #{professional.description}
+									label(for="description") Escribe algo sobre ti.
+								button.btn(type="submit") Actualizar
+					else
+						.col.s12
+							if professional.description
+								p !{professional.description}
+							else
+								p Todavia no se ha escrito nada sobre este perfil
 				.row
 					.col.s12
-						h5 Datos de interés
-					.col.s12
-						p
-							strong Horario:
-							span Lorem Ipsum
-						p
-							strong Teléfono:
-							span #{professional.phone}
+						ul.collection.with-header
+							li.collection-header
+								h5 Datos de interés
+							li.collection-item.avatar
+								i.circle(class="fa fa-clock-o" aria-hidden="true")
+								span.title Horario
+								if professional.schedules
+									p #{professional.schedules}
+								else
+									p Todavia no han añadido un horario.
+							if professional._id == session.professional
+								li.collection-item.avatar
+									i.circle(class="fa fa-clock-o" aria-hidden="true")
+									form(action="/professional/update" method="post")
+										.input-field
+											input(type="text" id="schedules" name="schedules" required)
+											label(for="schedules") Actualiza tu horario
+										button.btn(type="submit") Actualizar
+							li.collection-item.avatar
+								i.circle.fa.fa-phone(aria-hidden="true")
+								span.title Teléfono
+								p #{professional.phone}
 			.col.s12.m4
 				.card
 					.card-image
@@ -121,25 +146,31 @@ block content
 							a.carousel-item
 								img(src="#{image}")
 			//Cards para escritorio
+			if professional.working_images.length == 0
+				.col.s12
+					span No hay registros
 			each image in professional.working_images
 				.col.s12.m4.hide-on-med-and-down
 					.card
 						.card-image
-							img(src="#{image}")
+							img.materialboxed(src="#{image.url}")
 							// Este botón se oculta en caso de no estar logeado
-							a.btn-floating.btn-large.halfway-fab.waves-effect.waves-light.red
-								i.fa.fa-trash(aria-hidden="true")
-						.card-content
-							p Lorem Ipsum
+							if professional._id == session.professional
+								a.btn-floating.btn-large.halfway-fab.waves-effect.waves-light.red(href="/upload/working_images/#{image.public_id}/delete")
+									i.fa.fa-trash(aria-hidden="true")
+						if professional._id == session.professional
+							.card-content
+								p Lorem Ipsum
 			// Esta card se oculta en caso de no estar logeado.
-			.col.s12.m4
-				.card
-					.card-content
-						form
-							.file-field.input-field
-								.btn
-									i.fa.fa-camera(aria-hidden="true")
-									input(type="file" accept="image/*")
-								.file-path-wrapper
-									input.file-path.validate(type="text" placeholder="Sube una foto")
+			if professional._id == session.professional
+				.col.s12.m4
+					.card
+						.card-content
+							form(action='/upload/working_images' method="post" enctype="multipart/form-data" id="working_images")
+								.file-field.input-field
+									.btn
+										i.fa.fa-camera(aria-hidden="true")
+										input(type="file" accept="image/*" data-form="working_images" name="working_images" )
+									.file-path-wrapper
+										input.file-path.validate(type="text" placeholder="Sube una foto")
 	script(src="/js/controllers/profile.js")

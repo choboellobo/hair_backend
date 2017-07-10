@@ -19,7 +19,7 @@ router.post('/login', function(req, res, next){
                 professional => {
                   if(!professional) return res.render('login', {error: true})
                   req.session.professional = professional._id
-                  res.redirect(`/${professional._id}/old`);
+                  res.redirect(`/${professional._id}`);
                 },
                 error => {
                   res.render('login', {error: true})
@@ -30,7 +30,7 @@ router.get('/:id', function (req, res, next) {
   Professional.findById(req.params.id).populate('services.service')
   .then(
     professional => {
-      res.render('profile', {professional: professional});
+      res.render('profile', {professional: professional, session: req.session});
   },
     error => next()
   );

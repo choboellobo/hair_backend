@@ -34,7 +34,7 @@ router.get('/working_images/:id/delete', function(req, res, next) {
         success => {
           cloudinary.uploader.destroy(req.params.id, function(status){
             console.log(status)
-            res.redirect(`/${p}/old`)
+            res.redirect(`/${p}`)
           })
         }
       )
@@ -48,6 +48,7 @@ router.get('/working_images/:id/delete', function(req, res, next) {
 router.post('/working_images', upload.single('working_images'), function(req, res ,next){
   let p = req.session.professional;
   if(!p) return res.redirect('/login');
+  console.log(req.file)
   Professional.findById(p).then(
     result => {
       // Upload file to cloudinary
@@ -58,7 +59,7 @@ router.post('/working_images', upload.single('working_images'), function(req, re
           done => {
             // Remove image local storage
             fs.unlink(req.file.path)
-            res.redirect(`/${p}/old`)
+            res.redirect(`/${p}`)
           }
         )
       });
