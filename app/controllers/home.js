@@ -19,7 +19,7 @@ router.post('/login', function(req, res, next){
                 professional => {
                   if(!professional) return res.render('login', {error: true, session: req.session})
                   req.session.professional = professional._id
-                  res.redirect(`/${professional._id}/old`);
+                  res.redirect(`/${professional._id}`);
                 },
                 error => {
                   res.render('login', {error: true, session: req.session})
