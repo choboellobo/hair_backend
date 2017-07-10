@@ -24,6 +24,11 @@ header {
     right: 0.5em;
     bottom: 0; }
 
+nav#main .brand-logo {
+  height: inherit; }
+  nav#main .brand-logo img {
+    height: inherit; }
+
 nav a {
   color: black !important; }
 

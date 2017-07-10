@@ -16,6 +16,14 @@ header{
   }
 }
 nav{
+  &#main {
+    .brand-logo{
+      height: inherit;
+        img {
+          height: inherit;
+        }
+    }
+  }
   a{
     color:black !important;
   }
@@ -44,5 +52,5 @@ nav{
 			@extend .shadow-text;
 		}
 	}
-	
+
 }
