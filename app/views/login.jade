@@ -1,11 +1,28 @@
 extends layout
 block content
+  include _navbar
   .container
     .row
-      form(action="/login" method="post")
-        .col.s12.m6.input-field
-          input(type="email" name="email" placeholder="Escriba aquí tu email")
-        .col.s12.m6.input-field
-          input(type="password" name="password" placeholder="Escriba aquí tu contraseña")
-        .col.s12
-          button.btn(type="submit") Entrar
+      .col.s12.m6.offset-m3
+        form(action="/login" method="post")
+          .card
+            .card-content
+              form(action="/login" method="post")
+                .input-field
+                  input#email(type="email" name="email" required)
+                  label(for="email") Email
+                .input-field
+                  input#password(type="password" name="password" required)
+                  label(for="password") Contraseña
+            .card-action
+              button.btn.waves-effect.waves-light(type="submit")
+                i(class="fa fa-sign-in left" aria-hidden="true")
+                | Entrar
+          if error
+            .red-text.center-align
+              span Usuario o contraseña incorrectos
+    .row
+      .col.s12.m6.offset-m3.center-align
+        p
+          a(href="#") ¿Se te ha olvidado el nombre de usuario o la contraseña?
+        p ¿No tienes cuenta? #[a(href="/register") Regístrate]

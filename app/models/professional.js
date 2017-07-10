@@ -23,6 +23,9 @@ var ProfessionalSchema = new Schema({
 			message: 'Email incorrecto'
 		}
 	},
+  schedules: {
+    type: String
+  },
   slug: {type: String},
   gender: {
     type: String,

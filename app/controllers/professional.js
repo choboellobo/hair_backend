@@ -13,6 +13,6 @@ var express = require('express'),
     let p = req.session.professional
     Professional.update({_id: p}, {$set: req.body})
                 .then(
-                  response => res.redirect(`/${p}/old`)
+                  response => res.redirect(`/${p}`)
                 )
   })

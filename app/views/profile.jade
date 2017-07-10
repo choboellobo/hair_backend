@@ -11,7 +11,8 @@ block content
 		li
 			.user-view
 				.background
-					img(src="#{professional.background}")
+					if professional.background
+						img(src="#{professional.background}")
 				a
 					img.circle(src="#{professional.avatar}")
 				a
@@ -28,16 +29,16 @@ block content
 			a(href="#")
 				i.fa.fa-facebook-official.left(aria-hidden="true")
 				| Mi facebook
-				
-				
+
+
 	//Header
 	.container
 		.row
 			.col.s12
-				if professional.background 
+				if professional.background
 					header.background-image(style="background-image:url(#{professional.background})")
 						h4.white-text.shadow-text.hide-on-med-and-down #{professional.fullname}
-				else 
+				else
 					header
 						h4.white-text.shadow-text.hide-on-med-and-down #{professional.fullname}
 				nav.transparent.z-depth-0
@@ -47,7 +48,7 @@ block content
 						a.brand-logo
 							img.responsive-img(src="#{professional.avatar}")
 						ul#nav-mobile.right.hide-on-med-and-down
-							li 
+							li
 								a(href="")
 									i.fa.fa-scissors.left(aria-hidden="true")
 									| Mis servicios
@@ -68,22 +69,50 @@ block content
 				.row
 					.col.s12
 						h5 Sobre mi
-					.col.s12
-						p !{professional.description}
+					if professional._id == session.professional
+						.col.s12
+							form(action="/professional/update" method="post")
+								.input-field
+									textarea.materialize-textarea#description(required name="description" maxlenght="500" data-length="500") #{professional.description}
+									label(for="description") Escribe algo sobre ti.
+								button.btn(type="submit") Actualizar
+					else
+						.col.s12
+							if professional.description
+								p !{professional.description}
+							else
+								p Todavia no se ha escrito nada sobre este perfil
 				.row
 					.col.s12
-						h5 Datos de interés
-					.col.s12
-						p
-							strong Horario:
-							span Lorem Ipsum
-						p
-							strong Teléfono:
-							span #{professional.phone}
+						ul.collection.with-header
+							li.collection-header
+								h5 Datos de interés
+							li.collection-item.avatar
+								i.circle(class="fa fa-clock-o" aria-hidden="true")
+								span.title Horario
+								if professional.schedules
+									p #{professional.schedules}
+								else
+									p Todavia no han añadido un horario.
+							if professional._id == session.professional
+								li.collection-item.avatar
+									i.circle(class="fa fa-clock-o" aria-hidden="true")
+									form(action="/professional/update" method="post")
+										.input-field
+											input(type="text" id="schedules" name="schedules" required)
+											label(for="schedules") Actualiza tu horario
+										button.btn(type="submit") Actualizar
+							li.collection-item.avatar
+								i.circle.fa.fa-phone(aria-hidden="true")
+								span.title Teléfono
+								p #{professional.phone}
 			.col.s12.m4
 				.card
-					.card-image.tooltipped(data-tooltip="#{professional.address.place} #{professional.address.location}")
-						img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.place},#{professional.address.location},España&zoom=13&size=300x200&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
+					.card-image
+						if professional.options.store
+							img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.place},#{professional.address.location},España&zoom=13&size=600x400&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
+						else
+							img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.location},España&zoom=13&size=600x400&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
 					.card-content.hide-on-large-only
 						p Ven a verme a mi local en #[strong #{professional.address.place} #{professional.address.location}]
 					.card-action.center-align
@@ -106,43 +135,42 @@ block content
 					.card-content.center-align
 						span.card-title
 							strong Lavar y peinar
-				
-			
 		section.row
 			.col.s12
 				h5 Mis trabajos
 			//Carrusel para móvil
-			.col.s12.hide-on-large-only
-				.carousel
-					each image in professional.working_images
-						a.carousel-item
-							img(src="#{image}")
+			if professional.working_images.length > 0
+				.col.s12.hide-on-large-only
+					.carousel
+						each image in professional.working_images
+							a.carousel-item
+								img(src="#{image}")
 			//Cards para escritorio
+			if professional.working_images.length == 0
+				.col.s12
+					span No hay registros
 			each image in professional.working_images
 				.col.s12.m4.hide-on-med-and-down
 					.card
 						.card-image
-							img(src="#{image}")
+							img.materialboxed(src="#{image.url}")
 							// Este botón se oculta en caso de no estar logeado
-							a.btn-floating.btn-large.halfway-fab.waves-effect.waves-light.red
-								i.fa.fa-trash(aria-hidden="true")
-						.card-content
-							p Lorem Ipsum
+							if professional._id == session.professional
+								a.btn-floating.btn-large.halfway-fab.waves-effect.waves-light.red(href="/upload/working_images/#{image.public_id}/delete")
+									i.fa.fa-trash(aria-hidden="true")
+						if professional._id == session.professional
+							.card-content
+								p Lorem Ipsum
 			// Esta card se oculta en caso de no estar logeado.
-			.col.s12.m4
-				.card
-					.card-content
-						form
-							.file-field.input-field
-								.btn
-									i.fa.fa-camera(aria-hidden="true")
-									input(type="file" accept="image/*")
-								.file-path-wrapper
-									input.file-path.validate(type="text" placeholder="Sube una foto")
-	// Función del carrusel
-	script.
-			$('.carousel').carousel();
-			//Función del menú sidenav
-			$(".button-collapse").sideNav({
-				closeOnClick: true,
-			});
+			if professional._id == session.professional
+				.col.s12.m4
+					.card
+						.card-content
+							form(action='/upload/working_images' method="post" enctype="multipart/form-data" id="working_images")
+								.file-field.input-field
+									.btn
+										i.fa.fa-camera(aria-hidden="true")
+										input(type="file" accept="image/*" data-form="working_images" name="working_images" )
+									.file-path-wrapper
+										input.file-path.validate(type="text" placeholder="Sube una foto")
+	script(src="/js/controllers/profile.js")
