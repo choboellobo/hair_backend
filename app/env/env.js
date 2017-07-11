@@ -1,4 +1,6 @@
 module.exports = {
+  jwt_key : 'wtf',
+  crypto_key: 'wtf',
 	stripe_key: 'sk_test_MrFhxIb2j4Ebc6gBbq3GuHq7',
   cloudinary: {
     cloud_name: 'dyfof1mr5',

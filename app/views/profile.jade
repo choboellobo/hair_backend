@@ -96,16 +96,24 @@ block content
 									p Todavia no han añadido un horario.
 							if professional._id == session.professional
 								li.collection-item.avatar
-									i.circle(class="fa fa-clock-o" aria-hidden="true")
+									i.circle(class="fa fa-pencil" aria-hidden="true")
 									form(action="/professional/update" method="post")
 										.input-field
-											input(type="text" id="schedules" name="schedules" required)
+											textarea.materialize-textarea(id="schedules" name="schedules" required maxlenght="200" data-length="200")
 											label(for="schedules") Actualiza tu horario
 										button.btn(type="submit") Actualizar
 							li.collection-item.avatar
 								i.circle.fa.fa-phone(aria-hidden="true")
 								span.title Teléfono
 								p #{professional.phone}
+								if professional._id == session.professional
+									li.collection-item.avatar
+										i.circle(class="fa fa-pencil" aria-hidden="true")
+										form(action="/professional/update" method="post")
+											.input-field
+												input.validate(type="text" id="phone" name="phone" required pattern="^[9|6|7][0-9]{8}$")
+												label(for="phone" data-error="Escriba un teléfono valido") Actualiza el teléfono
+											button.btn(type="submit") Actualizar
 			.col.s12.m4
 				.card
 					.card-image
@@ -113,8 +121,13 @@ block content
 							img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.place},#{professional.address.location},España&zoom=13&size=600x400&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
 						else
 							img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.location},España&zoom=13&size=600x400&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
-					.card-content.hide-on-large-only
-						p Ven a verme a mi local en #[strong #{professional.address.place} #{professional.address.location}]
+					.card-content
+						if professional._id == session.professional
+							i.fa.fa-pencil.right.activator(aria-hidden="true")
+						if professional.options.store
+							p Ven a verme a mi local en #[strong #{professional.address.place} #{professional.address.location}]
+						else
+							p Presto servicios en la zona de #[strong #{professional.address.location}]
 					.card-action.center-align
 						small Pagos aceptados
 						br
@@ -125,6 +138,15 @@ block content
 						.chip.black-text
 							i.fa.fa-home(aria-hidden="true")
 							| Trabajo a domicilio
+					if professional._id == session.professional
+						.card-reveal
+							span.card-title
+								| Ubicación
+								i.fa.fa-times.right
+							.input-field
+								input(type="text" id="location")
+								label(for="location") Ubicación
+							button.btn Buscar
 		section.row
 			.col.s12
 				h5 Mis servicios
@@ -144,33 +166,44 @@ block content
 					.carousel
 						each image in professional.working_images
 							a.carousel-item
-								img(src="#{image}")
+								img(src="#{image.url}")
 			//Cards para escritorio
 			if professional.working_images.length == 0
 				.col.s12
 					span No hay registros
-			each image in professional.working_images
-				.col.s12.m4.hide-on-med-and-down
-					.card
-						.card-image
-							img.materialboxed(src="#{image.url}")
-							// Este botón se oculta en caso de no estar logeado
-							if professional._id == session.professional
-								a.btn-floating.btn-large.halfway-fab.waves-effect.waves-light.red(href="/upload/working_images/#{image.public_id}/delete")
-									i.fa.fa-trash(aria-hidden="true")
-						if professional._id == session.professional
-							.card-content
-								p Lorem Ipsum
 			// Esta card se oculta en caso de no estar logeado.
 			if professional._id == session.professional
-				.col.s12.m4
-					.card
-						.card-content
-							form(action='/upload/working_images' method="post" enctype="multipart/form-data" id="working_images")
-								.file-field.input-field
-									.btn
-										i.fa.fa-camera(aria-hidden="true")
-										input(type="file" accept="image/*" data-form="working_images" name="working_images" )
-									.file-path-wrapper
-										input.file-path.validate(type="text" placeholder="Sube una foto")
+				.row
+					.col.s12.m4
+						.card
+							.card-content
+								form(action='/upload/working_images' method="post" enctype="multipart/form-data" id="working_images")
+									.file-field.input-field
+										.btn
+											i.fa.fa-camera(aria-hidden="true")
+											input(type="file" accept="image/*" data-form="working_images" name="working_images" )
+										.file-path-wrapper
+											input.file-path.validate(type="text" placeholder="Sube una foto")
+			.row.hide-on-med-and-down
+				.col.m4
+					each image,index in professional.working_images
+						if index%3 == 0
+							+card-image(image.url, image.public_id)
+				.col.m4
+					each image,index in professional.working_images
+						if index%3 == 1
+							+card-image(image.url, image.public_id)
+				.col.m4
+					each image,index in professional.working_images
+						if index%3 == 2
+							+card-image(image.url, image.public_id)
+
 	script(src="/js/controllers/profile.js")
+	mixin card-image(url, public_id)
+		.card
+			.card-image
+				img.materialboxed(src="#{url}")
+				// Este botón se oculta en caso de no estar logeado
+				if professional._id == session.professional
+					a.btn-floating.btn-large.top-fab.waves-effect.waves-light.red(href="/upload/working_images/#{public_id}/delete")
+						i.fa.fa-trash(aria-hidden="true")

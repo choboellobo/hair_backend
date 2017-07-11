@@ -26,10 +26,11 @@ router.post('/login', function(req, res, next){
                 }
               )
 })
-router.get('/:id', function (req, res, next) {
-  Professional.findById(req.params.id).populate('services.service')
+router.get('/:slug', function (req, res, next) {
+  Professional.findOne({slug: req.params.slug},{password: 0}).populate('services.service')
   .then(
     professional => {
+      if(!professional) return next()
       res.render('profile', {professional: professional, session: req.session});
   },
     error => next()

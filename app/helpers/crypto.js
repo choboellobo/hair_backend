@@ -1,6 +1,7 @@
+var env = require('../env/env');
 var crypto = require('crypto'),
     algorithm = 'aes-256-ctr',
-    password = 'wtf';
+    password = env.crypto_key;
 
 module.exports = {
 	encrypt: function(text){
