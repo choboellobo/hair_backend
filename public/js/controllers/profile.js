@@ -1,7 +1,7 @@
 (function() {
   // Cut image background
   $('#modal-background').modal({
-    ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+    ready: function(modal, trigger) {
         $('#modal-background input[type="file"]').on('change', function(e){
           let file = e.target.files[0];
           let reader = new FileReader();
@@ -25,6 +25,8 @@
   $('#modal-background button[cut]').on('click', function(){
     let image = $('#crop').cropper('getCroppedCanvas').toDataURL('image/jpeg')
     $('header').css('background-image','url('+image+')')
+    $('#form-background input').val(image);
+    $('#form-background').submit()
     $('#modal-background').modal('close')
   })
   // Upload new working images

@@ -33,8 +33,7 @@ router.get('/working_images/:id/delete', function(req, res, next) {
       result.save().then(
         success => {
           cloudinary.uploader.destroy(req.params.id, function(status){
-            console.log(status)
-            res.redirect(`/${p}`)
+            res.redirect(`/${req.session.slug}`)
           })
         }
       )
@@ -59,10 +58,25 @@ router.post('/working_images', upload.single('working_images'), function(req, re
           done => {
             // Remove image local storage
             fs.unlink(req.file.path)
-            res.redirect(`/${p}`)
+            res.redirect(`/${req.session.slug}`)
           }
         )
       });
+    }
+  )
+})
+
+router.post('/background', function(req, res, next){
+  let p = req.session.professional;
+  let img = req.body.image;
+  Professional.findById(p).then(
+    professional => {
+      cloudinary.uploader.upload(img, function(image) {
+        professional.background = image.url;
+        professional.save().then(
+          res.redirect(`/${req.session.slug}`)
+        )
+      })
     }
   )
 })

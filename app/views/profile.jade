@@ -55,6 +55,8 @@ block content
 		.row
 			.col.s12
 				if professional._id == session.professional
+					form(action="/upload/background" method="post" id="form-background")
+						input(type="hidden" name="image")
 					a.btn-floating.btn-large.waves-effect.waves-light.light-green#btn-background(href="#modal-background")
 						i.fa.fa-pencil(aria-hidden="true")
 				if professional.background
