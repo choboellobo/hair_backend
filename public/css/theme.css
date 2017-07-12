@@ -41,5 +41,10 @@ nav .brand-logo img {
     nav .brand-logo img {
       margin-left: 1em; } }
 
+.card .card-image .top-fab {
+  position: absolute;
+  top: 1em;
+  right: 1em; }
+
 .card .card-action i {
   margin-right: 15px; }

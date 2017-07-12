@@ -1,7 +1,4 @@
 (function() {
-
-
-
   // Upload new working images
   $('[type="file"]').on('change', function(e) {
     let input = $(this)
@@ -10,15 +7,17 @@
         reader.onload = function(e){
           let img = new Image()
               img.onload = function() {
-                if(this.width >= this.height) {
-                  $('#'+ input.data('form')).submit()
-                }
+                $('#'+ input.data('form')).submit()
               }
               img.src = e.target.result
         }
         reader.readAsDataURL(file)
   })
   // Materialize
+  $('.scrollspy').scrollSpy({
+    scrollOffset: 0
+  });
+  $('select').material_select();
   $('.materialboxed').materialbox();
   $('.carousel').carousel();
   $(".button-collapse").sideNav({

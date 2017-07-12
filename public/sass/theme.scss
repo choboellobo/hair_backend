@@ -40,6 +40,13 @@ nav{
   }
 }
 .card{
+  .card-image{
+    .top-fab {
+      position: absolute;
+      top: 1em;
+      right: 1em;
+    }
+  }
 	.card-action{
 		i{
 			margin-right: 15px;
@@ -52,5 +59,4 @@ nav{
 			@extend .shadow-text;
 		}
 	}
-
 }
