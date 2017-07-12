@@ -5,9 +5,11 @@ block seo
 block extra-head
 	link(href="https://fonts.googleapis.com/css?family=Kurale" rel="stylesheet")
 block content
+	// Botón flotante de llamada (margen inferior derecho)
 	.fixed-action-btn
 		a.btn-floating.btn-large.red.pulse(href="tel:#{professional.phone}")
 			i.fa.fa-phone(aria-hidden="true")
+	// Menú hamburguesa del Navbar
 	ul#slide-out.side-nav
 		li
 			.user-view
@@ -30,13 +32,22 @@ block content
 			a(href="#")
 				i.fa.fa-facebook-official.left(aria-hidden="true")
 				| Mi facebook
-
+	// Modal cambio imagen fondo header
+	.modal#modal-background
+		.modal-content
+			h5 Soy un título
+			p Soy un párrafo
+		.modal-footer
+			a.btn-flat.waves-effect.waves-green.modal-close botón
 
 	// Header
 	include _navbar
 	.container
 		.row
 			.col.s12
+				if professional._id == session.professional
+					a.btn-floating.btn-large.waves-effect.waves-light.light-green#btn-background(href="#modal-background")
+						i.fa.fa-pencil(aria-hidden="true")
 				if professional.background
 					header.background-image(style="background-image:url(#{professional.background})")
 						h4.white-text.shadow-text.hide-on-med-and-down #{professional.fullname}

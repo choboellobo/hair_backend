@@ -14,6 +14,7 @@
         reader.readAsDataURL(file)
   })
   // Materialize
+	$('.modal').modal();
   $('.scrollspy').scrollSpy({
     scrollOffset: 0
   });
