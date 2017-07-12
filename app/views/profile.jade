@@ -3,6 +3,7 @@ block seo
 	title=professional.fullname
 	link(rel="icon" type="image/png" href="#{professional.avatar}")
 block extra-head
+	link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css")
 	link(href="https://fonts.googleapis.com/css?family=Kurale" rel="stylesheet")
 block content
 	// Botón flotante de llamada (margen inferior derecho)
@@ -33,12 +34,20 @@ block content
 				i.fa.fa-facebook-official.left(aria-hidden="true")
 				| Mi facebook
 	// Modal cambio imagen fondo header
-	.modal#modal-background
+	.modal.modal-fixed-footer.crop#modal-background
 		.modal-content
-			h5 Soy un título
-			p Soy un párrafo
+			h5 Actualiza la imagen de fondo
+			form.file-field.input-field
+				.btn
+					span
+						i(class="fa fa-camera" aria-hidden="true")
+					input.images-works(accept="image/*" type='file' name='upload-background')
+				.file-path-wrapper
+					input.file-path.validate(type='text', placeholder='Sube tu imagen')
+			img#crop(style="max-width: 100%")
 		.modal-footer
-			a.btn-flat.waves-effect.waves-green.modal-close botón
+			button.modal-action.modal-close.waves-effect.waves-green.btn-flat Cerrar
+			button.modal-action.waves-effect.waves-green.btn-flat(cut) Guardar Imagen
 
 	// Header
 	include _navbar
@@ -223,7 +232,7 @@ block content
 					each image,index in professional.working_images
 						if index%3 == 2
 							+card-image(image.url, image.public_id)
-
+	script(src="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.js")
 	script(src="/js/controllers/profile.js")
 	mixin card-image(url, public_id)
 		.card
