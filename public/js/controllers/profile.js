@@ -14,6 +14,10 @@
         reader.readAsDataURL(file)
   })
   // Materialize
+  $('.scrollspy').scrollSpy({
+    scrollOffset: 0
+  });
+  $('select').material_select();
   $('.materialboxed').materialbox();
   $('.carousel').carousel();
   $(".button-collapse").sideNav({

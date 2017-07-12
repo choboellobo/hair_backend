@@ -84,12 +84,9 @@ var ProfessionalSchema = new Schema({
 		}
 	},
 	services: [{
-		price: Number,
-		service: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Services',
-			required: true
-		}
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Services',
+		required: true
 	}],
 	active: {
 		type: Boolean,

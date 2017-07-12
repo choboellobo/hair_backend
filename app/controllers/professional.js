@@ -13,6 +13,7 @@ var express = require('express'),
     let p = req.session.professional
     Professional.update({_id: p}, {$set: req.body})
                 .then(
-                  response => res.redirect(`/${p}`)
+                  response => res.redirect(`/${req.session.slug}`),
+                  error => res.json(error)
                 )
   })

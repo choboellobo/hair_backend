@@ -20,18 +20,18 @@ block content
 				a
 					span.white-text.email #{professional.email}
 		li
-			a(href="#")
+			a(href="#services")
 				i.fa.fa-scissors.left(aria-hidden="true")
 				| Mis servicios
-			a(href="#")
-				i.fa.fa-handshake-o.left(aria-hidden="true")
+			a(href="#work")
+				i.fa.fa-file-image-o.left(aria-hidden="true")
 				| Mis trabajos
 			a(href="#")
 				i.fa.fa-facebook-official.left(aria-hidden="true")
 				| Mi facebook
 
 
-	//Header
+	// Header
 	.container
 		.row
 			.col.s12
@@ -49,12 +49,12 @@ block content
 							img.responsive-img(src="#{professional.avatar}")
 						ul#nav-mobile.right.hide-on-med-and-down
 							li
-								a(href="")
+								a(href="#services")
 									i.fa.fa-scissors.left(aria-hidden="true")
 									| Mis servicios
 							li
-								a(href="")
-									i.fa.fa-handshake-o.left(aria-hidden="true")
+								a(href="#work")
+									i.fa.fa-file-image-o.left(aria-hidden="true")
 									| Mis trabajos
 							li
 								a(href="")
@@ -147,17 +147,30 @@ block content
 								input(type="text" id="location")
 								label(for="location") Ubicación
 							button.btn Buscar
-		section.row
+		// SERVICIOS
+		section.row.scrollspy#services
 			.col.s12
 				h5 Mis servicios
-			.col.s12.m4
-				.card
-					.card-image
-						img(src="http://oferplan-resizer.lavozdegalicia.es/resizer/resizer.php?imagen=http%3A%2F%2Foferplan.lavozdegalicia.es%2F%2Fimages%2Fsized%2Fimages%2FFotolia_79409730_Subscription_BAJA3-619x391.jpg&nuevoancho=493&nuevoalto=278&crop=1")
-					.card-content.center-align
-						span.card-title
-							strong Lavar y peinar
-		section.row
+			if professional._id == session.professional
+				.col.s12
+					p Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona qu
+					form(action="/professional/update" method="post")
+						.input-field
+							select(multiple name="services")
+								option(disabled selected) Seleccione varios
+								each option in services
+									option(value="#{option._id}") #{option.name}
+						button.btn(type="submit") Actualizar
+			each service in professional.services
+				.col.s12.m4
+					.card.hoverable
+						.card-image
+							img(src="#{service.image}")
+						.card-content.center-align
+							span.card-title
+								strong #{service.name}
+		// TRABAJOS
+		section.row.scrollspy#work
 			.col.s12
 				h5 Mis trabajos
 			//Carrusel para móvil
