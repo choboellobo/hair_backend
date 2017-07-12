@@ -1,6 +1,7 @@
 extends layout
 block seo
 	title=professional.fullname
+	link(rel="icon" type="image/png" href="#{professional.avatar}")
 block extra-head
 	link(href="https://fonts.googleapis.com/css?family=Kurale" rel="stylesheet")
 block content
@@ -32,6 +33,7 @@ block content
 
 
 	// Header
+	include _navbar
 	.container
 		.row
 			.col.s12
