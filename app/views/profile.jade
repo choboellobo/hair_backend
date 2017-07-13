@@ -20,9 +20,9 @@ block content
 				a
 					img.circle(src="#{professional.avatar}")
 				a
-					span.white-text.name #{professional.fullname}
+					span.shadow-text.white-text.name #{professional.fullname}
 				a
-					span.white-text.email #{professional.email}
+					span.shadow-text.white-text.email #{professional.email}
 		li
 			a(href="#services")
 				i.fa.fa-scissors.left(aria-hidden="true")
@@ -55,7 +55,7 @@ block content
 			p Por favor espere mientras se sube la imagen
 	// Header
 	include _navbar
-	.container
+	.container#profile
 		.row
 			.col.s12
 				if professional._id == session.professional
@@ -74,7 +74,7 @@ block content
 						a.button-collapse(href="#" data-activates="slide-out")
 							i.fa.fa-2x.fa-bars(aria-hidden="true")
 						a.brand-logo
-							img.responsive-img(src="#{professional.avatar}")
+							img.avatar.responsive-img(src="#{professional.avatar}")
 							if professional._id == session.professional
 								form.valign-wrapper(action="/upload/avatar" method="post" enctype="multipart/form-data" id="form-avatar")
 									input.hide(type="file" id="avatar" name="avatar" accept="image/*" data-form="form-avatar")
@@ -164,9 +164,9 @@ block content
 					.card-action.center-align
 						small Pagos aceptados
 						br
-						i.tooltipped(class="fa fa-money fa-2x" aria-hidden="true"  data-position="bottom" data-delay="50" data-tooltip="Efectivo")
-						i.tooltipped(class="fa fa-cc-visa fa-2x" aria-hidden="true"  data-position="bottom" data-delay="50" data-tooltip="Pago con Visa")
-						i.tooltipped(class="fa fa-cc-mastercard fa-2x" aria-hidden="true"  data-position="bottom" data-delay="50" data-tooltip="Pago con MasterCard")
+						i.margin-left-05em.tooltipped(class="fa fa-money fa-2x" aria-hidden="true"  data-position="bottom" data-delay="50" data-tooltip="Efectivo")
+						i.margin-left-05em.tooltipped(class="fa fa-cc-visa fa-2x" aria-hidden="true"  data-position="bottom" data-delay="50" data-tooltip="Pago con Visa")
+						i.margin-left-05em.tooltipped(class="fa fa-cc-mastercard fa-2x" aria-hidden="true"  data-position="bottom" data-delay="50" data-tooltip="Pago con MasterCard")
 					.card-action.center-align
 						.chip.black-text
 							i.fa.fa-home(aria-hidden="true")
