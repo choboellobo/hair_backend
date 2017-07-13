@@ -54,8 +54,8 @@ module.exports = function(app, config) {
   if(app.get('env') === 'development'){
     app.use(function (err, req, res, next) {
       res.status(err.status || 500);
-      if(err.status === 404) return res.render('notfound');
-      res.render('error', {
+      if(err.status === 404) return res.render('error/notfound');
+      res.render('error/error', {
         message: err.message,
         error: err,
         title: 'error'
@@ -65,8 +65,8 @@ module.exports = function(app, config) {
 
   app.use(function (err, req, res, next) {
     res.status(err.status || 500);
-      if(err.status === 404) return res.render('notfound');
-      res.render('error', {
+      if(err.status === 404) return res.render('error/notfound');
+      res.render('error/error', {
         message: err.message,
         error: {},
         title: 'error'
