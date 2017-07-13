@@ -1,12 +1,14 @@
 .font-size-2x {
   font-size: 2em;
 }
+.margin-left-05em {
+  margin-left: .5em;
+}
 .shadow-text{
   text-shadow: 1px 1px 5px black;
 }
 .background-image{
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  background-size: cover !important;
 }
-
