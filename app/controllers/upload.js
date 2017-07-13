@@ -47,13 +47,36 @@ router.get('/working_images/:id/delete', function(req, res, next) {
 router.post('/working_images', upload.single('working_images'), function(req, res ,next){
   let p = req.session.professional;
   if(!p) return res.redirect('/login');
-  console.log(req.file)
   Professional.findById(p).then(
     result => {
       // Upload file to cloudinary
       cloudinary.uploader.upload(req.file.path, function(image) {
         // When the image is already in cloudinary, push de object to array professional working_images
         result.working_images.push(image)
+        result.save().then(
+          done => {
+            // Remove image local storage
+            fs.unlink(req.file.path)
+            res.redirect(`/${req.session.slug}`)
+          }
+        )
+      });
+    }
+  )
+})
+
+/*
+  UPLOAD IMAGE AVATAR TO cloudinary AND MONGODB
+*/
+router.post('/avatar', upload.single('avatar'), function(req, res ,next){
+  let p = req.session.professional;
+  if(!p) return res.redirect('/login');
+  Professional.findById(p).then(
+    result => {
+      // Upload file to cloudinary
+      cloudinary.uploader.upload(req.file.path, function(image) {
+        // When the image is already in cloudinary, push de object to array professional working_images
+        result.avatar = image.url
         result.save().then(
           done => {
             // Remove image local storage

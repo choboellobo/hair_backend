@@ -14,6 +14,15 @@ router.get('/', function (req, res, next) {
   res.render('index');
 });
 /*
+  GET /LOGOUT
+*/
+router.get('/logout', function(req, res, next) {
+  req.session.destroy(function(err) {
+    if(err) return next(err);
+    res.redirect('/login')
+  })
+})
+/*
   GET /login
 */
 router.get('/login', function(req, res, next) {

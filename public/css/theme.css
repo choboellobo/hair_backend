@@ -4,7 +4,7 @@
 .font-size-2x {
   font-size: 2em; }
 
-.shadow-text, #slide-out .user-view a {
+.shadow-text, nav .brand-logo img + form label i, #slide-out .user-view a {
   text-shadow: 1px 1px 5px black; }
 
 .background-image {
@@ -44,6 +44,15 @@ nav .brand-logo img {
   @media (min-width: 600px) {
     nav .brand-logo img {
       margin-left: 1em; } }
+  nav .brand-logo img + form {
+    margin-top: -60px;
+    position: relative; }
+    nav .brand-logo img + form label {
+      margin-left: 1em;
+      cursor: pointer;
+      height: 50px; }
+      nav .brand-logo img + form label i {
+        color: white !important; }
 
 .card .card-image .top-fab {
   position: absolute;

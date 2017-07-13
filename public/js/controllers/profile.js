@@ -38,6 +38,7 @@
           let img = new Image()
               img.onload = function() {
                 $('#'+ input.data('form')).submit()
+                $('#preloader').modal('open', {dismissible: false});
               }
               img.src = e.target.result
         }
