@@ -41,8 +41,6 @@
           position: relative;
           label {
             margin-left: 1em;
-            cursor: pointer;
-            height: 50px;
             i {
               @extend .shadow-text;
               color:white !important;

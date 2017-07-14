@@ -59,7 +59,7 @@ var ProfessionalSchema = new Schema({
 		type: Array
 	},
 	background: {
-		type: String
+		type: JSON
 	},
 	document_id: {
 		type: String

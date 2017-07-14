@@ -1,4 +1,37 @@
 (function() {
+
+  $('#modal-avatar').modal({
+    ready: function(){
+      $('#modal-avatar input[type="file"]').on('change', function(e) {
+				let file = e.target.files[0];
+				let reader = new FileReader();
+				reader.onload = function(e) {
+					$('#modal-avatar form').hide()
+					$('#modal-avatar img').attr('src', e.target.result)
+					$('#crop-avatar').cropper({
+						aspectRatio: 4 / 4,
+						viewMode: 2
+					})
+				}
+				reader.readAsDataURL(file)
+			})
+    },
+    complete: function() {
+      $('#crop-avatar').cropper('destroy');
+			$('#modal-avatar img').attr('src', null)
+			$('#modal-avatar form')[0].reset()
+    }
+  })
+  $('#modal-avatar button[cut]').on('click', function() {
+		let image = $('#crop-avatar').cropper('getCroppedCanvas').toDataURL('image/png')
+		$('.brand-logo .avatar').attr('src', image)
+		$('#form-upload-avatar input').val(image);
+		$('#form-upload-avatar').submit()
+		$('#modal-avatar').modal('close')
+		$('#preloader').modal('open', {
+			dismissible: false
+		});
+	})
 	// Cut image background
 	$('#modal-background').modal({
 		ready: function(modal, trigger) {
