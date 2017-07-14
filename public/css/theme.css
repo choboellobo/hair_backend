@@ -11,7 +11,7 @@
 .shadow-text, #profile nav .brand-logo .avatar + form label i {
   text-shadow: 1px 1px 5px black; }
 
-.background-image {
+.background-image, #notfound .fondo {
   background-repeat: no-repeat !important;
   background-position: center center !important;
   background-size: cover !important; }
@@ -51,15 +51,17 @@
       margin-top: -60px;
       position: relative; }
       #profile nav .brand-logo .avatar + form label {
-        margin-left: 1em;
-        cursor: pointer;
-        height: 50px; }
+        margin-left: 1em; }
         #profile nav .brand-logo .avatar + form label i {
           color: white !important; }
   #profile .card .card-image .top-fab {
     position: absolute;
     top: 1em;
     right: 1em; }
+
+#notfound .fondo {
+  height: 100vh;
+  background-image: url(/img/404.jpg); }
 
 body {
   background-color: #e9ebee; }
