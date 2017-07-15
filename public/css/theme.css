@@ -51,9 +51,7 @@
       margin-top: -60px;
       position: relative; }
       #profile nav .brand-logo .avatar + form label {
-        margin-left: 1em;
-        cursor: pointer;
-        height: 50px; }
+        margin-left: 1em; }
         #profile nav .brand-logo .avatar + form label i {
           color: white !important; }
   #profile .card .card-image .top-fab {
