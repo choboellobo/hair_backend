@@ -61,7 +61,7 @@
 
 #notfound .fondo {
   height: 100vh;
-  background-image: url(/img/404.jpg); }
+  background-image: url("/img/404.jpg"); }
 
 body {
   background-color: #e9ebee; }
