@@ -11,6 +11,9 @@ body{
 }
 nav{
   &#main {
+    a:not(.btn) {
+      color: black !important;
+    }
     .brand-logo{
       height: inherit;
         img {

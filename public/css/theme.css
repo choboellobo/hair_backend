@@ -64,6 +64,9 @@
 body {
   background-color: #e9ebee; }
 
+nav#main a:not(.btn) {
+  color: black !important; }
+
 nav#main .brand-logo {
   height: inherit; }
   nav#main .brand-logo img {

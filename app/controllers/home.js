@@ -11,7 +11,7 @@ module.exports = function (app) {
   GET / --- home ---
 */
 router.get('/', function (req, res, next) {
-  res.render('index');
+  res.render('index', {session: req.session});
 });
 /*
   GET /LOGOUT
