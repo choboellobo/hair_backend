@@ -1,0 +1,65 @@
+extends layout
+block seo
+  title Resultados de busqueda
+block content
+  include _navbar
+  .container#results
+    if professionals.length == 0
+      .row.fullscreen.valign-wrapper
+        .col.s12.center-align
+          i.fa.fa-bath.fa-5x
+          p Opss! No hemos encontrada ningún resultado. Prueba otra vez con algo diferente.
+          .col.s12
+            form(action="")
+              .input-field
+                input(text="search" name="w" placeholder="Prueba con otra localidad")
+              button.btn-large
+                i.fa.fa-search.left
+                | Buscar
+    else
+      .col.s12
+        p Hemos encontrado #{professionals.length} resultados.
+      .row.hide-on-large-only
+        each professional in professionals
+          .col.s12
+            +card(professional)
+      .row.hide-on-med-and-down
+          .col.m4
+            each professional, index in professionals
+              if index%3 == 0
+                +card(professional)
+          .col.m4
+            each professional, index in professionals
+              if index%3 == 1
+                +card(professional)
+          .col.m4
+            each professional, index in professionals
+              if index%3 == 2
+                +card(professional)
+  include _footer
+mixin card(professional)
+  .card.hoverable
+    .card-image
+      if professional.background
+        img(src="#{professional.background.url}")
+      else
+        .gradiant
+    .card-content
+      .center-align.avatar
+        a.tooltipped(href="/#{professional.slug}" data-position="top" data-tooltip="Accede a mi perfil")
+          img.circle.responsive-img(src="#{professional.avatar}")
+      span.card-title #{professional.fullname}
+      if professional.description
+        p #{professional.description}
+      else
+        p Este usuario todavia no ha añadido una description sobre el mismo.
+    if professional.services.length > 0
+      .card-action.center-align
+        each service in professional.services
+          .chip
+            span #{service.name}
+    if professional.options.home
+      .card-action.center-align
+        .chip.black-text
+          i.fa.fa-home(aria-hidden="true")
+          | Trabajo a domicilio

@@ -1,4 +1,41 @@
 extends layout
 block content
   include _navbar
-  h1 hello
+  #home
+    section.parallax-container.valign-wrapper.fullscreen
+      .container
+        .row
+          .col.s12
+            form.row(action="/")
+              .col.s12.m6
+                .card
+                  .card-content
+                    span.card-title ¿Dondé buscas peluquero/a?
+                    .input-field
+                      input#where(type="text" name="w" required autofocus)
+                      label(for="where") Ciudad
+                    button.btn.waves-effect.waves-light.waves-purple.blue
+                      i.fa.fa-search.left
+                      | Buscar
+      .parallax
+        img(src="https://image.shutterstock.com/z/stock-photo-smiling-client-sitting-in-a-hair-salon-while-hairdresser-is-combing-her-hair-focus-on-client-301639736.jpg")
+    section.container
+      .row
+        .col.s12.m4
+          h1 x
+        .col.s12.m4
+          h1 x
+        .col.s12.m4
+          h1 x
+    .section.parallax-container.valign-wrapper
+      .container
+        .row
+          .col.s12.center-align.white-text.shadow-text
+            img.z-depth-1.white(src="https://static1.squarespace.com/static/54b98b1ce4b0b6737df46009/54e6abf1e4b0c31341a9d34b/54e8fda5e4b02e8e02345db8/1424555429959/barber.png" width="200")
+            h1 ¿Buscas barbero?
+            p Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No
+      .parallax
+        img(src="https://image.shutterstock.com/z/stock-photo-men-barber-shaves-his-beard-559214221.jpg")
+  include _footer
+
+  script(src="/js/controllers/home.js")

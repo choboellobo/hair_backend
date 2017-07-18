@@ -1,0 +1,31 @@
+#results {
+  .fullscreen {
+    height: 100vh;
+  }
+  .card {
+    .card-image {
+      .gradiant {
+        background: linear-gradient(50deg, #2fffc5, #3535d0);
+        width: 100%;
+        height: 150px;
+      }
+    }
+    .card-content {
+      position: relative;
+      .avatar {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 0;
+        img {
+          border: solid 5px white;
+          width: 100px;
+          margin-top: -100px;
+        }
+      }
+      p {
+        font-size: .8em;
+      }
+    }
+  }
+}
