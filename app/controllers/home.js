@@ -17,7 +17,7 @@ router.get('/', function (req, res, next) {
     let regExp = new RegExp(req.query.w, 'i')
     Professional.find(
       {'address.location': regExp},
-      {slug: 1, avatar: 1, first_name: 1, last_name: 1, background: 1, gender: 1, services: 1, options: 1, description: 1})
+      {slug: 1, avatar: 1, first_name: 1, last_name: 1, background: 1, gender: 1, services: 1, options: 1, description: 1, phone: 1})
       .sort({created_at: 1})
       .populate('services')
       .then(
