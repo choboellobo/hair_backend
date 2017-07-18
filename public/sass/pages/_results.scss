@@ -1,6 +1,8 @@
 #results {
-  .fullscreen {
-    height: 100vh;
+  .not-results {
+    @media (min-width: 600px) {
+      height: 100vh;
+    }
   }
   .card {
     .card-image {

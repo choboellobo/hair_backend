@@ -62,8 +62,9 @@
     top: 1em;
     right: 1em; }
 
-#results .fullscreen {
-  height: 100vh; }
+@media (min-width: 600px) {
+  #results .not-results {
+    height: 100vh; } }
 
 #results .card .card-image .gradiant {
   background: linear-gradient(50deg, #2fffc5, #3535d0);

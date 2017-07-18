@@ -2,28 +2,49 @@ extends layout
 block seo
   title Resultados de busqueda
 block content
+  //- Modal search
+  .modal#search
+    .modal-content
+      h5 Afina tu busqueda aquí
+      form.row(action="/")
+        .col.s12.input-field
+          input#where(type="text" name="w" value="#{query.w}" required)
+          label(for="where") Ciudad
+        .col.s12
+          input.with-gap#male(type="radio" name="gender" value="male")
+          label(for="male") Peluquero
+          input.with-gap#female(type="radio" name="gender" value="female")
+          label(for="female") Peluquera
+        .col.s12.input-field
+          button.btn.waves-effect.waves-light.waves-purple.blue
+            i.fa.fa-search.left
+            | Buscar
   include _navbar
   .container#results
     if professionals.length == 0
-      .row.fullscreen.valign-wrapper
-        .col.s12.center-align
-          i.fa.fa-bath.fa-5x
-          p Opss! No hemos encontrada ningún resultado. Prueba otra vez con algo diferente.
+      .row.valign-wrapper.not-results
+        .col.s12.m8.offset-m2.center-align
+          img.bounceInDown.animated(src="/img/not-results.png")
+          h4.bounceInLeft.animated Opss! No hemos encontrada ningún resultado.
           .col.s12
-            form(action="")
+            form.bounceInRight.animated(action="/")
               .input-field
-                input(text="search" name="w" placeholder="Prueba con otra localidad")
-              button.btn-large
-                i.fa.fa-search.left
-                | Buscar
+                input(text="text" name="w" placeholder="Prueba con otra ciudad")
+              .input-field
+                button.btn.waves-effect.waves-light.waves-purple.blue
+                  i.fa.fa-search.left
+                  | Buscar
     else
+      .fixed-action-btn
+        a.btn-floating.btn-large.blue.pulse(href="#search")
+          i.fa.fa-search(aria-hidden="true")
       .col.s12
-        p Hemos encontrado #{professionals.length} resultados.
+        p.bounceInLeft.animated Hemos encontrado #[strong #{professionals.length}] resultados.
       .row.hide-on-large-only
         each professional in professionals
           .col.s12
             +card(professional)
-      .row.hide-on-med-and-down
+      .row.hide-on-med-and-down.bounceInUp.animated
           .col.m4
             each professional, index in professionals
               if index%3 == 0
@@ -37,6 +58,8 @@ block content
               if index%3 == 2
                 +card(professional)
   include _footer
+  script.
+    $('.modal').modal();
 mixin card(professional)
   .card.hoverable
     .card-image
