@@ -8,9 +8,10 @@ block content
           .col.s12
             form.row(action="/")
               .col.s12.m6
-                .card
+                .card.fadeInLeft.animated.hoverable
                   .card-content
                     span.card-title ¿Dónde buscas peluquero/a?
+                    p Aquí todos van a tu casa.
                     .input-field
                       input#where(type="text" name="w" required autofocus)
                       label(for="where") Ciudad
@@ -18,20 +19,60 @@ block content
                       i.fa.fa-search.left
                       | Buscar
       .parallax
-        img(src="https://image.shutterstock.com/z/stock-photo-smiling-client-sitting-in-a-hair-salon-while-hairdresser-is-combing-her-hair-focus-on-client-301639736.jpg")
-    section.container
+        img(src="https://image.shutterstock.com/z/stock-photo-unrecognizable-hairdresser-cutting-hair-of-her-beautiful-young-c-408099175.jpg")
+    section.container#professionals
+      .row.padding-2em
+        .col.s12
+          h5 ¿Por qué elegir a nuestros peluqueros?
       .row
         .col.s12.m4
-          h1 x
+          .card.hoverable
+            .card-image
+              img(src="https://thumb9.shutterstock.com/display_pic_with_logo/78238/596168888/stock-photo-young-cheerful-girl-near-scooter-in-in-european-city-596168888.jpg")
+            .card-content
+              span.card-title Acuden a tu casa
+              p lorem ipsum
         .col.s12.m4
-          h1 x
+          .card.hoverable
+            .card-image
+              img(src="https://thumb1.shutterstock.com/display_pic_with_logo/1594919/289595393/stock-photo-portrait-of-a-beautiful-young-businesswoman-standing-outside-using-mobile-phone-289595393.jpg")
+            .card-content
+              span.card-title Comunicate facilmente
+              p lorem ipsum
         .col.s12.m4
-          h1 x
+          .card.hoverable
+            .card-image
+              img(src="https://thumb7.shutterstock.com/display_pic_with_logo/212824/605192291/stock-photo-portrait-of-tattooed-male-barber-holds-sharp-scissors-and-a-blade-605192291.jpg")
+            .card-content
+              span.card-title Son modernos
+              p lorem ipsum
+
+      .row
+        .col.s12.m4
+          .card.hoverable
+            .card-image
+              img(src="https://thumb7.shutterstock.com/display_pic_with_logo/137002/481524784/stock-photo-makeup-artist-and-hairdresser-preparing-bride-before-her-wedding-481524784.jpg")
+            .card-content
+              span.card-title Busca maquilladores/as
+              p lorem ipsum
+        .col.s12.m4
+          .card.hoverable
+            .card-image
+              img(src="https://thumb1.shutterstock.com/display_pic_with_logo/84610/302377649/stock-photo-hairdresser-cutting-woman-hair-in-shop-302377649.jpg")
+            .card-content
+              span.card-title Verificamos su identidad
+              p lorem ipsum
+        .col.s12.m4
+          .card.hoverable
+            .card-image
+              img(src="https://thumb9.shutterstock.com/display_pic_with_logo/702733/294663395/stock-photo-toddler-child-getting-his-first-haircut-294663395.jpg")
+            .card-content
+              span.card-title Tambien para tus niños
+              p lorem ipsum
     .section.parallax-container.valign-wrapper
       .container
         .row
           .col.s12.center-align.white-text.shadow-text
-            img.z-depth-1.white(src="https://static1.squarespace.com/static/54b98b1ce4b0b6737df46009/54e6abf1e4b0c31341a9d34b/54e8fda5e4b02e8e02345db8/1424555429959/barber.png" width="200")
             h1 ¿Buscas barbero?
             p Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No
       .parallax
