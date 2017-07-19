@@ -1,5 +1,5 @@
 @charset "UTF-8";
-.kurale-font, #profile h5, #profile header h4 {
+.kurale-font, #profile h5, #profile header h4, #notfound h1 {
   font-family: 'Kurale', serif; }
 
 .font-size-2x {
@@ -11,7 +11,7 @@
 .shadow-text, #profile nav .brand-logo .avatar + form label i {
   text-shadow: 1px 1px 5px black; }
 
-.background-image {
+.background-image, #notfound .background {
   background-repeat: no-repeat !important;
   background-position: center center !important;
   background-size: cover !important; }
@@ -58,6 +58,14 @@
     position: absolute;
     top: 1em;
     right: 1em; }
+
+#notfound .background {
+  height: 100vh;
+  background-image: url("/img/404.jpg"); }
+
+@media (max-width: 600px) {
+  #notfound h1 {
+    text-align: center; } }
 
 body {
   background-color: #e9ebee; }
