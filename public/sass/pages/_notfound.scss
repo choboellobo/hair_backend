@@ -1,7 +1,13 @@
 #notfound{
-	.fondo{
+	.background{
 		height: 100vh;
 		@extend .background-image;
 		background-image: url('/img/404.jpg');
+	}
+	h1{
+		@extend .kurale-font;
+		@media (max-width: 600px){
+			text-align: center;
+		}
 	}
 }
