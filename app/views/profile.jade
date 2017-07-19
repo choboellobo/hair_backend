@@ -1,6 +1,8 @@
 extends layout
 block seo
 	title=professional.fullname
+	if professional.description
+		meta(name="description" content="#{professional.description}")
 	- var icon_avatar = professional.avatar.replace('upload', 'upload/r_max')
 	link(rel="icon" type="image/png" href="#{icon_avatar}")
 block extra-head
@@ -31,9 +33,9 @@ block content
 			a(href="#work")
 				i.fa.fa-file-image-o.left(aria-hidden="true")
 				| Mis trabajos
-			a(href="#")
-				i.fa.fa-facebook-official.left(aria-hidden="true")
-				| Mi facebook
+			//- a(href="#")
+			//- 	i.fa.fa-facebook-official.left(aria-hidden="true")
+			//- 	| Mi facebook
 	//******* MODAL crop background *******///
 	.modal.modal-fixed-footer.crop#modal-background
 		.modal-content
@@ -108,10 +110,10 @@ block content
 								a(href="#work")
 									i.fa.fa-file-image-o.left(aria-hidden="true")
 									| Mis trabajos
-							li
-								a(href="")
-									i.fa.fa-facebook-official.left(aria-hidden="true")
-									| Mi facebook
+							//- li
+							//- 	a(href="")
+							//- 		i.fa.fa-facebook-official.left(aria-hidden="true")
+							//- 		| Mi facebook
 		// div del nombre del perfil que se oculta en escritorio
 		.row.hide-on-large-only
 			.col.s12.center-align
