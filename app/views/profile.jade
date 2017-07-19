@@ -1,6 +1,8 @@
 extends layout
 block seo
 	title=professional.fullname
+	if professional.description
+		meta(name="description" content="#{professional.description}")
 	- var icon_avatar = professional.avatar.replace('upload', 'upload/r_max')
 	link(rel="icon" type="image/png" href="#{icon_avatar}")
 block extra-head
@@ -243,20 +245,8 @@ block content
 			if professional.working_images.length == 0
 				.col.s12
 					span No hay registros
-			if professional._id == session.professional && professional.working_images.length >= 3
-				.row
-					.col.s12.m4
-						.card
-							.card-image.blue
-								img(src="http://www.paidrocket.com/images/rocketman.png")
-							.card-content
-								p lorem Ipsum
-							.card-action.center-align
-								a.btn.light-blue.darken-4.white-text(href="/plans")
-									i.left(class="fa fa-gift" aria-hidden="true")
-									| Lo quiero
 			//******* CARD subir imagenes del trabajo **********//
-			if professional._id == session.professional && professional.working_images.length < 3
+			if professional._id == session.professional
 				.row
 					.col.s12.m4
 						.card
