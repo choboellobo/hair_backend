@@ -6,5 +6,9 @@ module.exports = {
     cloud_name: 'dyfof1mr5',
     api_key: '156183584475275',
     api_secret: 'QIpKnaKaSgT6_X6TwxY3avsTfrQ'
+  },
+  email: {
+    user: 'choboellobo84@gmail.com',
+    password: 'Yahoo2012'
   }
 };

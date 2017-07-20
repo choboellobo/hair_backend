@@ -1,13 +1,14 @@
-extends layout
+extends ../layout
+block seo
+  title Accede como peluquero/a
 block content
-  include _navbar
+  include ../_navbar
   .container
     .row
       .col.s12.m6.offset-m3
-        form(action="/login" method="post")
+        form(action="/professional/login" method="post")
           .card
             .card-content
-              form(action="/login" method="post")
                 .input-field
                   input#email(type="email" name="email" required)
                   label(for="email") Email
@@ -24,5 +25,16 @@ block content
     .row
       .col.s12.m6.offset-m3.center-align
         p
-          a(href="#") ¿Se te ha olvidado la contraseña?
+          a#forgetPassword(href="#") ¿Se te ha olvidado la contraseña?
+        if recovery_password
+          p Se ha enviado un mensaje a tu email con las instrucciones para modificar tu contraseña.
+        form#formRecoveryPassword.row.hide(action="/professional/recovery_password" method="post")
+          .col.s12.input-field
+            input(type="email" name="email" id="email_recovery" required)
+            label(for="email_recovery") Escribe tu email para recuperar tu contraseña
+          .col.s12
+            button.btn
+              i.fa.fa-paper-plane.left(aria-hidden="true")
+              | Recuperar contraseña
         p ¿No tienes cuenta? #[a(href="/register") Regístrate]
+  script(src="/js/controllers/login.js")
