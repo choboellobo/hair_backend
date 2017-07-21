@@ -6,11 +6,11 @@
       ul.right.hide-on-med-and-down
         li
           if session.professional
-            a(href='/logout')
+            a(href='/professional/logout')
               i.fa.fa-sign-out.left
               | Salir
           else
-            a(href='/login')
+            a(href='/professional/login')
               i.fa.fa-sign-in.left
               | Acceder
         if !session.professional
@@ -24,10 +24,10 @@
 ul#dropdown.dropdown-content
   li
     if session.professional
-      a(href='/logout')
+      a(href='/professional/logout')
         | Salir
     else
-      a(href='/login')
+      a(href='/professional/login')
         | Acceder
   if !session.professional
     li

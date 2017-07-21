@@ -1,4 +1,4 @@
-extends layout
+extends ../layout
 block seo
 	title=professional.fullname
 	if professional.description
@@ -6,7 +6,7 @@ block seo
 	- var icon_avatar = professional.avatar.replace('upload', 'upload/r_max')
 	link(rel="icon" type="image/png" href="#{icon_avatar}")
 block extra-head
-	link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css")	
+	link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css")
 block content
 	//********* Botón flotante de llamada (margen inferior derecho) *******//
 	.fixed-action-btn
@@ -68,11 +68,11 @@ block content
 	//******** MODAL LOADING *******//
 	.modal.bottom-sheet#preloader
 		.modal-content.center-align
-			include _loading
+			include ../_loading
 			p Por favor espere mientras se sube la imagen
 
 	//**** NAVBAR *****//
-	include _navbar
+	include ../_navbar
 	.container#profile
 		.row
 			.col.s12
@@ -271,7 +271,7 @@ block content
 						if index%3 == 2
 							+card-image(image.url, image.public_id)
 	//**** Footer *****//
-	include _footer
+	include ../_footer
 	//******* Javascript ********//
 	script(src="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.js")
 	script(src="/js/controllers/profile.js")
