@@ -3,7 +3,7 @@ var express = require('express'),
 	Professional = require('../../models/professional'),
 	crypter = require('../../helpers/crypto'),
 	jwt = require('../../helpers/jwt');
-
+var Mailer = require('../../mailer/emails');
 	module.exports = function (app) {
 		app.use('/api/professional', router);
 	};
@@ -67,10 +67,14 @@ var express = require('express'),
 												p => {
 													Professional.findOne({_id: p._id}, {password: 0})
 													.then(p => {
-														res.status(201).json({
-															token: jwt.generate({_id: p._id, type: p.type}),
-															professional: p
-														});
+                            // We send an email to
+														Mailer.validate_account(p.email, '/professional/validate/'+crypter.encrypt(p.id))
+														.then(success => {
+															res.status(201).json({
+																token: jwt.generate({_id: p._id, type: p.type}),
+																professional: p
+															});
+														})
 													});
 												}
 											)

@@ -54,7 +54,7 @@ const Mailer = require('../mailer/emails');
                   }
                 )
   })
-
+// ********************** RECOVERY PASSWORD *************************
   /*
   POST
   /recovery_password
@@ -104,3 +104,9 @@ const Mailer = require('../mailer/emails');
                   error => res.render('professional/recovery_password', {session: req.session, error: true})
                 )
   })
+
+// ******************** VALIDATE ACCOUNT ***************
+
+router.get('/validate/:hash', function(req, res, next){
+  res.render('professional/validate', {session: req.session})
+})
