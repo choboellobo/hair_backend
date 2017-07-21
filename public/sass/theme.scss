@@ -33,3 +33,25 @@ Modales.
     top:0 !important;
   }
 }
+footer{
+	a{
+		&.circle-icon{
+			$square: 50px;
+			height: $square;
+			width: $square;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 50%;
+			margin-right: 20px;
+			background: white;
+		}
+	}
+	.footer-copyright{
+		a{
+			margin-right: 15px;
+			color: white;
+		}
+	}
+		
+}
