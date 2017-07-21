@@ -1,21 +1,33 @@
-footer.page-footer
-  .container
-    .row
-      .col.l6.s12
-        h5.white-text Footer Content
-        p.grey-text.text-lighten-4 You can use rows and columns here to organize your footer content.
-      .col.l4.offset-l2.s12
-        h5.white-text Links
-        ul
-          li
-            a.grey-text.text-lighten-3(href='#!') Link 1
-          li
-            a.grey-text.text-lighten-3(href='#!') Link 2
-          li
-            a.grey-text.text-lighten-3(href='#!') Link 3
-          li
-            a.grey-text.text-lighten-3(href='#!') Link 4
-  .footer-copyright
-    .container
-      | © 2014 Copyright Text
-      a.grey-text.text-lighten-4.right(href='#!') More Links
+footer.page-footer.cyan.darken-3
+	.container
+		.row
+			.col.s12.m6
+				h5.white-text Sobre nosotros
+				p.grey-text.text-lighten-4 You can use rows and columns here to organize your footer content.
+			.col.s12.m4.offset-m2
+				h5.white-text Enlaces
+				ul
+					li
+						a.grey-text.text-lighten-3(href='#!') Condiciones de uso
+					li
+						a.grey-text.text-lighten-3(href='#!') Aviso Legal
+					li
+						a.grey-text.text-lighten-3(href='#!') Cookies
+		.row
+			.col.s12.center-align
+				a.circle-icon
+					i.fa.fa-facebook-square.fa-2x(aria-hidden="true")
+				a.circle-icon
+					i.fa.fa-twitter.fa-2x(aria-hidden="true")
+				a.circle-icon
+					i.fa.fa-google-plus.fa-2x(aria-hidden="true")
+	.footer-copyright
+		.container
+			- var year = new Date().getFullYear()
+			| © #{year} Copyright
+			a.right
+				i.fa.fa-paypal.fa-lg(aria-hidden="true")
+			a.right
+				i.fa.fa-cc-visa.fa-lg(aria-hidden="true")
+			a.right
+				i.fa.fa-cc-mastercard.fa-lg(aria-hidden="true")
