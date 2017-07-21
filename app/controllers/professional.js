@@ -66,7 +66,7 @@ const Mailer = require('../mailer/emails');
                     if(professional){
                       Mailer.recovery_password(
                         professional.email,
-                        'http://localhost:3000/professional/recovery_password/'+ crypter.encrypt(professional.id)
+                        '/professional/recovery_password/'+ crypter.encrypt(professional.id)
                       ).then(
                         success => res.render('professional/login', {session: req.session, recovery_password: true}),
                         error => res.json(error)

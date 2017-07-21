@@ -21,7 +21,7 @@ class Mails {
         html: `
             <h3>Modifica tu contraseña aquí</h3>
             <p>Este email te  ha llegado porque nos has pedido modificar tu contraseña porque no la recuerdas o porque quieres cambiarla, pulsa en el enlace de abajo y podras cambiar tu contraseña</p>
-            <a href="${url}"> ${url}</a>
+            <a href="${env.host + url}"> ${env.host + url}</a>
             <p>
               <small>Todos los derechos reservados<small>
             </p>
