@@ -1,5 +1,5 @@
 @charset "UTF-8";
-.kurale-font, #profile h5, #profile header h4 {
+.kurale-font, #profile h5, #profile header h4, #notfound h1 {
   font-family: 'Kurale', serif; }
 
 .font-size-2x {
@@ -11,16 +11,12 @@
 .shadow-text, #profile nav .brand-logo .avatar + form label i {
   text-shadow: 1px 1px 5px black; }
 
-.background-image {
+.background-image, #notfound .background {
   background-repeat: no-repeat !important;
   background-position: center center !important;
   background-size: cover !important; }
 
 .fullscreen {
-  height: 100vh !important; }
-
-.padding-2em {
-  padding: 2em 0; }
 
 #profile {
   /*
@@ -60,33 +56,12 @@
         margin-left: 1em; }
         #profile nav .brand-logo .avatar + form label i {
           color: white !important; }
+  #profile #services .card {
+    min-height: 350px; }
   #profile .card .card-image .top-fab {
     position: absolute;
     top: 1em;
     right: 1em; }
-
-@media (min-width: 600px) {
-  #results .not-results {
-    height: 100vh; } }
-
-#results .card .card-image .gradiant {
-  background: linear-gradient(50deg, #2fffc5, #3535d0);
-  width: 100%;
-  height: 150px; }
-
-#results .card .card-content {
-  position: relative; }
-  #results .card .card-content .avatar {
-    position: absolute;
-    width: 100%;
-    left: 0;
-    top: 0; }
-    #results .card .card-content .avatar img {
-      border: solid 5px white;
-      width: 100px;
-      margin-top: -100px; }
-  #results .card .card-content p {
-    font-size: .8em; }
 
 body {
   background-color: #e9ebee; }
@@ -109,3 +84,17 @@ Modales.
   max-height: 100%;
   height: 100%;
   top: 0 !important; }
+
+footer a.circle-icon {
+  height: 50px;
+  width: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-right: 20px;
+  background: white; }
+
+footer .footer-copyright a {
+  margin-right: 15px;
+  color: white; }

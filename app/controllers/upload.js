@@ -53,7 +53,7 @@ router.post('/working_images', upload.single('working_images'), function(req, re
       // Upload file to cloudinary
       cloudinary.uploader.upload(req.file.path, function(image) {
         // When the image is already in cloudinary, push de object to array professional working_images
-        result.working_images.push(image)
+        result.working_images.unshift(image)
         result.save().then(
           done => {
             // Remove image local storage

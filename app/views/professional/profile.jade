@@ -1,11 +1,12 @@
-extends layout
+extends ../layout
 block seo
 	title=professional.fullname
+	if professional.description
+		meta(name="description" content="#{professional.description}")
 	- var icon_avatar = professional.avatar.replace('upload', 'upload/r_max')
 	link(rel="icon" type="image/png" href="#{icon_avatar}")
 block extra-head
-	link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css")
-	link(href="https://fonts.googleapis.com/css?family=Kurale" rel="stylesheet")
+	link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css")
 block content
 	//********* Botón flotante de llamada (margen inferior derecho) *******//
 	.fixed-action-btn
@@ -31,9 +32,9 @@ block content
 			a(href="#work")
 				i.fa.fa-file-image-o.left(aria-hidden="true")
 				| Mis trabajos
-			a(href="#")
-				i.fa.fa-facebook-official.left(aria-hidden="true")
-				| Mi facebook
+			//- a(href="#")
+			//- 	i.fa.fa-facebook-official.left(aria-hidden="true")
+			//- 	| Mi facebook
 	//******* MODAL crop background *******///
 	.modal.modal-fixed-footer.crop#modal-background
 		.modal-content
@@ -67,11 +68,11 @@ block content
 	//******** MODAL LOADING *******//
 	.modal.bottom-sheet#preloader
 		.modal-content.center-align
-			include _loading
+			include ../_loading
 			p Por favor espere mientras se sube la imagen
 
 	//**** NAVBAR *****//
-	include _navbar
+	include ../_navbar
 	.container#profile
 		.row
 			.col.s12
@@ -108,10 +109,10 @@ block content
 								a(href="#work")
 									i.fa.fa-file-image-o.left(aria-hidden="true")
 									| Mis trabajos
-							li
-								a(href="")
-									i.fa.fa-facebook-official.left(aria-hidden="true")
-									| Mi facebook
+							//- li
+							//- 	a(href="")
+							//- 		i.fa.fa-facebook-official.left(aria-hidden="true")
+							//- 		| Mi facebook
 		// div del nombre del perfil que se oculta en escritorio
 		.row.hide-on-large-only
 			.col.s12.center-align
@@ -172,39 +173,47 @@ block content
 											button.btn(type="submit") Actualizar
 
 			//************ CARD MAPA ***********//
-			.col.s12.m4
-				.card
-					.card-image
-						if professional.options.store
-							img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.place},#{professional.address.location},España&zoom=13&size=600x400&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
-						else
-							img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.location},España&zoom=13&size=600x400&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
-					.card-content
+			if professional.address
+				.col.s12.m4
+					.card
+						.card-image
+							if professional.address.location
+								if professional.options.store
+									img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.place},#{professional.address.location},España&zoom=13&size=600x400&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
+								else
+									img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.location},España&zoom=13&size=600x400&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
+							else
+								img(src="https://thumb7.shutterstock.com/display_pic_with_logo/696460/520874077/stock-photo-portrait-confused-thinking-young-woman-bewildered-scratching-her-head-seeks-a-solution-looking-up-520874077.jpg")
+								span.card-title.shadow-text Sin datos de ubicación
+						if professional.address.location || professional.address.place
+							.card-content
+								if professional._id == session.professional
+									i.fa.fa-pencil.right.activator(aria-hidden="true")
+								if professional.options.store
+									p Ven a verme a mi local en #[strong #{professional.address.place} #{professional.address.location}]
+								else
+									p Presto servicios en la zona de #[strong #{professional.address.location}]
+						.card-action.center-align
+							small Pagos aceptados
+							br
+							i.margin-left-05em.tooltipped(class="fa fa-money fa-2x" aria-hidden="true"  data-position="bottom" data-delay="50" data-tooltip="Efectivo")
+							if professional.options.payments.card
+								i.margin-left-05em.tooltipped(class="fa fa-cc-visa fa-2x" aria-hidden="true"  data-position="bottom" data-delay="50" data-tooltip="Pago con Visa")
+								i.margin-left-05em.tooltipped(class="fa fa-cc-mastercard fa-2x" aria-hidden="true"  data-position="bottom" data-delay="50" data-tooltip="Pago con MasterCard")
+						if professional.options.home
+							.card-action.center-align
+								.chip.black-text
+									i.fa.fa-home(aria-hidden="true")
+									| Trabajo a domicilio
 						if professional._id == session.professional
-							i.fa.fa-pencil.right.activator(aria-hidden="true")
-						if professional.options.store
-							p Ven a verme a mi local en #[strong #{professional.address.place} #{professional.address.location}]
-						else
-							p Presto servicios en la zona de #[strong #{professional.address.location}]
-					.card-action.center-align
-						small Pagos aceptados
-						br
-						i.margin-left-05em.tooltipped(class="fa fa-money fa-2x" aria-hidden="true"  data-position="bottom" data-delay="50" data-tooltip="Efectivo")
-						i.margin-left-05em.tooltipped(class="fa fa-cc-visa fa-2x" aria-hidden="true"  data-position="bottom" data-delay="50" data-tooltip="Pago con Visa")
-						i.margin-left-05em.tooltipped(class="fa fa-cc-mastercard fa-2x" aria-hidden="true"  data-position="bottom" data-delay="50" data-tooltip="Pago con MasterCard")
-					.card-action.center-align
-						.chip.black-text
-							i.fa.fa-home(aria-hidden="true")
-							| Trabajo a domicilio
-					if professional._id == session.professional
-						.card-reveal
-							span.card-title
-								| Ubicación
-								i.fa.fa-times.right
-							.input-field
-								input(type="text" id="location")
-								label(for="location") Ubicación
-							button.btn Buscar
+							.card-reveal
+								span.card-title
+									| Ubicación
+									i.fa.fa-times.right
+								.input-field
+									input(type="text" id="location")
+									label(for="location") Ubicación
+								button.btn Buscar
 		//*********** SECTION MIS SERVICIOS *********//
 		section.row.scrollspy#services
 			.col.s12
@@ -270,7 +279,7 @@ block content
 						if index%3 == 2
 							+card-image(image.url, image.public_id)
 	//**** Footer *****//
-	include _footer
+	include ../_footer
 	//******* Javascript ********//
 	script(src="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.js")
 	script(src="/js/controllers/profile.js")
