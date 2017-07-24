@@ -5,8 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "mocha test/ -w",
-    "postinstall": "HOME=$OPENSHIFT_REPO_DIR bower install || bower install"
+    "test": "mocha test/ -w"
   },
   "engines": {
     "node": ">= 6.6.0",
