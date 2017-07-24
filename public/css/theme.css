@@ -16,6 +16,9 @@
   background-position: center center !important;
   background-size: cover !important; }
 
+.fullscreen {
+  height: calc(100vh - 60px); }
+
 #profile {
   /*
     Header: Este elemento contendra un fondo o un degradado.

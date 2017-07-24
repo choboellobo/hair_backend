@@ -5,9 +5,9 @@ const crypter = require('../helpers/crypto');
 const	jwt = require('../helpers/jwt');
 const Mailer = require('../mailer/emails');
 
-	module.exports = function (app) {
-		app.use('/professional', router);
-	};
+  module.exports = function (app) {
+  app.use('/professional', router);
+  };
 
 /*
   POST
@@ -31,6 +31,7 @@ const Mailer = require('../mailer/emails');
       res.redirect('/professional/login')
     })
   })
+  /***************  LOGIN - LOGOUT ********************/
   /*
     GET /login
   */
@@ -44,13 +45,14 @@ const Mailer = require('../mailer/emails');
     Professional.findOne({email: req.body.email, password: crypter.encrypt(req.body.password)})
                 .then(
                   professional => {
-                    if(!professional) return res.render('professional/login', {error: true, session: req.session})
+                    if(!professional) return res.render('professional/login', {error: 'Usuario o contraseña incorrectos', session: req.session})
+                    if(professional.active == false) return res.render('professional/login', {error: 'Cuenta no activa, revise su correo para activar la cuenta', session: req.session})
                     req.session.professional = professional._id
                     req.session.slug = professional.slug
                     res.redirect(`/${professional.slug}`);
                   },
                   error => {
-                    res.render('professional/login', {error: true, session: req.session})
+                    res.render('professional/login', {error: 'Hubo un problema con el servidor, intentelo más tarde', session: req.session})
                   }
                 )
   })
@@ -108,5 +110,19 @@ const Mailer = require('../mailer/emails');
 // ******************** VALIDATE ACCOUNT ***************
 
 router.get('/validate/:hash', function(req, res, next){
-  res.render('professional/validate', {session: req.session})
+  let id;
+  try {
+    id = crypter.decrypt(req.params.hash)
+  }catch(err){res.redirect('/professional/login')}
+  console.log(id)
+  Professional.update({_id:id}, {$set: {active: true}})
+    .then(
+      Professional.findById(id).then(
+        professional => {
+          req.session.professional = professional._id
+          req.session.slug = professional.slug
+          res.render('professional/validate', {session: req.session, professional: professional})
+        }
+      )
+    )
 })
