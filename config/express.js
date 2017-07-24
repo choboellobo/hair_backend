@@ -8,6 +8,9 @@ var bodyParser = require('body-parser');
 var compress = require('compression');
 var methodOverride = require('method-override');
 var cors = require('cors')
+var session = require('express-session')
+var multer  = require('multer')
+var path = require('path')
 
 module.exports = function(app, config) {
   var env = process.env.NODE_ENV || 'development';
@@ -20,10 +23,16 @@ module.exports = function(app, config) {
   // cors
   app.use(cors())
 
+  // session
+  app.use(session({
+  secret: 'keyboard cat'
+  }))
+
   // app.use(favicon(config.root + '/public/img/favicon.ico'));
   app.use(logger('dev'));
-  app.use(bodyParser.json());
+  app.use(bodyParser.json({limit: '50mb'}));
   app.use(bodyParser.urlencoded({
+    limit: '50mb',
     extended: true
   }));
   app.use(cookieParser());
@@ -45,7 +54,8 @@ module.exports = function(app, config) {
   if(app.get('env') === 'development'){
     app.use(function (err, req, res, next) {
       res.status(err.status || 500);
-      res.render('error', {
+      if(err.status === 404) return res.render('error/notfound', {session: req.session});
+      res.render('error/error', {
         message: err.message,
         error: err,
         title: 'error'
@@ -55,7 +65,8 @@ module.exports = function(app, config) {
 
   app.use(function (err, req, res, next) {
     res.status(err.status || 500);
-      res.render('error', {
+      if(err.status === 404) return res.render('error/notfound', {session: req.session});
+      res.render('error/error', {
         message: err.message,
         error: {},
         title: 'error'
@@ -65,5 +76,4 @@ module.exports = function(app, config) {
   app.listen(config.port, config.ip, function () {
     console.log('Express server listening on port ' + config.port);
   });
-
 };

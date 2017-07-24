@@ -1,0 +1,39 @@
+// Aqui el navbar
+.navbar-fixed
+  nav#main.white
+    .nav-wrapper.container
+      a.brand-logo(href='/')
+        img(src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png", alt="Logotipo")
+      ul.right.hide-on-med-and-down
+        li
+          if session.professional
+            a(href='/professional/logout')
+              i.fa.fa-sign-out.left
+              | Salir
+          else
+            a(href='/professional/login')
+              i.fa.fa-sign-in.left
+              | Acceder
+        if !session.professional
+          li
+            a.btn.waves-effect.waves-light(href="/register")
+              | Registrate
+      ul.right.hide-on-large-only
+        li
+          a.dropdown-button(href="#" data-activates="dropdown")
+            i(class="fa fa-ellipsis-v" aria-hidden="true")
+ul#dropdown.dropdown-content
+  li
+    if session.professional
+      a(href='/professional/logout')
+        | Salir
+    else
+      a(href='/professional/login')
+        | Acceder
+  if !session.professional
+    li
+      a(href="/register")
+        | Registrate
+script.
+  $(".dropdown-button").dropdown();
+// Aquí termina el archivo navbar

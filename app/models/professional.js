@@ -1,6 +1,7 @@
-var mongoose = require('mongoose'),
-	Schema = mongoose.Schema,
-	mongoosePaginate = require('mongoose-paginate');
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var mongoosePaginate = require('mongoose-paginate');
+
 mongoosePaginate.paginate.options = {
 	lean: true,
 	limit: 20,
@@ -22,6 +23,19 @@ var ProfessionalSchema = new Schema({
 			message: 'Email incorrecto'
 		}
 	},
+  schedules: {
+    type: String
+  },
+  slug: {type: String},
+  gender: {
+    type: String,
+    required: true,
+		index: true
+  },
+  birthday: {
+    type: Date,
+    required: true
+  },
 	password: {
 		type: String,
 		required: true
@@ -34,10 +48,30 @@ var ProfessionalSchema = new Schema({
 		type: String,
 		required: true
 	},
-	document_id: {
+	description: {
+		type: String
+	},
+	avatar: {
 		type: String,
-		required: true,
-		unique: true
+		required: true
+	},
+	working_images: {
+		type: Array
+	},
+	background: {
+		type: JSON
+	},
+	document_id: {
+		type: String
+	},
+	slug: {type: String},
+	options: {
+		store: {type: Boolean},
+		home: {type: Boolean},
+		payments: {
+			card: {type: Boolean},
+			cash: {type: Boolean, default: true}
+		}
 	},
 	phone: {
 		type: Number,
@@ -49,11 +83,20 @@ var ProfessionalSchema = new Schema({
 			message: 'El numero de telefono no es correcto'
 		}
 	},
+	services: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Services',
+		required: true
+	}],
 	active: {
 		type: Boolean,
 		default: false
 	},
 	address: {
+		coordinates: {
+			lat: {type: Number},
+			lng: {type: Number}
+		},
 		place: {
 			type: String
 		},
@@ -72,10 +115,40 @@ var ProfessionalSchema = new Schema({
 		default: 'professional'
 	}
 }, {
+	toObject: {
+		virtuals: true
+	},
+	toJSON: {
+		virtuals: true
+	},
 	timestamps: {
 		createdAt: 'created_at',
 		updatedAt: 'updated_at'
 	}
 });
 ProfessionalSchema.plugin(mongoosePaginate);
+ProfessionalSchema.virtual('fullname')
+.get(function () {
+	return this.first_name + ' ' + this.last_name;
+});
+ProfessionalSchema.pre('save', function(next) {
+  function removeAccents(s){
+      var r=s.toLowerCase();
+      r = r.replace(new RegExp(/\s/g),"");
+      r = r.replace(new RegExp(/[àáâãäå]/g),"a");
+      r = r.replace(new RegExp(/æ/g),"ae");
+      r = r.replace(new RegExp(/ç/g),"c");
+      r = r.replace(new RegExp(/[èéêë]/g),"e");
+      r = r.replace(new RegExp(/[ìíîï]/g),"i");
+      r = r.replace(new RegExp(/ñ/g),"n");
+      r = r.replace(new RegExp(/[òóôõö]/g),"o");
+      r = r.replace(new RegExp(/œ/g),"oe");
+      r = r.replace(new RegExp(/[ùúûü]/g),"u");
+      r = r.replace(new RegExp(/[ýÿ]/g),"y");
+      r = r.replace(new RegExp(/\W/g),"");
+      return r;
+  };
+  this.slug = removeAccents(this.first_name).replace(/ /g, "-").toLowerCase()+"-"+removeAccents(this.last_name).replace(/ /g, "-").toLowerCase()
+  next()
+});
 module.exports = mongoose.model('Professional', ProfessionalSchema);

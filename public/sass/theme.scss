@@ -1,0 +1,63 @@
+@import "variables";
+@import "fonts";
+@import "helpers";
+
+
+// Pages
+@import "./pages/profile";
+@import "./pages/home";
+@import "./pages/results";
+@import "./pages/notfound";
+
+
+body{
+  background-color: #e9ebee;
+}
+.btn {
+  background: #00838f;
+}
+nav{
+  &#main {
+    a:not(.btn) {
+      color: black !important;
+    }
+    .brand-logo{
+      height: inherit;
+        img {
+          height: inherit;
+        }
+    }
+  }
+}
+/*
+Modales.
+*/
+.modal {
+  &.crop {
+    max-height: 100%;
+    height: 100%;
+    top:0 !important;
+  }
+}
+footer{
+	a{
+		&.circle-icon{
+			$square: 50px;
+			height: $square;
+			width: $square;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 50%;
+			margin-right: 20px;
+			background: white;
+		}
+	}
+	.footer-copyright{
+		a{
+			margin-right: 15px;
+			color: white;
+		}
+	}
+		
+}

@@ -1,12 +1,20 @@
 doctype html
-html(lang='en')
+html(lang='es')
   head
+    link(href="https://fonts.googleapis.com/css?family=Kurale" rel="stylesheet")
+    block extra-head
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width')
-    title= title
+    block seo
+      title Tus peluqueros aquí
     block css
-      link(rel='stylesheet', href='/css/style.css')
+      link(rel="stylesheet", href="/components/animate.css/animate.min.css")
+      link(rel="stylesheet", href="/components/font-awesome/css/font-awesome.min.css")
+      link(rel="stylesheet", href="/components/materialize/dist/css/materialize.min.css")
+      link(rel='stylesheet', href='/css/theme.css')
     block js
+      script(src="/components/jquery/dist/jquery.min.js")
+      script(src="/components/materialize/dist/js/materialize.min.js")
       if ENV_DEVELOPMENT
         script(src='http://localhost:35729/livereload.js')
   body

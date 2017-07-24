@@ -1,0 +1,67 @@
+<div class="row valign-wrapper">
+  <div class="fullscreen background col s12 m8 hide-on-med-and-down" style="background-image: url(https://image.shutterstock.com/z/stock-photo-female-hairdresser-smiling-making-hairstyle-to-girl-in-beauty-salon-518189275.jpg)">
+    <img class="fadeInRight animated logo-background-right" src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png" width="150px" alt="">
+  </div>
+  <div class="col s12 l4">
+    <div class="row">
+      <form novalidate name="form" ng-submit="$event.preventDefault()">
+        <div class="col s12">
+          <h5>¡Crea una cuenta gratis!</h5>
+          <p>
+            Lorem Ipsum es <strong>relleno</strong> el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha
+          </p>
+        </div>
+        <div class="col s12 m6 input-field">
+          <input type="text" id="first_name" name="first_name" required class="validate" ng-model="vm.professional.first_name" minlength="1">
+          <label for="first_name" data-error="Campo requerido">Nombre</label>
+        </div>
+        <div class="col s12 m6 input-field">
+          <input type="text" id="last_name" name="last_name" required class="validate" ng-model="vm.professional.last_name" minlength="1">
+          <label for="last_name" data-error="Campo requerido">Apellidos</label>
+        </div>
+        <div class="col s12 m6 input-field">
+          <input type="email" id="email" name="email" required class="validate" ng-model="vm.professional.email" >
+          <label for="email" data-error="Escriba un email valido">Email</label>
+        </div>
+        <div class="col s12 m6 input-field">
+          <input type="password" id="password" name="password" required class="validate" ng-model="vm.professional.password" minlength="6">
+          <label for="password" data-error="Minimo 6 caracteres">Contraseña</label>
+        </div>
+        <div class="col s12 m6 input-field">
+          <input type="text" id="phone" name="phone" required class="validate" pattern="^[9|6|7][0-9]{8}$" ng-model="vm.professional.phone" maxlength="9">
+          <label for="phone" data-error="Escriba un teléfono valido">Teléfono</label>
+        </div>
+        <div class="col s12 m6 input-field">
+          <input type="date" id="birthday" name="birthday" required class="datepicker" materialize-datepicker ng-model="vm.professional.birthday">
+          <label for="birthday">Fecha de nacimiento</label>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <input type="radio" id="female" name="gender" required value="female" class="with-gap" ng-model="vm.professional.gender">
+            <label for="female">Mujer</label>
+            <input type="radio" id="male" name="gender" required value="male" class="with-gap" ng-model="vm.professional.gender">
+            <label for="male">Hombre</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <input type="checkbox" id="lopd" ng-model="vm.professional.lopd" required>
+            <label for="lopd">He leído y acepto las condiciones generales de uso y el aviso de protección de datos personales y publicidad.</label>
+          </div>
+        </div>
+        <div class="col s12">
+          <div class="progress" ng-show="vm.loading">
+              <div class="indeterminate"></div>
+          </div>
+          <div class="card-panel red white-text" ng-show="vm.error">
+            {{vm.error}}
+          </div>
+          <button ng-class="{'rubberBand animated' : form.$valid}" ng-disabled="form.$invalid || vm.loading" class="btn" ng-click="vm.registerProfessional()">
+            <i class="fa fa-paper-plane-o left" aria-hidden="true"></i>
+            Registrarse
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

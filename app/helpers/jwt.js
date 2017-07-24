@@ -1,5 +1,6 @@
+const env = require('../env/env');
 const jwt = require('jsonwebtoken');
-const jwt_key = process.env.JWT_KEY || "wtf";
+const jwt_key = process.env.JWT_KEY || env.jwt_key;
 
 let jwt_obj = {
 	generate: function(obj){

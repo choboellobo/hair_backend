@@ -1,0 +1,16 @@
+extends ../layout
+block seo
+	title 404 Página no encontrada
+block content
+	include ../_navbar
+	#notfound
+		.background.valign-wrapper
+			.container
+				.row
+					.col.s12.m6.white-text.shadow-text
+						h1 Página no encontrada
+						p No te cortes ni un pelo y empieza de nuevo a través de la Página de Inicio
+						a.waves-effect.waves-light.btn.white.black-text(href="/")
+							i.fa.fa-scissors.left(aria-hidden="true")
+							|VOLVER AL INICIO
+	include ../_footer
