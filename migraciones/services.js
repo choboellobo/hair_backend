@@ -11,23 +11,27 @@ Service.collection.drop();
 var data = [
   {
     name: "Cortar y lavar caballero",
-    image: "http://www.muysencillo.com/wp-content/uploads/2015/02/Hombres-pelo-corto-330x220.jpg"
+    image: "https://thumb9.shutterstock.com/display_pic_with_logo/2711341/568820482/stock-photo-skillful-hairdresser-cutting-male-hair-568820482.jpg"
   },
   {
     name: "Cortar, peinar y lavar",
-    image: "http://static.ellahoy.es/ellahoy/fotogallery/843X0/33849/cortes-de-pelo-verano-2012-pelo-corto.jpg"
+    image: "https://thumb1.shutterstock.com/display_pic_with_logo/64260/548285116/stock-photo-beauty-and-people-concept-happy-young-woman-with-hairdresser-washing-head-at-hair-salon-548285116.jpg"
   },
   {
     name: "Maquillaje",
-    image: "https://maquilladas.com/wp-content/2012/03/Pruebas-de-maquillaje-y-peluquer%C3%ADa-para-novias-2.jpg"
+    image: "https://thumb1.shutterstock.com/display_pic_with_logo/1532018/288406793/stock-photo-makeup-artist-preparing-bride-before-the-wedding-in-a-morning-288406793.jpg"
   },
   {
-    name: "Peinados",
-    image: "http://www.desancho.com/web/wp-content/uploads/2015/09/Tendencia-para-recogidos-en-eventos-y-fiestas.jpg"
+    name: "Peinados y recogidos",
+    image: "https://thumb1.shutterstock.com/display_pic_with_logo/3740375/541580689/stock-photo-hairdresser-working-at-the-beauty-studio-salon-making-hair-style-541580689.jpg"
   },
   {
     name: "Barberia",
-    image: "http://www.thuya.com/escuela/images/cursos/inten/pelu/cu/Imatge_Web_Barberia.jpg"
+    image: "https://thumb1.shutterstock.com/display_pic_with_logo/1998197/364870139/stock-photo-getting-perfect-shape-close-up-side-view-of-young-bearded-man-getting-beard-haircut-by-hairdresser-364870139.jpg"
+  },
+  {
+    name: "Teñir",
+    image: "https://thumb7.shutterstock.com/display_pic_with_logo/158350/534447844/stock-photo-hairdresser-coloring-hair-in-studio-534447844.jpg"
   }
 ]
   for(let i = 0; i<data.length; i++){
