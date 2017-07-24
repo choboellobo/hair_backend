@@ -1,3 +1,4 @@
+// Aqui el navbar
 .navbar-fixed
   nav#main.white
     .nav-wrapper.container
@@ -15,7 +16,7 @@
               | Acceder
         if !session.professional
           li
-            a.btn.waves-effect.waves-light.blue.white-text(href="/register")
+            a.btn.waves-effect.waves-light(href="/register")
               | Registrate
       ul.right.hide-on-large-only
         li
@@ -35,3 +36,4 @@ ul#dropdown.dropdown-content
         | Registrate
 script.
   $(".dropdown-button").dropdown();
+// Aquí termina el archivo navbar

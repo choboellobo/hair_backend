@@ -17,7 +17,6 @@
   background-size: cover !important; }
 
 .fullscreen {
-  height: calc(100vh - 60px); }
 
 #profile {
   /*
@@ -64,16 +63,11 @@
     top: 1em;
     right: 1em; }
 
-#notfound .background {
-  height: 100vh;
-  background-image: url("/img/404.jpg"); }
-
-@media (max-width: 600px) {
-  #notfound h1 {
-    text-align: center; } }
-
 body {
   background-color: #e9ebee; }
+
+.btn {
+  background: #00838f; }
 
 nav#main a:not(.btn) {
   color: black !important; }

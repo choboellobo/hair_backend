@@ -20,7 +20,6 @@ gulp.task('sass', function () {
 
 gulp.task('watch', function() {
   gulp.watch('./public/sass/**/*.scss', ['sass']);
-
 });
 
 gulp.task('develop', function () {

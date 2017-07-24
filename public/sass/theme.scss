@@ -5,10 +5,16 @@
 
 // Pages
 @import "./pages/profile";
+@import "./pages/home";
+@import "./pages/results";
 @import "./pages/notfound";
+
 
 body{
   background-color: #e9ebee;
+}
+.btn {
+  background: #00838f;
 }
 nav{
   &#main {
