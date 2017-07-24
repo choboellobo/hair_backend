@@ -114,15 +114,17 @@ router.get('/validate/:hash', function(req, res, next){
   try {
     id = crypter.decrypt(req.params.hash)
   }catch(err){res.redirect('/professional/login')}
-  console.log(id)
   Professional.update({_id:id}, {$set: {active: true}})
     .then(
-      Professional.findById(id).then(
-        professional => {
-          req.session.professional = professional._id
-          req.session.slug = professional.slug
-          res.render('professional/validate', {session: req.session, professional: professional})
-        }
-      )
+      success => {
+        Professional.findById(id).then(
+          professional => {
+            req.session.professional = professional._id
+            req.session.slug = professional.slug
+            res.render('professional/validate', {session: req.session, professional: professional})
+          }
+        )
+      },
+      error => res.redirect('/professional/login')
     )
 })
