@@ -16,7 +16,7 @@ block content
           input.with-gap#female(type="radio" name="gender" value="female")
           label(for="female") Peluquera
         .col.s12.input-field
-          button.btn.waves-effect.waves-light.waves-purple.blue
+          button.btn.waves-effect.waves-light.waves-purple
             i.fa.fa-search.left
             | Buscar
   include _navbar
@@ -31,12 +31,12 @@ block content
               .input-field
                 input(text="text" name="w" placeholder="Prueba con otra ciudad")
               .input-field
-                button.btn.waves-effect.waves-light.waves-purple.blue
+                button.btn.waves-effect.waves-light.waves-purple
                   i.fa.fa-search.left
                   | Buscar
     else
       .fixed-action-btn
-        a.btn-floating.btn-large.blue.pulse(href="#search")
+        a.btn-floating.btn-large.pulse(href="#search")
           i.fa.fa-search(aria-hidden="true")
       .col.s12
         p.bounceInLeft.animated Hemos encontrado #[strong #{professionals.length}] resultados.
