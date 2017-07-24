@@ -1,5 +1,6 @@
 module.exports = {
-  host: "http://localhost:3000",
+  //host: "http://localhost:3000",
+  host: "http://hair-chobo.rhcloud.com",
   jwt_key : 'wtf',
   crypto_key: 'wtf',
 	stripe_key: 'sk_test_MrFhxIb2j4Ebc6gBbq3GuHq7',
