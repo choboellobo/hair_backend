@@ -3,7 +3,7 @@ var express = require('express'),
 	Professional = require('../../models/professional'),
 	crypter = require('../../helpers/crypto'),
 	jwt = require('../../helpers/jwt');
-
+var Mailer = require('../../mailer/emails');
 	module.exports = function (app) {
 		app.use('/api/professional', router);
 	};
@@ -54,34 +54,36 @@ var express = require('express'),
 		return  201 {professional: Object}
 	******/
 	router.post('/', function (req, res, next) {
-		let professional = req.body;
-		Professional.findOne({email: professional.email})
+		// Find if professional exists
+		Professional.findOne({email: req.body.email})
 								.then(
-									pro => {
-										if (pro) res.status(403).json({error: true, message: 'Professional exists into the database'});
+									professional => {
+										// If professional exits 403
+										if (professional) res.status(403).json({error: true, message: 'Professional exists into the database'});
 										else {
-											professional.password = crypter.encrypt(professional.password);
-											let new_professional = new Professional(professional);
+											// Save a new professional
+											req.body.password = crypter.encrypt(req.body.password);
+											let new_professional = new Professional(req.body);
 											new_professional.save()
 											.then(
-												p => {
-													Professional.findOne({_id: p._id}, {password: 0})
-													.then(p => {
+												newProfessional => {
+													// Send an email to validate
+													Mailer.validate_account(newProfessional.email, '/professional/validate/'+crypter.encrypt(newProfessional.id))
+													.then(success => {
+														// When email is already sent return JWT and DATA.
 														res.status(201).json({
-															token: jwt.generate({_id: p._id, type: p.type}),
-															professional: p
+															token: jwt.generate({_id: newProfessional._id, type: newProfessional.type}),
+															professional: newProfessional
 														});
-													});
-												}
+													},
+													error => next(error)
+												)
+												},
+												error => res.status(400).json({error: true, catch: error})
 											)
-											.catch(
-												error => {
-													res.status(400).json({error: true, catch: error});
-												}
-											);
 										}
 									}
-								);
+								)
 	});
 
 	router.patch('/:id', jwt.middleware, function (jwt_data, req, res, next) {

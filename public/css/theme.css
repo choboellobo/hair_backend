@@ -16,6 +16,9 @@
   background-position: center center !important;
   background-size: cover !important; }
 
+.fullscreen {
+  height: calc(100vh - 60px); }
+
 #profile {
   /*
     Header: Este elemento contendra un fondo o un degradado.
@@ -54,6 +57,8 @@
         margin-left: 1em; }
         #profile nav .brand-logo .avatar + form label i {
           color: white !important; }
+  #profile #services .card {
+    min-height: 350px; }
   #profile .card .card-image .top-fab {
     position: absolute;
     top: 1em;
