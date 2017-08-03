@@ -16,6 +16,12 @@ block content
           input.with-gap#female(type="radio" name="gender" value="female")
           label(for="female") Peluquera
         .col.s12.input-field
+          select.icons(name="services")
+            option(selected disabled ) Seleccione un servicio
+            each service in services
+              option.circle.left(value="#{service.id}" data-icon="#{service.image}") #{service.name}
+          label Servicios
+        .col.s12.input-field
           button.btn.waves-effect.waves-light.waves-purple
             i.fa.fa-search.left
             | Buscar
@@ -27,9 +33,15 @@ block content
           img.bounceInDown.animated(src="/img/not-results.png")
           h4.bounceInLeft.animated Opss! No hemos encontrada ningún resultado.
           .col.s12
-            form.bounceInRight.animated(action="/")
+            form(action="/")
               .input-field
-                input(text="text" name="w" placeholder="Prueba con otra ciudad")
+                input(text="text" name="w" placeholder="Prueba con otra ciudad" autofocus required)
+              .input-field
+                select.icons(name="services")
+                  option(selected disabled ) Seleccione un servicio
+                  each service in services
+                    option.circle.left(value="#{service.id}" data-icon="#{service.image}") #{service.name}
+                label Servicios
               .input-field
                 button.btn.waves-effect.waves-light.waves-purple
                   i.fa.fa-search.left
@@ -60,6 +72,7 @@ block content
   include _footer
   script.
     $('.modal').modal();
+     $('select').material_select();
 mixin card(professional)
   .card.hoverable
     .card-image
@@ -78,6 +91,8 @@ mixin card(professional)
         p #{professional.description}
       else
         p Este usuario todavia no ha añadido una description sobre el mismo.
+      p.center-align
+        a.waves-effect.waves-light(href="/#{professional.slug}") Saber más acerca de mí
     if professional.services.length > 0
       .card-action.center-align
         each service in professional.services
