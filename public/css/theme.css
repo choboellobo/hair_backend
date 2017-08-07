@@ -19,6 +19,9 @@
 .fullscreen {
   height: 100vh !important; }
 
+.margin-top-2em {
+  margin-top: 2em; }
+
 #profile {
   /*
     Header: Este elemento contendra un fondo o un degradado.
