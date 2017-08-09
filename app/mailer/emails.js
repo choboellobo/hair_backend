@@ -37,7 +37,7 @@ class Mails {
   recovery_password(to, url) {
     // setup email data with unicode symbols
     let mailOptions = {
-          from: '"UrbHair" <app@urbhair.com>', // sender address
+        from: '"UrbHair" <app@urbhair.com>', // sender address
         to: to, // list of receivers
         subject: 'Puedes modificar tu contraseña aquí', // Subject line
         text: 'Este email no soporta texto plano, visualiza este email con un programa de correo', // plain text body
