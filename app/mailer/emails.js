@@ -6,16 +6,21 @@ const path = require('path')
 class Mails {
   constructor() {
     this.transporter = nodemailer.createTransport({
-      service: 'Gmail',
-      auth: {
-          user: env.email.user, // Your email id
-          pass: env.email.password // Your password
+        host: 'smtp.urbhair.com',
+        port: 465,
+        secure: true, // upgrade later with STARTTLS
+        auth: {
+          user: env.email.user,
+          pass: env.email.password
+        },
+        tls: {
+          rejectUnauthorized: false
       }
     });
   }
   validate_account(to, url) {
     let mailOptions = {
-        from: 'choboellobo84@gmail.com', // sender address
+        from: '"UrbHair" <app@urbhair.com>', // sender address
         to: to, // list of receivers
         subject: 'Valida tu cuenta', // Subject line
         text: 'Este email no soporta texto plano, visualiza este email con un programa de correo', // plain text body
@@ -32,7 +37,7 @@ class Mails {
   recovery_password(to, url) {
     // setup email data with unicode symbols
     let mailOptions = {
-        from: 'choboellobo84@gmail.com', // sender address
+        from: '"UrbHair" <app@urbhair.com>', // sender address
         to: to, // list of receivers
         subject: 'Puedes modificar tu contraseña aquí', // Subject line
         text: 'Este email no soporta texto plano, visualiza este email con un programa de correo', // plain text body
