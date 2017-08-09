@@ -10,7 +10,7 @@ module.exports = {
     api_secret: 'QIpKnaKaSgT6_X6TwxY3avsTfrQ'
   },
   email: {
-    user: 'choboellobo84@gmail.com',
-    password: 'Yahoo2012'
+    user: process.env.MAIL_USER,
+    password: process.env.MAIL_PASSWORD
   }
 };

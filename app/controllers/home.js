@@ -12,11 +12,12 @@ module.exports = function (app) {
 */
 router.get('/', function (req, res, next) {
   if(Object.keys(req.query).length == 0) {
-    res.render('index', {session: req.session});
+    res.render('index');
   }else {
     let regExp = new RegExp(req.query.w, 'i')
     let query = {'address.location': regExp}
     if(req.query.gender) query.gender = req.query.gender
+    if(req.query.services) query.services = req.query.services
     Professional.find(
       query,
       {slug: 1, avatar: 1, first_name: 1, last_name: 1, background: 1, gender: 1, services: 1, options: 1, description: 1, phone: 1})
@@ -24,7 +25,9 @@ router.get('/', function (req, res, next) {
       .populate('services')
       .then(
         professionals => {
-          res.render('results', {professionals: professionals, session: req.session, query: req.query})
+          Service.find().then(
+            services => res.render('results', {professionals: professionals, services: services, query: req.query})
+          )
         }
       )
   }
@@ -43,7 +46,7 @@ router.get('/:slug', function (req, res, next) {
       Service.find().then(
         services => {
           if(!professional) return next()
-          res.render('professional/profile', {services: services,professional: professional, session: req.session});
+          res.render('professional/profile', {services: services,professional: professional });
         }
       )
   },

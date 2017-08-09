@@ -2,9 +2,13 @@ extends ../layout
 block seo
   title Accede como peluquero/a
 block content
-  include ../_navbar
+  //- include ../_navbar
   .container
     .row
+      .col.s12.center-align.margin-top-2em
+        img(src="/img/avatar_man.png" width="100")
+        img(src="/img/avatar_woman.png" width="100")
+        h5 Inicia sesión para peluqueros/as
       .col.s12.m6.offset-m3
         form(action="/professional/login" method="post")
           .card
@@ -18,7 +22,7 @@ block content
             .card-action
               button.btn.waves-effect.waves-light(type="submit")
                 i(class="fa fa-sign-in left" aria-hidden="true")
-                | Entrar
+                | Inicia sesión
           if error
             .red-text.center-align
               span #{error}
@@ -37,4 +41,5 @@ block content
               i.fa.fa-paper-plane.left(aria-hidden="true")
               | Recuperar contraseña
         p ¿No tienes cuenta? #[a(href="/register") Regístrate]
+  include ../_footer
   script(src="/js/controllers/login.js")
