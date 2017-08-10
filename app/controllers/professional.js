@@ -1,6 +1,7 @@
 const  express = require('express');
 let	router = express.Router();
 const	Professional = require('../models/professional');
+const Service = require('../models/service');
 const crypter = require('../helpers/crypto');
 const	jwt = require('../helpers/jwt');
 const Mailer = require('../mailer/emails');
@@ -21,7 +22,23 @@ const Mailer = require('../mailer/emails');
                   error => res.json(error)
                 )
   })
-
+   /****** FILTER ********/
+    router.get('/:city', function(req, res, next){
+      let regExp = new RegExp(req.params.city, 'i')
+      let query = {'address.location': regExp}
+      Professional.find(
+        query,
+        {slug: 1, avatar: 1, first_name: 1, last_name: 1, background: 1, gender: 1, services: 1, options: 1, description: 1, phone: 1})
+        .sort({created_at: 1})
+        .populate('services')
+        .then(
+          professionals => {
+            Service.find().then(
+              services => res.render('results', {professionals: professionals, services: services, query: req.params.city})
+            )
+          }
+        )
+    })
   /*
     GET /LOGOUT
   */
