@@ -1,0 +1,16 @@
+extends ../layout
+block content
+  include ../_navbar
+  .container
+    .row
+      each plan in plans
+        .col.12.m6
+          .card
+            .card-content
+              span.card-title #{plan.name}
+              span.card-title #{plan.formatPrice}
+              if plan.type == 'plus'
+                p El plan plus es la ostia
+            .card-action
+              a.btn(href="/subscription/add/#{plan.id}")
+                | suscríbete
