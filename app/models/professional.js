@@ -138,17 +138,20 @@ ProfessionalSchema.virtual('fullname')
 });
 /* STATICS */
 ProfessionalSchema.statics.createStripeCustomer = function(options, cb){
+	// Create a customers into stripe
   stripe.customers.create({
-    description: options.user,
+    email: options.professional_email,
+    description: "This user id is " + options.professional_id,
     source: options.stripe_token
   }, (err, customer) => {
       if(!err){
-        this.update({_id: options.user}, {$set: {payments: {account: 'stripe', customer_id: customer.id }}}, cb)
+        this.update({_id: options.professional_id}, {$set: {payments: {account: 'stripe', customer_id: customer.id }}}, function(err, data){
+					cb(err, customer.id);
+				})
       }else {
-        console.log(err)
+        cb(err)
       }
   })
-	//this.findById(options.user.id, cb)
 }
 ProfessionalSchema.pre('save', function(next) {
   function removeAccents(s){

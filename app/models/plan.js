@@ -19,6 +19,9 @@ let PlanSchema = new Schema(
 						}
 	}
 )
+/*
+  After create a plan, we create a plan in stripe.
+*/
 PlanSchema.pre('save', function(next){
   let plan = {
     id: this.id,

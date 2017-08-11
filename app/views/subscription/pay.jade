@@ -17,7 +17,7 @@ block content
           .card-action
             form(action="/subscription" method="post" id="form-pay")
               input(type="hidden" name="stripe_token")
-              input(type="hidden" name="id" value="#{plan.id}")
+              input(type="hidden" name="plan_id" value="#{plan.id}")
             button.btn.disabled Pagar
         .card-panel.red.white-text.hide
           small#stripe-card-errors
