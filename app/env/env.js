@@ -3,7 +3,7 @@ module.exports = {
   host: "http://hair-chobo.rhcloud.com",
   jwt_key : 'wtf',
   crypto_key: 'wtf',
-	stripe_key: 'sk_test_MrFhxIb2j4Ebc6gBbq3GuHq7',
+	stripe_key: process.env.STRIPE_KEY || 'sk_test_MrFhxIb2j4Ebc6gBbq3GuHq7',
   cloudinary: {
     cloud_name: 'dyfof1mr5',
     api_key: '156183584475275',

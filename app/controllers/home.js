@@ -20,8 +20,8 @@ router.get('/', function (req, res, next) {
     if(req.query.services) query.services = req.query.services
     Professional.find(
       query,
-      {slug: 1, avatar: 1, first_name: 1, last_name: 1, background: 1, gender: 1, services: 1, options: 1, description: 1, phone: 1})
-      .sort({created_at: 1})
+      {slug: 1, avatar: 1, first_name: 1, last_name: 1, background: 1, gender: 1, services: 1, options: 1, description: 1, phone: 1, payments: 1})
+      .sort({payments: -1})
       .populate('services')
       .then(
         professionals => {

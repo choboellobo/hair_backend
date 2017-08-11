@@ -117,7 +117,8 @@ var ProfessionalSchema = new Schema({
 	},
   payments: {
     account: {type: String},
-    customer_id: {type: String}
+    customer_id: {type: String},
+		plan: {type: String}
   }
 }, {
 	toObject: {
