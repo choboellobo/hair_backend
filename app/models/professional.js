@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var mongoosePaginate = require('mongoose-paginate');
-
+const env = require('../env/env');
+const stripe = require('stripe')(env.stripe_key);
 mongoosePaginate.paginate.options = {
 	lean: true,
 	limit: 20,
@@ -113,7 +114,11 @@ var ProfessionalSchema = new Schema({
 	type: {
 		type: String,
 		default: 'professional'
-	}
+	},
+  payments: {
+    account: {type: String},
+    customer_id: {type: String}
+  }
 }, {
 	toObject: {
 		virtuals: true
@@ -131,6 +136,20 @@ ProfessionalSchema.virtual('fullname')
 .get(function () {
 	return this.first_name + ' ' + this.last_name;
 });
+/* STATICS */
+ProfessionalSchema.statics.createStripeCustomer = function(options, cb){
+  stripe.customers.create({
+    description: options.user,
+    source: options.stripe_token
+  }, (err, customer) => {
+      if(!err){
+        this.update({_id: options.user}, {$set: {payments: {account: 'stripe', customer_id: customer.id }}}, cb)
+      }else {
+        console.log(err)
+      }
+  })
+	//this.findById(options.user.id, cb)
+}
 ProfessionalSchema.pre('save', function(next) {
   function removeAccents(s){
       var r=s.toLowerCase();

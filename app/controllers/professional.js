@@ -22,23 +22,7 @@ const Mailer = require('../mailer/emails');
                   error => res.json(error)
                 )
   })
-   /****** FILTER ********/
-    router.get('/:city', function(req, res, next){
-      let regExp = new RegExp(req.params.city, 'i')
-      let query = {'address.location': regExp}
-      Professional.find(
-        query,
-        {slug: 1, avatar: 1, first_name: 1, last_name: 1, background: 1, gender: 1, services: 1, options: 1, description: 1, phone: 1})
-        .sort({created_at: 1})
-        .populate('services')
-        .then(
-          professionals => {
-            Service.find().then(
-              services => res.render('results', {professionals: professionals, services: services, query: req.params.city})
-            )
-          }
-        )
-    })
+
   /*
     GET /LOGOUT
   */
@@ -145,3 +129,21 @@ router.get('/validate/:hash', function(req, res, next){
       error => res.redirect('/professional/login')
     )
 })
+
+/****** FILTER ********/
+ router.get('/:city', function(req, res, next){
+   let regExp = new RegExp(req.params.city, 'i')
+   let query = {'address.location': regExp}
+   Professional.find(
+     query,
+     {slug: 1, avatar: 1, first_name: 1, last_name: 1, background: 1, gender: 1, services: 1, options: 1, description: 1, phone: 1})
+     .sort({created_at: 1})
+     .populate('services')
+     .then(
+       professionals => {
+         Service.find().then(
+           services => res.render('results', {professionals: professionals, services: services, query: req.params.city})
+         )
+       }
+     )
+ })

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const stripe = require('stripe')('sk_test_MrFhxIb2j4Ebc6gBbq3GuHq7');
+const env = require('../env/env');
+const stripe = require('stripe')(env.stripe_key);
 
 let PlanSchema = new Schema(
 	{

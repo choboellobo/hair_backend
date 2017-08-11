@@ -1,0 +1,25 @@
+extends ../layout
+block extra-head
+  script(src="https://js.stripe.com/v3/")
+block content
+  include ../_navbar
+  .modal.bottom-sheet#preloader
+    .modal-content.center-align
+      include ../_loading
+      p Por favor espere...
+  .container
+    .row
+      .col.s12.m6.offset-m3
+        .card#card-pay
+          .card-content
+            span.card-title Vas a pagar #{plan.formatPrice}
+            #stripe-card
+          .card-action
+            form(action="/subscription" method="post" id="form-pay")
+              input(type="hidden" name="stripe_token")
+              input(type="hidden" name="id" value="#{plan.id}")
+            button.btn.disabled Pagar
+        .card-panel.red.white-text.hide
+          small#stripe-card-errors
+
+  script(src="/js/controllers/subscription.js")
