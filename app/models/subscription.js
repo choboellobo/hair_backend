@@ -38,10 +38,18 @@ SubscriptionSchema.statics.createSubscription = function(options, cb){
         professional: options.user.professional_id,
         plan: options.plan,
         platform_id: subscription.id,
-        platform_name: 'stripe',
-        status: 'active'
+        platform_name: 'stripe'
       }, cb)
   })
 }
-
+SubscriptionSchema.statics.updateStatus = function(id){
+  return new Promise((resolve, reject) => {
+    stripe.subscriptions.retrieve(id, (err, subscription) => {
+      if(err) return reject(err)
+      this.update({platform_id: id},{$set: {status: subscription.status}})
+          .then(resolve)
+          .catch(reject)
+    })
+  })
+}
 module.exports = mongoose.model('Subscription', SubscriptionSchema);

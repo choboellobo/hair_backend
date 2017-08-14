@@ -154,6 +154,21 @@ ProfessionalSchema.statics.createStripeCustomer = function(options, cb){
       }
   })
 }
+ProfessionalSchema.statics.updatePaymentsPlan = function(event){
+
+  return new Promise((resolve, reject) => {
+    let subscription = event.data.object;
+  	this.update(
+      {'payments.customer_id': subscription.customer},
+      {$set: {'payments.plan': subscription.status == 'active' ?  'plus' : null }}
+    )
+    .then(resolve)
+    .catch(reject)
+  })
+}
+
+
+//*** EVENTS ***//
 ProfessionalSchema.pre('save', function(next) {
   function removeAccents(s){
       var r=s.toLowerCase();
