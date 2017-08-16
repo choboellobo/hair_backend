@@ -11,8 +11,7 @@ module.exports = function (app) {
 /*
   List plans
 */
-router.get('/', function(req, res, next){
-  if(!req.session.professional) return res.redirect('/professional/login')
+router.get('/', isLogIn, function(req, res, next){
 
   let promisePlan = Plan.find({valid: true})
   let promiseSubscription = Subscription.find({professional: req.session.professional, status: 'active'})
@@ -30,7 +29,7 @@ router.get('/', function(req, res, next){
 /*
   Render a form to put your credit card.
 */
-router.get('/:id', function(req, res, next){
+router.get('/:id', isLogIn, function(req, res, next){
   Plan.findById(req.params.id)
       .then(
         plan => {
@@ -43,29 +42,29 @@ router.get('/:id', function(req, res, next){
 /*
   Form to send to stripe token and user.
 */
-router.post('/', function(req, res, next){
+router.post('/', isLogIn, function(req, res, next){
   // First we find a professional
   Professional.findById(req.session.professional)
-              .then(
-                professional => {
-                  // If the professional has a stripe id
-                  if(professional.payments.customer_id){
-                    Professional.updatePaymentUser(professional.id, req.body.stripe_token)
-                      .then( success => createSubscription(professional.payments.customer_id))
-                      .catch( error => next(error))
+        .then(
+          professional => {
+            // If the professional has a stripe id
+            if(professional.payments.customer_id){
+              Professional.updatePaymentUser(professional.id, req.body.stripe_token)
+                .then( success => createSubscription(professional.payments.customer_id))
+                .catch( error => next(error))
 
-                  }else {
-                    // If not create a stripe id customer
-                    let options = {
-                      professional_email: professional.email,
-                      professional_id : professional.id,
-                      stripe_token: req.body.stripe_token
-                    }
-                    Professional.createStripeCustomer(options)
-                      .then(customer_id => createSubscription(customer_id))
-                      .catch(error => next(error))
-                    }
-                  })
+            }else {
+              // If not create a stripe id customer
+              let options = {
+                professional_email: professional.email,
+                professional_id : professional.id,
+                stripe_token: req.body.stripe_token
+              }
+              Professional.createStripeCustomer(options)
+                .then(customer_id => createSubscription(customer_id))
+                .catch(error => next(error))
+              }
+            })
   /*
     Method to create a Stripe subscription
     Mandartory: Stripe customer id
@@ -82,12 +81,13 @@ router.post('/', function(req, res, next){
       if(error){
         next(error)
       }else {
-        res.json(subscription)
+        res.redirect('/subscription/thanks/'+subscription.id);
       }
 
     })
   }
 }, function(error, req,res, next){
+  // If there are any errors render the same view with errors
   Plan.findById(req.body.plan_id)
       .then(
         plan => {
@@ -97,6 +97,18 @@ router.post('/', function(req, res, next){
       )
 })
 
+/*
+  GET /thanks
+
+*/
+router.get('/thanks/:id', isLogIn, function(req, res, next){
+  Subscription.findOne({platform_id: req.params.id})
+    .then(subscription => res.render('subscription/thanks'))
+})
+function isLogIn(req, res, next){
+  if(!req.session.professional) return res.redirect('/professional/login')
+  else next()
+}
 function formatPrice (price, currency, interval) {
   if(currency === 'EUR') currency = '€'
   if( interval === 'month') interval = 'mes'
