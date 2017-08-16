@@ -2,7 +2,7 @@
   let stripe = Stripe('pk_test_xzlKGfm0qMBrqy40YWFz4SHz');
   let elements = stripe.elements();
   // Create an instance of the card Element
-  let card = elements.create('card');
+  let card = elements.create('card', {hidePostalCode: true});
   // Button pay
   const buttonPay = document.querySelector("#card-pay .card-action button");
   buttonPay.addEventListener('click', function(e){

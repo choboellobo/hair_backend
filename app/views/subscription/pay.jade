@@ -21,5 +21,8 @@ block content
             button.btn.disabled Pagar
         .card-panel.red.white-text.hide
           small#stripe-card-errors
+        if error
+          .card-panel.red.white-text
+            small #{error.message}
 
   script(src="/js/controllers/subscription.js")

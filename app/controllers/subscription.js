@@ -8,6 +8,9 @@ module.exports = function (app) {
   app.use('/subscription', router);
 };
 
+/*
+  List plans
+*/
 router.get('/', function(req, res, next){
   if(!req.session.professional) return res.redirect('/professional/login')
 
@@ -20,10 +23,13 @@ router.get('/', function(req, res, next){
         elem.formatPrice = formatPrice(elem.amount, elem.currency, elem.interval)
         return elem
       })
-        res.render('subscription/plans', {plans: plans, subscriptions: subscriptions})
+      res.render('subscription/plans', {plans: plans, subscriptions: subscriptions})
     }
   )
 })
+/*
+  Render a form to put your credit card.
+*/
 router.get('/:id', function(req, res, next){
   Plan.findById(req.params.id)
       .then(
@@ -33,6 +39,10 @@ router.get('/:id', function(req, res, next){
         }
       )
 })
+
+/*
+  Form to send to stripe token and user.
+*/
 router.post('/', function(req, res, next){
   // First we find a professional
   Professional.findById(req.session.professional)
@@ -40,7 +50,10 @@ router.post('/', function(req, res, next){
                 professional => {
                   // If the professional has a stripe id
                   if(professional.payments.customer_id){
-                    createSubscription(professional.payments.customer_id)
+                    Professional.updatePaymentUser(professional.id, req.body.stripe_token)
+                      .then( success => createSubscription(professional.payments.customer_id))
+                      .catch( error => next(error))
+
                   }else {
                     // If not create a stripe id customer
                     let options = {
@@ -48,14 +61,11 @@ router.post('/', function(req, res, next){
                       professional_id : professional.id,
                       stripe_token: req.body.stripe_token
                     }
-                    Professional.createStripeCustomer(options, function(err, customer_id){
-                      if(err) return res.json(err)
-                      createSubscription(customer_id)
-                    })
-                  }
-                }
-              )
-
+                    Professional.createStripeCustomer(options)
+                      .then(customer_id => createSubscription(customer_id))
+                      .catch(error => next(error))
+                    }
+                  })
   /*
     Method to create a Stripe subscription
     Mandartory: Stripe customer id
@@ -68,11 +78,23 @@ router.post('/', function(req, res, next){
       },
       plan: req.body.plan_id
     }
-    Subscription.createSubscription(options, function(err, subscription){
-      if(err) return res.json(err)
-      res.json(subscription)
+    Subscription.createSubscription(options, function(error, subscription){
+      if(error){
+        next(error)
+      }else {
+        res.json(subscription)
+      }
+
     })
   }
+}, function(error, req,res, next){
+  Plan.findById(req.body.plan_id)
+      .then(
+        plan => {
+          plan.formatPrice = formatPrice(plan.amount, plan.currency, plan.interval)
+          res.render('subscription/pay', {plan: plan, error: error})
+        }
+      )
 })
 
 function formatPrice (price, currency, interval) {

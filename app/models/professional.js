@@ -138,21 +138,43 @@ ProfessionalSchema.virtual('fullname')
 	return this.first_name + ' ' + this.last_name;
 });
 /* STATICS */
-ProfessionalSchema.statics.createStripeCustomer = function(options, cb){
+ProfessionalSchema.statics.createStripeCustomer = function(options){
 	// Create a customers into stripe
-  stripe.customers.create({
-    email: options.professional_email,
-    description: "This user id is " + options.professional_id,
-    source: options.stripe_token
-  }, (err, customer) => {
-      if(!err){
-        this.update({_id: options.professional_id}, {$set: {payments: {account: 'stripe', customer_id: customer.id }}}, function(err, data){
-					cb(err, customer.id);
-				})
-      }else {
-        cb(err)
-      }
+  return new Promise((resolve, reject)=>{
+    stripe.customers.create({
+      email: options.professional_email,
+      description: "This user id is " + options.professional_id,
+      source: options.stripe_token
+    }, (err, customer) => {
+        if(!err){
+          this.update({_id: options.professional_id}, {$set: {payments: {account: 'stripe', customer_id: customer.id }}}, function(err, data){
+  					resolve(customer.id);
+  				})
+        }else {
+          reject(err)
+        }
+    })
   })
+
+}
+
+ProfessionalSchema.statics.updatePaymentUser = function(id, stripe_token){
+  console.log("User ya tiene card")
+  return new Promise((resolve, reject)=>{
+    this.findById(id).then(
+      professional => {
+        stripe.customers.update(
+          professional.payments.customer_id,
+          {source: stripe_token},
+          function(err, customer){
+            if(err) reject(err)
+            else resolve(customer)
+          })
+      }
+    )
+  })
+
+
 }
 ProfessionalSchema.statics.updatePaymentsPlan = function(event){
 
