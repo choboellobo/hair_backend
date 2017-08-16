@@ -3,6 +3,7 @@ let router = express.Router();
 const Plan = require('../models/plan');
 const Professional = require('../models/professional')
 const Subscription = require('../models/subscription')
+const isLogIn = require('../helpers/islogin');
 
 module.exports = function (app) {
   app.use('/subscription', router);
@@ -105,10 +106,7 @@ router.get('/thanks/:id', isLogIn, function(req, res, next){
   Subscription.findOne({platform_id: req.params.id})
     .then(subscription => res.render('subscription/thanks'))
 })
-function isLogIn(req, res, next){
-  if(!req.session.professional) return res.redirect('/professional/login')
-  else next()
-}
+
 function formatPrice (price, currency, interval) {
   if(currency === 'EUR') currency = '€'
   if( interval === 'month') interval = 'mes'

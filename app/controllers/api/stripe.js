@@ -32,7 +32,7 @@ const Subscription = require('../../models/subscription');
     if(req.body.type.includes('customer.subscription.')){
       // Update professional payments;
       let professionalPromise = Professional.updatePaymentsPlan(req.body)
-      let subscriptionPromise = Subscription.updateStatus(req.body.data.object.id)
+      let subscriptionPromise = Subscription.updateSubscription(req.body.data.object.id)
       Promise.all([professionalPromise, subscriptionPromise])
         .then(
           ([professional, subscription]) => res.status(200).end()

@@ -14,7 +14,8 @@ let SubscriptionSchema = new Schema(
   		ref: 'Plan',
     },
     status: {type: String, default: 'inactive'},
-    nextBill: {type: Date},
+    cancel_at_period_end: {type: Boolean, default: false},
+    current_period_end: {type: Number},
     platform_id: {type: String},
     platform_name: {type: String}
 	},
@@ -38,18 +39,31 @@ SubscriptionSchema.statics.createSubscription = function(options, cb){
         professional: options.user.professional_id,
         plan: options.plan,
         platform_id: subscription.id,
+        current_period_end: subscription.current_period_end,
         platform_name: 'stripe'
       }, cb)
   })
 }
-SubscriptionSchema.statics.updateStatus = function(id){
+SubscriptionSchema.statics.updateSubscription = function(id){
   return new Promise((resolve, reject) => {
     stripe.subscriptions.retrieve(id, (err, subscription) => {
       if(err) return reject(err)
-      this.update({platform_id: id},{$set: {status: subscription.status}})
+      this.update(
+          {platform_id: id},
+          {$set: {status: subscription.status, current_period_end: subscription.current_period_end, cancel_at_period_end: subscription.cancel_at_period_end}})
           .then(resolve)
           .catch(reject)
     })
   })
+}
+SubscriptionSchema.statics.cancelSubscription = function(id){
+  return new Promise((resolve, reject) => {
+    stripe.subscriptions.del(id, {at_period_end: true}, (err, confirmation)=>{
+      this.update({platform_id: id}, {$set: {cancel_at_period_end: true}})
+        .then(resolve)
+        .catch(reject)
+    })
+  })
+
 }
 module.exports = mongoose.model('Subscription', SubscriptionSchema);

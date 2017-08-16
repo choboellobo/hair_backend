@@ -40,4 +40,4 @@ PlanSchema.pre('save', function(next){
   })
 })
 
-module.exports = mongoose.model('Plans', PlanSchema);
+module.exports = mongoose.model('Plan', PlanSchema);

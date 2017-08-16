@@ -1,0 +1,49 @@
+extends ../layout
+block seo
+  title Gestiona tus suscripciones
+block content
+  include ../_navbar
+  .container
+    .row
+      .col.s12
+        ul.tabs
+          li.tab.col.s3
+            a(href="#active") Activas
+          li.tab.col.s3
+            a(href="#canceled") Canceladas
+      #active.col.s12
+        ul.collection.with-header
+          li.collection-header
+            h4 Suscripciones
+          each subscription in subscriptions
+            if subscription.status == 'active'
+              li.collection-item.avatar
+                i.fa.fa-star.circle.blue
+                span.title #{subscription.plan.name}
+                p
+                  | #{subscription.status}
+                  if subscription.cancel_at_period_end && subscription.status == 'active'
+                    |  La suscripcion se eliminara el #{subscription.current_period_end}
+                if subscription.status == 'active' && !subscription.cancel_at_period_end
+                  form(action="/professional/settings/subscriptions", method="post")
+                    input(type="hidden" name="id" value="#{subscription.platform_id}")
+                    button.secondary-content.btn.red(type="submit") Cancelar
+      #canceled.col.s12
+        ul.collection.with-header
+          li.collection-header
+            h4 Suscripciones
+          each subscription in subscriptions
+            if subscription.status == 'canceled'
+              li.collection-item.avatar
+                i.fa.fa-star.circle.blue
+                span.title #{subscription.plan.name}
+                p
+                  | #{subscription.status}
+                  if subscription.cancel_at_period_end && subscription.status == 'active'
+                    |  La suscripcion se eliminara el #{subscription.current_period_end}
+                if subscription.status == 'active' && !subscription.cancel_at_period_end
+                  form(action="/professional/settings/subscriptions", method="post")
+                    input(type="hidden" name="id" value="#{subscription.platform_id}")
+                    button.secondary-content.btn.red(type="submit") Cancelar
+  script.
+     $('ul.tabs').tabs();

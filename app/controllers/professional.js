@@ -1,10 +1,12 @@
 const  express = require('express');
 let	router = express.Router();
 const	Professional = require('../models/professional');
+const Subscription = require('../models/subscription');
 const Service = require('../models/service');
 const crypter = require('../helpers/crypto');
 const	jwt = require('../helpers/jwt');
 const Mailer = require('../mailer/emails');
+const isLogIn = require('../helpers/islogin');
 
   module.exports = function (app) {
   app.use('/professional', router);
@@ -127,6 +129,19 @@ router.get('/validate/:hash', function(req, res, next){
         )
       },
       error => res.redirect('/professional/login')
+    )
+})
+
+router.get('/settings', isLogIn, function(req, res, next){
+  Subscription.find({professional: req.session.professional}).sort({created_at: -1}).populate('plan')
+    .then(subscriptions => {
+      res.render('professional/settings', {subscriptions: subscriptions})
+    })
+})
+router.post('/settings/subscriptions', function(req, res, next){
+  Subscription.cancelSubscription(req.body.id)
+    .then(
+      confirm => res.redirect('/professional/settings')
     )
 })
 

@@ -73,6 +73,7 @@ block content
 
 	//**** NAVBAR *****//
 	include ../_navbar
+	// ****** PROFILE ******//
 	.container#profile
 		.row
 			.col.s12
@@ -109,10 +110,17 @@ block content
 								a(href="#work")
 									i.fa.fa-file-image-o.left(aria-hidden="true")
 									| Mis trabajos
-							//- li
-							//- 	a(href="")
-							//- 		i.fa.fa-facebook-official.left(aria-hidden="true")
-							//- 		| Mi facebook
+							if session.professional
+								if professional.payments.plan
+									li
+										a(href="/professional/settings")
+											i.fa.fa-cog.left(aria-hidden="true")
+											| Gestiona tu suscripción
+								else
+									li
+										a(href="/subscription")
+											i.fa.fa-star.left(aria-hidden="true")
+											| Mejora tu cuenta
 		// div del nombre del perfil que se oculta en escritorio
 		.row.hide-on-large-only
 			.col.s12.center-align
