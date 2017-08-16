@@ -19,11 +19,11 @@ block content
             if subscription.status == 'active'
               li.collection-item.avatar
                 i.fa.fa-star.circle.blue
-                span.title #{subscription.plan.name}
+                span.title #[strong=subscription.plan.name]
                 p
-                  | #{subscription.status}
+                  | Esta suscripcion esta #[strong=subscription.status]
                   if subscription.cancel_at_period_end && subscription.status == 'active'
-                    |  La suscripcion se eliminara el #{subscription.current_period_end}
+                    |  La suscripcion se eliminara el #[strong=subscription.current_period_end_format]
                 if subscription.status == 'active' && !subscription.cancel_at_period_end
                   form(action="/professional/settings/subscriptions", method="post")
                     input(type="hidden" name="id" value="#{subscription.platform_id}")
@@ -38,12 +38,6 @@ block content
                 i.fa.fa-star.circle.blue
                 span.title #{subscription.plan.name}
                 p
-                  | #{subscription.status}
-                  if subscription.cancel_at_period_end && subscription.status == 'active'
-                    |  La suscripcion se eliminara el #{subscription.current_period_end}
-                if subscription.status == 'active' && !subscription.cancel_at_period_end
-                  form(action="/professional/settings/subscriptions", method="post")
-                    input(type="hidden" name="id" value="#{subscription.platform_id}")
-                    button.secondary-content.btn.red(type="submit") Cancelar
+                  | Esta suscripcion esta #[strong=subscription.status]
   script.
      $('ul.tabs').tabs();

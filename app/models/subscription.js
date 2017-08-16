@@ -2,9 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const env = require('../env/env');
 const stripe = require('stripe')(env.stripe_key);
+const moment = require('moment')
 
 let SubscriptionSchema = new Schema(
-	{
+  {
     professional: {
       type: mongoose.Schema.Types.ObjectId,
   		ref: 'Professional',
@@ -18,15 +19,26 @@ let SubscriptionSchema = new Schema(
     current_period_end: {type: Number},
     platform_id: {type: String},
     platform_name: {type: String}
-	},
-	{
-		timestamps: {
-								createdAt: 'created_at',
-								updatedAt: 'updated_at'
-						}
-	}
+  },
+  {
+    toObject: {
+      virtuals: true
+  },
+    toJSON: {
+      virtuals: true
+  },
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+    }
+  }
 )
 
+/* VIRTUALS*/
+SubscriptionSchema.virtual('current_period_end_format').get(function(){
+  return moment(this.current_period_end * 1000).format('DD/MM/YYYY');
+})
+/*** STATICS */
 SubscriptionSchema.statics.createSubscription = function(options, cb){
   // Crear subscription
   // We need professional and plan

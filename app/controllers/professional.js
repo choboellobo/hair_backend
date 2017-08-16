@@ -131,10 +131,11 @@ router.get('/validate/:hash', function(req, res, next){
       error => res.redirect('/professional/login')
     )
 })
-
+/** SETTINGS **/
 router.get('/settings', isLogIn, function(req, res, next){
   Subscription.find({professional: req.session.professional}).sort({created_at: -1}).populate('plan')
     .then(subscriptions => {
+      console.log(subscriptions)
       res.render('professional/settings', {subscriptions: subscriptions})
     })
 })
