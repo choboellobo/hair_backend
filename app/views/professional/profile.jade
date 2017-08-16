@@ -110,7 +110,7 @@ block content
 								a(href="#work")
 									i.fa.fa-file-image-o.left(aria-hidden="true")
 									| Mis trabajos
-							if session.professional
+							if professional._id == session.professional
 								if professional.payments.plan
 									li
 										a(href="/professional/settings")

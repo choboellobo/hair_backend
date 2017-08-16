@@ -24,10 +24,14 @@ block content
                   | Esta suscripcion esta #[strong=subscription.status]
                   if subscription.cancel_at_period_end && subscription.status == 'active'
                     |  La suscripcion se eliminara el #[strong=subscription.current_period_end_format]
+                  else
+                    | El próximo cobro será el #[strong=subscription.current_period_end_format]
                 if subscription.status == 'active' && !subscription.cancel_at_period_end
                   form(action="/professional/settings/subscriptions", method="post")
                     input(type="hidden" name="id" value="#{subscription.platform_id}")
-                    button.secondary-content.btn.red(type="submit") Cancelar
+                    button.secondary-content.btn.red(type="submit")
+                      i.fa.fa-trash-o.left(aria-hidden="true")
+                      | Baja
       #canceled.col.s12
         ul.collection.with-header
           li.collection-header
