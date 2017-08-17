@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 const env = require('../env/env');
 const stripe = require('stripe')(env.stripe_key);
 const Subscription = require('./subscription');
+const moment = require('moment')
 
 let InvoiceSchema = new Schema({
   platform_id: {type: String, required: true, unique: true},
@@ -25,31 +26,46 @@ let InvoiceSchema = new Schema({
   next_payment: {type: Number},
   status: {type: String, default: 'created'}
 }, {
+  toObject: {
+      virtuals: true
+  },
+    toJSON: {
+      virtuals: true
+  },
   timestamps: {
 							createdAt: 'created_at',
 							updatedAt: 'updated_at'
 					}
 })
+
+
+/*** VIRTUALS ****/
+InvoiceSchema.virtual('invoice_format').get(function(){
+  let created = moment(this.createdAt).format('DD/MM/YYYY');
+  let amount = parseFloat(this.amount / 100).toFixed(2).replace('.',',') + " €"
+  return `La factura ${this.platform_id} fue creada el ${created}, por valor de ${amount}`
+})
+/*** STATICS *****/
 InvoiceSchema.statics.createOrUpdate = function(event){
-  let invoice_data = event.data.object;
-  let invoice_detail = {
-    platform_id: invoice_data.id,
-    platform_name: 'stripe',
-    amount: invoice_data.total,
-    subscription_platform: invoice_data.subscription,
-    customer_platform: invoice_data.customer,
-    period_start: invoice_data.period_start,
-    period_end: invoice_data.period_end,
-    next_payment: invoice_data.next_payment_attempt,
-    status: getStatus(event.type)
-  }
+
   return new Promise((resolve, reject)=> {
+    let invoice_data = event.data.object;
+    let invoice_detail = {
+      platform_id: invoice_data.id,
+      platform_name: 'stripe',
+      amount: invoice_data.total,
+      subscription_platform: invoice_data.subscription,
+      customer_platform: invoice_data.customer,
+      period_start: invoice_data.period_start,
+      period_end: invoice_data.period_end,
+      next_payment: invoice_data.next_payment_attempt,
+      status: getStatus(event.type)
+    }
+
     // Find an invoice by Id
     this.findOne({platform_id: invoice_data.id})
         .then(
           invoice => {
-            // Update subscription status
-            Subscription.updateStatus(invoice_data.subscription)
             // 1 ) If not exists, create a new invoice
             if(invoice == null) {
               this.create(invoice_detail)
@@ -61,6 +77,8 @@ InvoiceSchema.statics.createOrUpdate = function(event){
                 .then(resolve)
                 .catch(reject)
             }
+            // Update subscription status
+            Subscription.updateSubscription(invoice_data.subscription)
           }
         )
         .catch(reject)

@@ -7,9 +7,9 @@ block content
     .row
       .col.s12
         ul.tabs
-          li.tab.col.s3
+          li.tab
             a(href="#active") Activas
-          li.tab.col.s3
+          li.tab
             a(href="#canceled") Canceladas
       #active.col.s12
         ul.collection.with-header
@@ -26,6 +26,12 @@ block content
                     |  La suscripcion se eliminara el #[strong=subscription.current_period_end_format]
                   else
                     | El próximo cobro será el #[strong=subscription.current_period_end_format]
+                ul.collection
+                  each invoice in subscription.invoices
+                    if invoice.subscription_platform == subscription.platform_id
+                      li.collection-item
+                        span #{invoice.invoice_format}
+
                 if subscription.status == 'active' && !subscription.cancel_at_period_end
                   form(action="/professional/settings/subscriptions", method="post")
                     input(type="hidden" name="id" value="#{subscription.platform_id}")
@@ -43,5 +49,11 @@ block content
                 span.title #{subscription.plan.name}
                 p
                   | Esta suscripcion esta #[strong=subscription.status]
+                ul.collection
+                  each invoice in subscription.invoices
+                    if invoice.subscription_platform == subscription.platform_id
+                      li.collection-item
+                        span #{invoice.invoice_format}
   script.
      $('ul.tabs').tabs();
+     $('.collapsible').collapsible();
