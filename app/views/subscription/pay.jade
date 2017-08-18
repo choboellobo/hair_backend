@@ -8,21 +8,35 @@ block content
       include ../_loading
       p Por favor espere...
   .container
-    .row
-      .col.s12.m6.offset-m3
-        .card#card-pay
-          .card-content
-            span.card-title Vas a pagar #{plan.formatPrice}
-            #stripe-card
-          .card-action
-            form(action="/subscription" method="post" id="form-pay")
-              input(type="hidden" name="stripe_token")
-              input(type="hidden" name="plan_id" value="#{plan.id}")
-            button.btn.disabled Pagar
-        .card-panel.red.white-text.hide
-          small#stripe-card-errors
-        if error
-          .card-panel.red.white-text
-            small #{error.message}
+    #subscription_pay
+      .row
+        .col.s12.center-align
+          h3.kurale-font Estas a un paso de obtener tu plan #{plan.type}
+          p Introduce el número de tu tarjeta de #[strong debito/credito] la #[strong fecha de caducidad] y el número #[strong CVC/CVV] que esta detras de la tarjeta. No te preocupes por tus datos no guardamos el número de tu tarjeta.
+        .col.s12.m6.offset-m3
+          .card#card-pay
+            .card-image
+              img(src="https://static.amigobulls.com/articles/wp-content/uploads/2016/03/small_width400_Is-Visa-Stock-A-Better-Value-Proposition-Than-Mastercard-Stock.jpg")
+            .card-content
+              span.card-title Vas a pagar #{plan.price} #{plan.interval_format}
+              p Sin compromiso de permanencia, puedes cancelar tu suscripción en cualquier momento.
+              #stripe-card.z-depth-1
+            .card-action
+              form(action="/subscription" method="post" id="form-pay")
+                input(type="hidden" name="stripe_token")
+                input(type="hidden" name="plan_id" value="#{plan.id}")
+              button.btn.disabled
+                i.fa.fa-check.left(aria-hidden="true")
+                | Obtener plan #{plan.type}
+          .center-align
+            small Nos preocupamos por la seguridad de tus datos, por eso usamos tecnología ssl 256 bits #[i.fa.fa-lock]  como los bancos.
+          // Errors
+          .card-panel.red.white-text.hide
+            small#stripe-card-errors
+          if error
+            .card-panel.red.white-text
+              small #{error.message}
+
+
 
   script(src="/js/controllers/subscription.js")

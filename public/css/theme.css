@@ -118,6 +118,10 @@
 #subscription_plans .big-number {
   font-size: 4em; }
 
+#subscription_pay #stripe-card {
+  margin: 1em 0px;
+  padding: 1em; }
+
 body {
   background-color: #e9ebee; }
 
