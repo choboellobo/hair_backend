@@ -13,17 +13,13 @@ module.exports = function (app) {
   List plans
 */
 router.get('/', isLogIn, function(req, res, next){
-
+  let promiseProfessional = Professional.findById(req.session.professional, {password: 0})
   let promisePlan = Plan.find({valid: true})
   let promiseSubscription = Subscription.find({professional: req.session.professional, status: 'active'})
-  Promise.all([promisePlan, promiseSubscription])
+  Promise.all([promiseProfessional,promisePlan, promiseSubscription])
   .then(
-    ([plans,subscriptions]) =>{
-      plans = plans.map(elem => {
-        elem.formatPrice = formatPrice(elem.amount, elem.currency, elem.interval)
-        return elem
-      })
-      res.render('subscription/plans', {plans: plans, subscriptions: subscriptions})
+    ([professional,plans,subscriptions]) =>{
+      res.render('subscription/plans', {professional: professional, plans: plans, subscriptions: subscriptions})
     }
   )
 })
@@ -34,7 +30,6 @@ router.get('/:id', isLogIn, function(req, res, next){
   Plan.findById(req.params.id)
       .then(
         plan => {
-          plan.formatPrice = formatPrice(plan.amount, plan.currency, plan.interval)
           res.render('subscription/pay', {plan: plan})
         }
       )
@@ -92,7 +87,6 @@ router.post('/', isLogIn, function(req, res, next){
   Plan.findById(req.body.plan_id)
       .then(
         plan => {
-          plan.formatPrice = formatPrice(plan.amount, plan.currency, plan.interval)
           res.render('subscription/pay', {plan: plan, error: error})
         }
       )
@@ -106,12 +100,3 @@ router.get('/thanks/:id', isLogIn, function(req, res, next){
   Subscription.findOne({platform_id: req.params.id})
     .then(subscription => res.render('subscription/thanks'))
 })
-
-function formatPrice (price, currency, interval) {
-  if(currency === 'EUR') currency = '€'
-  if( interval === 'month') interval = 'mes'
-  if( interval === 'year') interval = 'año'
-  price = parseFloat(price/100).toFixed(2)
-  if( price%parseInt(price) == 0) price = parseInt(price)
-  return `${price} ${currency} / ${interval}`
-}
