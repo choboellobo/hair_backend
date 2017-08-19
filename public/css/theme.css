@@ -127,7 +127,8 @@
 
 #subscription_thanks {
   background-image: url(/img/bank/subscription_thanks.jpg);
-  background-attachment: fixed; }
+  background-attachment: fixed;
+  background-position: top !important; }
 
 body {
   background-color: #e9ebee; }

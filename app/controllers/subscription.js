@@ -98,5 +98,8 @@ router.post('/', isLogIn, function(req, res, next){
 */
 router.get('/thanks/:id', isLogIn, function(req, res, next){
   Subscription.findOne({platform_id: req.params.id})
-    .then(subscription => res.render('subscription/thanks'))
+    .then(subscription => {
+      req.session.plan = 'plus'
+      res.render('subscription/thanks')
+    })
 })
