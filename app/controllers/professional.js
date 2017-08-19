@@ -53,6 +53,7 @@ const isLogIn = require('../helpers/islogin');
                     if(professional.active == false) return res.render('professional/login', {error: 'Cuenta no activa, revise su correo para activar la cuenta', session: req.session})
                     req.session.professional = professional._id
                     req.session.slug = professional.slug
+                    if(professional.payments) req.session.plan = professional.payments.plan;
                     res.redirect(`/${professional.slug}`);
                   },
                   error => {
