@@ -32,3 +32,10 @@
     padding: 1em;
   }
 }
+
+#subscription_thanks{
+  @extend .fullscreen;
+  @extend .background-image;
+  background-image: url(/img/bank/subscription_thanks.jpg);
+  background-attachment: fixed;
+}

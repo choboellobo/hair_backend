@@ -1,5 +1,20 @@
 extends ../layout
 block content
   include ../_navbar
-  .container
-    h1 Gracias por la subscription
+  #subscription_thanks.valign-wrapper
+    .container
+      .row
+        .col.s12.m6.offset-m6.right-align
+          .shadow-text.white-text
+            h3 Enhorabuena acabas de mejorar tu cuenta.
+            h5
+              i.fa.fa-line-chart.fa-2x(aria-hidden="true")
+              |  Ahora empieza lo bueno.
+            p A partir de ahora veras como la cantidad de visitas que recibe tu perfil aumenta, podras subir todas la imagenes de tus trabajos y podras compartir con tus clientes tu dominio en internet.
+          .center-align
+            a.btn(href="/#{session.slug}")
+              i.fa.fa-star.left(aria-hidden="true")
+              | Volver a mi perfil
+  include ../_footer
+  script.
+    $('.parallax').parallax();

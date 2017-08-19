@@ -15,12 +15,12 @@ block content
           p Introduce el número de tu tarjeta de #[strong debito/credito] la #[strong fecha de caducidad] y el número #[strong CVC/CVV] que esta detras de la tarjeta. No te preocupes por tus datos no guardamos el número de tu tarjeta.
         .col.s12.m6.offset-m3
           .card#card-pay
-            .card-image
-              img(src="https://static.amigobulls.com/articles/wp-content/uploads/2016/03/small_width400_Is-Visa-Stock-A-Better-Value-Proposition-Than-Mastercard-Stock.jpg")
             .card-content
               span.card-title Vas a pagar #{plan.price} #{plan.interval_format}
               p Sin compromiso de permanencia, puedes cancelar tu suscripción en cualquier momento.
               #stripe-card.z-depth-1
+              .center-align
+                img(src="/img/credit_cards.png" width="60%")
             .card-action
               form(action="/subscription" method="post" id="form-pay")
                 input(type="hidden" name="stripe_token")
