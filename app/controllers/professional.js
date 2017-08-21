@@ -1,9 +1,13 @@
 const  express = require('express');
 let	router = express.Router();
 const	Professional = require('../models/professional');
+const Subscription = require('../models/subscription');
+const Service = require('../models/service');
+const Invoice = require('../models/invoice');
 const crypter = require('../helpers/crypto');
 const	jwt = require('../helpers/jwt');
 const Mailer = require('../mailer/emails');
+const isLogIn = require('../helpers/islogin');
 
   module.exports = function (app) {
   app.use('/professional', router);
@@ -21,7 +25,6 @@ const Mailer = require('../mailer/emails');
                   error => res.json(error)
                 )
   })
-
   /*
     GET /LOGOUT
   */
@@ -49,6 +52,7 @@ const Mailer = require('../mailer/emails');
                     if(professional.active == false) return res.render('professional/login', {error: 'Cuenta no activa, revise su correo para activar la cuenta', session: req.session})
                     req.session.professional = professional._id
                     req.session.slug = professional.slug
+                    if(professional.payments) req.session.plan = professional.payments.plan;
                     res.redirect(`/${professional.slug}`);
                   },
                   error => {
@@ -97,7 +101,6 @@ const Mailer = require('../mailer/emails');
     }catch(e) {
       return res.render('professional/recovery_password', {session: req.session, error: true})
     }
-    console.log(professional_id)
     Professional.update({_id: professional_id}, {$set: {password: password}})
                 .then(
                   response => {
@@ -126,5 +129,34 @@ router.get('/validate/:hash', function(req, res, next){
         )
       },
       error => res.redirect('/professional/login')
+    )
+})
+/** SETTINGS **/
+router.get('/settings', isLogIn, function(req, res, next){
+  Subscription.find({professional: req.session.professional}).sort({created_at: -1}).populate('plan')
+    .then(subscriptions => {
+      if(subscriptions.length > 0){
+        Professional.findById(req.session.professional, {payments: 1})
+          .then(professional => {
+            Invoice.find({customer_platform: professional.payments.customer_id})
+              .then(invoices => {
+                let sub_inv = []
+                subscriptions = subscriptions.map(s => {
+                  for(let i in invoices){
+                    if(invoices[i].subscription_platform == s.platform_id) sub_inv.push(invoices[i])
+                  }
+                  s.invoices = sub_inv;
+                  return s;
+                })
+                res.render('professional/settings', {subscriptions: subscriptions})
+              })
+          })
+      }
+    })
+})
+router.post('/settings/subscriptions', function(req, res, next){
+  Subscription.cancelSubscription(req.body.id)
+    .then(
+      confirm => res.redirect('/professional/settings')
     )
 })

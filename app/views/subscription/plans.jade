@@ -1,0 +1,41 @@
+extends ../layout
+block content
+  include ../_navbar
+  .container
+    #subscription_plans
+      if subscriptions.length == 0
+        .row
+          .col.s12.center-align
+            h1.kurale-font Conecta con más clientes
+            p
+              | #[strong #{professional.first_name}], sabías que nuestros profesionales que tienes un #[strong Plan Plus] reciben muchas más visitas, además pueden subir fotos ilimitadamente y disponer de un dominio en internet (www.tunombre.es).
+        .row
+          each plan,index in plans
+            .col.s12.m4(class="#{index == 0 ? 'offset-m2': ''}")
+              .card.hoverable
+                .card-image
+                  .top-color
+                    if plan.recommended
+                      small Recomendado
+                .card-content
+                  if plan.recommended
+                    i.fa.fa-heart.fa-2x.pink-text.beats
+                  div.center-align.card-title #{plan.name}
+                  .center-align
+                    span.big-number #{plan.price}
+                    span #{plan.interval_format}
+                  .divider
+                  !{plan.options}
+                .card-action.center-align
+                  a.btn(href="/subscription/#{plan.id}")
+                    | suscríbete
+      else
+        .row
+          .col.s12.m6.offset-m3
+            .card
+              .card-content
+                span.card-title Hola #[strong #{professional.first_name}], ya tienes una suscripción activa.
+              .card-action
+                a.btn(href="/professional/settings")
+                  i.fa.fa-cog.left(aria-hidden="true")
+                  | Gestiona tu suscripción
