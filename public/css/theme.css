@@ -9,18 +9,22 @@
   margin-left: .5em; }
 
 .shadow-text, #profile nav .brand-logo .avatar + form label i {
-  text-shadow: 1px 1px 5px black; }
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8); }
 
-.background-image, #notfound .background {
+.background-image, #notfound .background, #subscription_thanks {
   background-repeat: no-repeat !important;
   background-position: center center !important;
   background-size: cover !important; }
 
-.fullscreen {
+.fullscreen, #subscription_thanks {
   height: 100vh !important; }
 
 .margin-top-2em {
   margin-top: 2em; }
+
+.first-letter-uppercase:first-letter {
+  text-transform: uppercase; }
+
 #profile {
   /*
     Header: Este elemento contendra un fondo o un degradado.
@@ -97,6 +101,35 @@
   #notfound h1 {
     text-align: center; } }
 
+#subscription_plans .card .card-content {
+  position: relative; }
+  #subscription_plans .card .card-content ul {
+    padding-left: 1.5em; }
+    #subscription_plans .card .card-content ul li {
+      position: relative; }
+      #subscription_plans .card .card-content ul li::before {
+        position: absolute;
+        content: "\f00c";
+        font-family: FontAwesome;
+        left: -1.5em; }
+
+#subscription_plans .top-color {
+  text-align: center;
+  color: white;
+  background: #00838f; }
+
+#subscription_plans .big-number {
+  font-size: 4em; }
+
+#subscription_pay #stripe-card {
+  margin: 1em 0px;
+  padding: 1em; }
+
+#subscription_thanks {
+  background-image: url(/img/bank/subscription_thanks.jpg);
+  background-attachment: fixed;
+  background-position: top !important; }
+
 body {
   background-color: #e9ebee; }
 
@@ -132,3 +165,29 @@ footer a.circle-icon {
 footer .footer-copyright a {
   margin-right: 15px;
   color: white; }
+
+i.beats {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  text-shadow: 0px 0px 7px white;
+  animation: beating 3s ease infinite;
+  z-index: 100; }
+
+@keyframes beating {
+  0% {
+    transform: scale(1); }
+  25% {
+    transform: scale(0.97); }
+  35% {
+    transform: scale(0.9); }
+  45% {
+    transform: scale(1.1); }
+  55% {
+    transform: scale(0.9); }
+  65% {
+    transform: scale(1.1); }
+  75% {
+    transform: scale(1.03); }
+  100% {
+    transform: scale(1); } }

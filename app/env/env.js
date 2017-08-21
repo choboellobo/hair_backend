@@ -1,13 +1,13 @@
 module.exports = {
-  //host: "http://localhost:3000",
-  host: "http://hair-chobo.rhcloud.com",
+
+  host: process.env.HOST || "http://localhost:3000",
   jwt_key : 'wtf',
   crypto_key: 'wtf',
-	stripe_key: 'sk_test_MrFhxIb2j4Ebc6gBbq3GuHq7',
+	stripe_key: process.env.STRIPE_KEY || 'sk_test_MrFhxIb2j4Ebc6gBbq3GuHq7',
   cloudinary: {
-    cloud_name: 'dyfof1mr5',
-    api_key: '156183584475275',
-    api_secret: 'QIpKnaKaSgT6_X6TwxY3avsTfrQ'
+    cloud_name: process.env.CLOUDINARY_CLOUDNAME || 'dyfof1mr5',
+    api_key: process.env.CLOUDINARY_APIKEY || '156183584475275',
+    api_secret: process.env.CLOUDINARY_APISECRET || 'QIpKnaKaSgT6_X6TwxY3avsTfrQ'
   },
   email: {
     user: process.env.MAIL_USER,

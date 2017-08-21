@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var mongoosePaginate = require('mongoose-paginate');
-
+const env = require('../env/env');
+const stripe = require('stripe')(env.stripe_key);
 mongoosePaginate.paginate.options = {
 	lean: true,
 	limit: 20,
@@ -113,7 +114,12 @@ var ProfessionalSchema = new Schema({
 	type: {
 		type: String,
 		default: 'professional'
-	}
+	},
+  payments: {
+    account: {type: String},
+    customer_id: {type: String},
+		plan: {type: String}
+  }
 }, {
 	toObject: {
 		virtuals: true
@@ -131,6 +137,60 @@ ProfessionalSchema.virtual('fullname')
 .get(function () {
 	return this.first_name + ' ' + this.last_name;
 });
+/* STATICS */
+ProfessionalSchema.statics.createStripeCustomer = function(options){
+	// Create a customers into stripe
+  return new Promise((resolve, reject)=>{
+    stripe.customers.create({
+      email: options.professional_email,
+      description: "This user id is " + options.professional_id,
+      source: options.stripe_token
+    }, (err, customer) => {
+        if(!err){
+          this.update({_id: options.professional_id}, {$set: {payments: {account: 'stripe', customer_id: customer.id }}}, function(err, data){
+  					resolve(customer.id);
+  				})
+        }else {
+          reject(err)
+        }
+    })
+  })
+
+}
+
+ProfessionalSchema.statics.updatePaymentUser = function(id, stripe_token){
+  console.log("User ya tiene card")
+  return new Promise((resolve, reject)=>{
+    this.findById(id).then(
+      professional => {
+        stripe.customers.update(
+          professional.payments.customer_id,
+          {source: stripe_token},
+          function(err, customer){
+            if(err) reject(err)
+            else resolve(customer)
+          })
+      }
+    )
+  })
+
+
+}
+ProfessionalSchema.statics.updatePaymentsPlan = function(event){
+
+  return new Promise((resolve, reject) => {
+    let subscription = event.data.object;
+  	this.update(
+      {'payments.customer_id': subscription.customer},
+      {$set: {'payments.plan': subscription.status == 'active' ?  'plus' : null }}
+    )
+    .then(resolve)
+    .catch(reject)
+  })
+}
+
+
+//*** EVENTS ***//
 ProfessionalSchema.pre('save', function(next) {
   function removeAccents(s){
       var r=s.toLowerCase();

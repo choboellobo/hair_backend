@@ -32,9 +32,17 @@ block content
 			a(href="#work")
 				i.fa.fa-file-image-o.left(aria-hidden="true")
 				| Mis trabajos
-			//- a(href="#")
-			//- 	i.fa.fa-facebook-official.left(aria-hidden="true")
-			//- 	| Mi facebook
+		if professional._id == session.professional
+			if professional.payments.plan
+				li
+					a(href="/professional/settings")
+						i.fa.fa-cog.left(aria-hidden="true")
+						| Gestiona tu suscripción
+			else
+				li
+					a(href="/subscription")
+						i.fa.fa-star.left(aria-hidden="true")
+						| Mejora tu cuenta
 	//******* MODAL crop background *******///
 	.modal.modal-fixed-footer.crop#modal-background
 		.modal-content
@@ -73,6 +81,7 @@ block content
 
 	//**** NAVBAR *****//
 	include ../_navbar
+	// ****** PROFILE ******//
 	.container#profile
 		.row
 			.col.s12
@@ -97,7 +106,7 @@ block content
 						a.brand-logo(href="#{ professional._id == session.professional ? '#modal-avatar': 'javascript:void()' }")
 							img.avatar.responsive-img(class="#{ professional._id == session.professional ? 'tooltipped': '' }" src="#{professional.avatar}" data-position="top" data-tooltip="<i class='fa fa-camera'></i> Cambia tu foto de perfil" data-html="true")
 							if professional._id == session.professional
-								//****** Form subir avatar *****//
+								//****** Form subir avatar ******//
 								form.valign-wrapper(action="/upload/avatar" method="post" id="form-upload-avatar")
 									input.hide(type="hidden" name="avatar")
 						ul#nav-mobile.right.hide-on-med-and-down
@@ -109,10 +118,17 @@ block content
 								a(href="#work")
 									i.fa.fa-file-image-o.left(aria-hidden="true")
 									| Mis trabajos
-							//- li
-							//- 	a(href="")
-							//- 		i.fa.fa-facebook-official.left(aria-hidden="true")
-							//- 		| Mi facebook
+							if professional._id == session.professional
+								if professional.payments.plan
+									li
+										a(href="/professional/settings")
+											i.fa.fa-cog.left(aria-hidden="true")
+											| Gestiona tu suscripción
+								else
+									li
+										a(href="/subscription")
+											i.fa.fa-star.left(aria-hidden="true")
+											| Mejora tu cuenta
 		// div del nombre del perfil que se oculta en escritorio
 		.row.hide-on-large-only
 			.col.s12.center-align
@@ -157,7 +173,7 @@ block content
 										.input-field
 											textarea.materialize-textarea(id="schedules" name="schedules" required maxlenght="200" data-length="200")
 											label(for="schedules") Actualiza tu horario
-										button.btn(type="submit") Actualizar
+										button.btn.waves-effect.waves-green(type="submit") Actualizar
 							li.collection-item.avatar
 								i.circle.fa.fa-phone(aria-hidden="true")
 								span.title Teléfono
@@ -170,7 +186,7 @@ block content
 											.input-field
 												input.validate(type="text" id="phone" name="phone" required pattern="^[9|6|7][0-9]{8}$")
 												label(for="phone" data-error="Escriba un teléfono valido") Actualiza el teléfono
-											button.btn(type="submit") Actualizar
+											button.btn.waves-effect.waves-green(type="submit") Actualizar
 
 			//************ CARD MAPA ***********//
 			if professional.address
@@ -251,20 +267,35 @@ block content
 			//******** Cards para escritorio ********//
 			if professional.working_images.length == 0
 				.col.s12
-					span No hay registros
-			//******* CARD subir imagenes del trabajo **********//
+					span Todavía no hay imagenes.
+			//******* CARD subir imagenes de trabajos **********//
 			if professional._id == session.professional
-				.row
-					.col.s12.m4
-						.card
-							.card-content
-								form(action='/upload/working_images' method="post" enctype="multipart/form-data" id="working_images")
-									.file-field.input-field
-										.btn
-											i.fa.fa-camera(aria-hidden="true")
-											input(type="file" accept="image/*" data-form="working_images" name="working_images" )
-										.file-path-wrapper
-											input.file-path.validate(type="text" placeholder="Sube una foto")
+				if professional.working_images.length < 6 || professional.payments.plan
+					.row
+						.col.s12.m4
+							.card
+								.card-content
+									form(action='/upload/working_images' method="post" enctype="multipart/form-data" id="working_images")
+										.file-field.input-field
+											.btn.waves-effect.waves-green
+												i.fa.fa-camera(aria-hidden="true")
+												input(type="file" accept="image/*" data-form="working_images" name="working_images" )
+											.file-path-wrapper
+												input.file-path.validate(type="text" placeholder="Sube una foto")
+				//******* CARD MEJORAR CUENTA **************//
+				if professional.working_images.length >= 6 && !professional.payments.plan
+					.row
+						.col.s12.m6
+							.card.hoverable
+								.card-image
+								.card-content
+									span.card-title Mejora tu cuenta
+									h5 Sólo cuentas #[strong Plus] puede subir ilimitadas imagenes.
+									p Hazte #[strong Plus] y podrás además de subir todas la images que quieras, mejorar tu visibilidad en los resultados de busqueda y más.
+								.card-action
+									a.btn.btn-large.waves-effect.waves-green(href="/subscription")
+										i.fa.fa-heart.left(aria-hidden="true")
+										| Quiero hacerme plus
 			.row.hide-on-med-and-down
 				.col.m4
 					each image,index in professional.working_images
