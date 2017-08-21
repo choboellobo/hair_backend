@@ -9,6 +9,8 @@
             a(href='/#{session.slug}')
               i.fa.fa-user-circle.left(aria-hidden="true")
               | Mi perfil
+              if session.plan
+                span.new.badge.pink.first-letter-uppercase(data-badge-caption="#{session.plan}")
           li
             a(href='/professional/logout')
               i.fa.fa-sign-out.left(aria-hidden="true")
@@ -30,6 +32,8 @@ ul#dropdown.dropdown-content
     li
       a(href='/#{session.slug}')
         | Mi perfil
+        if session.plan
+          span.new.badge.pink.first-letter-uppercase(data-badge-caption="#{session.plan}")
     li
       a(href='/professional/logout')
         | Salir

@@ -76,6 +76,8 @@ block content
 mixin card(professional)
   .card.hoverable
     .card-image
+      if professional.payments.plan == 'plus'
+        i.fa.fa-heart.fa-2x.beats.pink-text(aria-hidden="true")
       if professional.background
         img(src="#{professional.background.url}")
       else

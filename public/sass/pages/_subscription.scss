@@ -1,0 +1,42 @@
+#subscription_plans{
+  .card {
+    .card-content {
+      position: relative;
+      ul {
+        padding-left: 1.5em;
+        li {
+          position: relative;
+          &::before {
+            position: absolute;
+            content: "\f00c";
+            font-family: FontAwesome;
+            left: -1.5em;
+          }
+        }
+      }
+    }
+  }
+  .top-color {
+    text-align: center;
+    color: white;
+    background: $green_primary;
+  }
+  .big-number {
+    font-size: 4em;
+  }
+}
+
+#subscription_pay{
+  #stripe-card {
+    margin: 1em 0px;
+    padding: 1em;
+  }
+}
+
+#subscription_thanks{
+  @extend .fullscreen;
+  @extend .background-image;
+  background-image: url(/img/bank/subscription_thanks.jpg);
+  background-attachment: fixed;
+  background-position: top !important;
+}

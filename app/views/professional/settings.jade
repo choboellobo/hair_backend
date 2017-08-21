@@ -1,0 +1,59 @@
+extends ../layout
+block seo
+  title Gestiona tus suscripciones
+block content
+  include ../_navbar
+  .container
+    .row
+      .col.s12
+        ul.tabs
+          li.tab
+            a(href="#active") Activas
+          li.tab
+            a(href="#canceled") Canceladas
+      #active.col.s12
+        ul.collection.with-header
+          li.collection-header
+            h4 Suscripciones
+          each subscription in subscriptions
+            if subscription.status == 'active'
+              li.collection-item.avatar
+                i.fa.fa-star.circle.blue
+                span.title #[strong=subscription.plan.name]
+                p
+                  | Esta suscripcion esta #[strong=subscription.status]
+                  if subscription.cancel_at_period_end && subscription.status == 'active'
+                    |  La suscripcion se eliminara el #[strong=subscription.current_period_end_format]
+                  else
+                    | El próximo cobro será el #[strong=subscription.current_period_end_format]
+                ul.collection
+                  each invoice in subscription.invoices
+                    if invoice.subscription_platform == subscription.platform_id
+                      li.collection-item
+                        span #{invoice.invoice_format}
+
+                if subscription.status == 'active' && !subscription.cancel_at_period_end
+                  form(action="/professional/settings/subscriptions", method="post")
+                    input(type="hidden" name="id" value="#{subscription.platform_id}")
+                    button.secondary-content.btn.red(type="submit")
+                      i.fa.fa-trash-o.left(aria-hidden="true")
+                      | Baja
+      #canceled.col.s12
+        ul.collection.with-header
+          li.collection-header
+            h4 Suscripciones
+          each subscription in subscriptions
+            if subscription.status == 'canceled'
+              li.collection-item.avatar
+                i.fa.fa-star.circle.blue
+                span.title #{subscription.plan.name}
+                p
+                  | Esta suscripcion esta #[strong=subscription.status]
+                ul.collection
+                  each invoice in subscription.invoices
+                    if invoice.subscription_platform == subscription.platform_id
+                      li.collection-item
+                        span #{invoice.invoice_format}
+  script.
+     $('ul.tabs').tabs();
+     $('.collapsible').collapsible();
