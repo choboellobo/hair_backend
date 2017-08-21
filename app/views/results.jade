@@ -1,6 +1,10 @@
 extends layout
 block seo
-  title Resultados de busqueda
+  if seo
+    title #{seo} | UrbHair.com
+    meta(name="description" content="#{seo} ofrecidos por UrbHair.com")
+    meta(name="robots" content="INDEX,FOLLOW")
+  title Resultados de búsqueda | UrbHair.com
 block content
   //- Modal search
   .modal#search
