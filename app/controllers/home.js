@@ -15,7 +15,7 @@ router.get('/', function (req, res, next) {
     res.render('index');
   }else {
     let regExp = new RegExp(req.query.w, 'i')
-    let query = {'address.location': regExp}
+    let query = {'address.location': regExp, active: true}
     if(req.query.gender) query.gender = req.query.gender
     if(req.query.services) query.services = req.query.services
     Professional.find(
@@ -38,7 +38,7 @@ router.get('/', function (req, res, next) {
 */
 router.get('/:slug', function (req, res, next) {
   // Looking for a professional by slug
-  Professional.findOne({slug: req.params.slug},{password: 0}).populate('services')
+  Professional.findOne({slug: req.params.slug, active: true},{password: 0}).populate('services')
   .then(
     professional => {
       // Looking for all services.
@@ -66,7 +66,7 @@ router.get('/busco/:query', function(req, res, next){
     service => {
       if(service == null) return next()
       Professional.find(
-        {'address.location': regExpLocation, services: service._id},
+        {'address.location': regExpLocation, services: service._id, active:true},
         {slug: 1, avatar: 1, first_name: 1, last_name: 1, background: 1, gender: 1, services: 1, options: 1, description: 1, phone: 1, payments: 1})
         .sort({'payments.plan': -1, 'created_at': 1})
         .populate('services')
