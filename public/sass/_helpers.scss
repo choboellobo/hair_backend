@@ -4,6 +4,9 @@
 .margin-left-05em {
   margin-left: .5em;
 }
+.margin-top-2em {
+  margin-top: 2em;
+}
 .shadow-text{
   text-shadow: 1px 1px 5px rgba(0,0,0,.8);
 }
@@ -15,9 +18,10 @@
 .fullscreen {
   height: 100vh !important;
 }
-.margin-top-2em {
-  margin-top: 2em;
+.screen-80 {
+  height: 80vh !important;
 }
+
 .first-letter-uppercase:first-letter {
   text-transform: uppercase;
 }

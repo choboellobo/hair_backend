@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col s12">
         <h5>Da más información a tus clientes</h5>
-        <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que</p>
+        <p>A tus cliente les gusta saber si trabajas a domicilio, si aceptas tarjetas de credito o si trabajas en algún local.</p>
       </div>
       <div class="col s12 m4" ng-repeat="option in vm.options">
         <div class="card">
@@ -26,7 +26,7 @@
       <div class="col s12 input-field">
         <input type="text" id="address" ng-keyup="vm.getAddress(vm.address)" ng-model="vm.address">
         <label for="address">
-          <span ng-show="vm.professional.options.store">Si tienes un local indicanos la direccion exacta</span>
+          <span ng-show="vm.professional.options.store">Si trabajas en un local indicanos la dirección exacta</span>
           <span ng-hide="vm.professional.options.store">Si trabajas a domicilio indica en que localidad</span>
         </label>
         <div class="row" ng-if="vm.addressResults">
@@ -45,7 +45,7 @@
           Terminar registro
         </button>
         <div class="card-panel red white-text" ng-show="vm.error">
-          Hubo un error intentelo de nuevo mas tarde.
+          Hubo un error intentelo de nuevo más tarde.
         </div>
       </div>
     </div>
