@@ -1,6 +1,6 @@
 extends ../layout
 block seo
-	title=professional.fullname
+	title #{professional.fullname} | UrbHair.com
 	if professional.description
 		meta(name="description" content="#{professional.description}")
 	- var icon_avatar = professional.avatar.replace('upload', 'upload/r_max')
@@ -94,10 +94,10 @@ block content
 				//*************** HEADER ***************** //
 				if professional.background
 					header.background-image(style="background-image:url(#{professional.background.url})")
-						h4.white-text.shadow-text.hide-on-med-and-down #{professional.fullname}
+						h4.white-text.shadow-text.hide-on-med-and-down.letter-capitalize #{professional.fullname}
 				else
 					header
-						h4.white-text.shadow-text.hide-on-med-and-down #{professional.fullname}
+						h4.white-text.shadow-text.hide-on-med-and-down.letter-capitalize #{professional.fullname}
 				//*************** NAVBAR ***************** //
 				nav.transparent.z-depth-0
 					.nav-wrapper
@@ -137,7 +137,7 @@ block content
 			.col.s12.m8
 				.row
 					.col.s12
-						h5 Sobre mi
+						h5 Sobre mí
 					if professional._id == session.professional
 						.col.s12
 							//***** Form actualizar description *********//
@@ -194,7 +194,7 @@ block content
 					.card
 						.card-image
 							if professional.address.location
-								if professional.options.store
+								if professional.address.place
 									img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.place},#{professional.address.location},España&zoom=13&size=600x400&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
 								else
 									img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.location},España&zoom=13&size=600x400&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
@@ -203,8 +203,6 @@ block content
 								span.card-title.shadow-text Sin datos de ubicación
 						if professional.address.location || professional.address.place
 							.card-content
-								if professional._id == session.professional
-									i.fa.fa-pencil.right.activator(aria-hidden="true")
 								if professional.options.store
 									p Ven a verme a mi local en #[strong #{professional.address.place} #{professional.address.location}]
 								else
@@ -221,15 +219,6 @@ block content
 								.chip.black-text
 									i.fa.fa-home(aria-hidden="true")
 									| Trabajo a domicilio
-						if professional._id == session.professional
-							.card-reveal
-								span.card-title
-									| Ubicación
-									i.fa.fa-times.right
-								.input-field
-									input(type="text" id="location")
-									label(for="location") Ubicación
-								button.btn Buscar
 		//*********** SECTION MIS SERVICIOS *********//
 		section.row.scrollspy#services
 			.col.s12

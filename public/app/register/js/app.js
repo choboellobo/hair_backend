@@ -30,9 +30,9 @@ weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
         selectYears: 100,
         today: 'Hoy',
         clear: 'Borrar',
-        close: 'Cerrar',
+        close: 'Aceptar',
         firstDay: 1,
-        max: new Date(),
+        max: new Date(new Date().setFullYear(new Date().getFullYear() - 18)),
         format: 'dd/mm/yyyy',
         onSet: function(context) {
           $scope.$apply($scope.vm.professional.birthday = new Date(context.select))
