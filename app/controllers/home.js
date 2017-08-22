@@ -80,5 +80,8 @@ router.get('/busco/:query', function(req, res, next){
         })
     }
   )
+})
 
+router.get('/aviso-legal', function(req, res, next){
+  res.render('legal');
 })
