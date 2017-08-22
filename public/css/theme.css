@@ -25,6 +25,9 @@
 .first-letter-uppercase:first-letter {
   text-transform: uppercase; }
 
+.letter-capitalize {
+  text-transform: capitalize; }
+
 #profile {
   /*
     Header: Este elemento contendra un fondo o un degradado.
