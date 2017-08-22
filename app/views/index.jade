@@ -2,7 +2,7 @@ extends layout
 block content
   include _navbar
   #home
-    section.parallax-container.valign-wrapper.fullscreen
+    section.parallax-container.valign-wrapper.screen-80
       .container
         .row
           .col.s12
@@ -10,8 +10,8 @@ block content
               .col.s12.m6
                 .card.fadeInLeft.animated.hoverable
                   .card-content
-                    span.card-title ¿Dónde buscas peluquero/a?
-                    p Aquí todos van a tu casa.
+                    span.card-title ¿Dónde buscas #[strong.worker Peluquero]?
+                    p Aquí van a tu casa.
                     .input-field
                       input#where(type="text" name="w" required autofocus)
                       label(for="where") Ciudad
@@ -19,11 +19,11 @@ block content
                       i.fa.fa-search.left
                       | Buscar
       .parallax
-        img(src="https://image.shutterstock.com/z/stock-photo-unrecognizable-hairdresser-cutting-hair-of-her-beautiful-young-c-408099175.jpg")
+        img(src="http://image.shutterstock.com/z/stock-photo-picture-of-working-day-inside-the-beauty-sit-on-two-chairs-clients-beautiful-young-girls-313680314.jpg")
     section.container#professionals
-      .row.padding-2em
-        .col.s12
-          h5 ¿Por qué elegir a nuestros peluqueros?
+      .row.margin-top-2em
+        .col.s12.center-align
+          h3.kurale-font ¿Por qué elegir a nuestros #[span#worker_plurals Peluqueros]?
       .row
         .col.s12.m4
           .card.hoverable
@@ -31,21 +31,21 @@ block content
               img(src="https://thumb9.shutterstock.com/display_pic_with_logo/78238/596168888/stock-photo-young-cheerful-girl-near-scooter-in-in-european-city-596168888.jpg")
             .card-content
               span.card-title Acuden a tu casa
-              p lorem ipsum
+              p Busca el icono #[i.fa.fa-home] #[strong Trabajo a domicilio] de nuestros profesionales, y agenda una cita con ellos en tú casa.
         .col.s12.m4
           .card.hoverable
             .card-image
               img(src="https://thumb1.shutterstock.com/display_pic_with_logo/1594919/289595393/stock-photo-portrait-of-a-beautiful-young-businesswoman-standing-outside-using-mobile-phone-289595393.jpg")
             .card-content
               span.card-title Comunicate facilmente
-              p lorem ipsum
+              p Podrás ponerte en contacto con nuestros profesionales pulsando el botón #[i.fa.fa-phone] ubicado en la parte inferior derecha.
         .col.s12.m4
           .card.hoverable
             .card-image
               img(src="https://thumb7.shutterstock.com/display_pic_with_logo/212824/605192291/stock-photo-portrait-of-tattooed-male-barber-holds-sharp-scissors-and-a-blade-605192291.jpg")
             .card-content
               span.card-title Son modernos
-              p lorem ipsum
+              p La media de edad de nuestros profesionales es de 26 años, tenemos jovenes aunque sobradamente preparados y modernos #[i.fa.fa-smile-o]
 
       .row
         .col.s12.m4
@@ -53,30 +53,32 @@ block content
             .card-image
               img(src="https://thumb7.shutterstock.com/display_pic_with_logo/137002/481524784/stock-photo-makeup-artist-and-hairdresser-preparing-bride-before-her-wedding-481524784.jpg")
             .card-content
-              span.card-title Busca maquilladores/as
-              p lorem ipsum
+              span.card-title Buscas maquilladores/as
+              p Tienes un evento especial y ¿necesitas un maquillador?, busca profesionales en tu ciudad y filtra #[i.fa.fa-search] por maquilladores
         .col.s12.m4
           .card.hoverable
             .card-image
               img(src="https://thumb1.shutterstock.com/display_pic_with_logo/84610/302377649/stock-photo-hairdresser-cutting-woman-hair-in-shop-302377649.jpg")
             .card-content
               span.card-title Verificamos su identidad
-              p lorem ipsum
+              p En #[strong UrbHair] nos preocupamos del servicio que te ofrecemos por eso verificamos #[i.fa.fa-check] a cada uno de nuestros profesionales.
         .col.s12.m4
           .card.hoverable
             .card-image
               img(src="https://thumb9.shutterstock.com/display_pic_with_logo/702733/294663395/stock-photo-toddler-child-getting-his-first-haircut-294663395.jpg")
             .card-content
-              span.card-title Tambien para tus niños
-              p lorem ipsum
+              span.card-title También para tus niños
+              p No solo los mayores necesitamos estos servicios, llama a nuestros profesionales y acudirán a tu casa también para los más pequeños.
     .section.parallax-container.valign-wrapper
-      .container
+      .container#are_you_professional
         .row
           .col.s12.center-align.white-text.shadow-text
-            h1 ¿Buscas barbero?
-            p Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No
+            h2.animated.hide ¿Eres #[span.worker Peluquero]?, te estamos buscando.
+            .animated.hide
+              p Unete a nuestros profesionales y tendras un perfil personal donde poder añadir tu imagen, información sobre tí, y tus horarios de trabajo, además de publicar images de tu trabajo, ubicación y mucho más. Pulsa en el botón de abajo y date de alta totalmente gratis.
+              a.btn(href="/register") Registrate Gratis
       .parallax
-        img(src="https://image.shutterstock.com/z/stock-photo-men-barber-shaves-his-beard-559214221.jpg")
+        img(src="https://image.shutterstock.com/z/stock-photo-hairstylist-using-digital-tablet-at-his-shop-hairdresser-sitting-at-barber-shop-working-on-digital-551971261.jpg")
   include _footer
 
   script(src="/js/controllers/home.js")
