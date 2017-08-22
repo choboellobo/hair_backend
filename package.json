@@ -1,6 +1,6 @@
 {
-  "name": "UrbHair application",
-  "version": "0.0.4",
+  "name": "urbhair",
+  "version": "0.0.5",
   "private": true,
   "main": "app.js",
   "scripts": {
