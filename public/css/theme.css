@@ -31,6 +31,9 @@
 .letter-capitalize {
   text-transform: capitalize; }
 
+.degradate-background, #profile header {
+  background: linear-gradient(50deg, #2fffc5, #3535d0); }
+
 #profile {
   /*
     Header: Este elemento contendra un fondo o un degradado.
@@ -46,7 +49,6 @@
     margin-left: 20px; }
   #profile header {
     height: 200px;
-    background: linear-gradient(50deg, #2fffc5, #3535d0);
     position: relative; }
     #profile header h4 {
       position: absolute;
@@ -142,6 +144,9 @@
 
 body {
   background-color: #e9ebee; }
+
+.user-view .background img {
+  width: 100%; }
 
 .btn {
   background: #00838f; }

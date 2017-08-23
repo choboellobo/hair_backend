@@ -15,7 +15,7 @@ block content
 	//********** Menu slider **********//
 	ul#slide-out.side-nav
 		li
-			.user-view
+			.user-view(class="#{!professional.background ? 'degradate-background': ''}")
 				.background
 					if professional.background
 						img(src="#{professional.background.url}")
@@ -151,7 +151,7 @@ block content
 							if professional.description
 								p !{professional.description}
 							else
-								p Todavia no se ha escrito nada sobre este perfil
+								p Todavía no se ha escrito nada sobre este perfil
 				.row
 					.col.s12
 						//********** UL collections Datos de interes *****//
@@ -164,7 +164,7 @@ block content
 								if professional.schedules
 									p #{professional.schedules}
 								else
-									p Todavia no han añadido un horario.
+									p Todavía no han añadido un horario.
 							if professional._id == session.professional
 								li.collection-item.avatar
 									i.circle(class="fa fa-pencil" aria-hidden="true")
@@ -204,7 +204,7 @@ block content
 						if professional.address.location || professional.address.place
 							.card-content
 								if professional.options.store
-									p Ven a verme a mi local en #[strong #{professional.address.place} #{professional.address.location}]
+									p Ven a verme donde trabajo en #[strong #{professional.address.place} #{professional.address.location}]
 								else
 									p Presto servicios en la zona de #[strong #{professional.address.location}]
 						.card-action.center-align
@@ -223,14 +223,17 @@ block content
 		section.row.scrollspy#services
 			.col.s12
 				h5 Mis servicios
+			if professional.services.length == 0
+				.col.s12
+					span Todavía no hay ningún servicio.
 			if professional._id == session.professional
 				//********** FORM ELEGIR MIS SERVICIOS **********//
 				.col.s12
-					p Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona qu
+					p Aquí puedes seleccionar los servicios realizas u ofreces, puedes seleccionar todos los que quieras. Es muy importante que selecciones alguno porque podrán encontrarte más fácilmente en las búsquedas.
 					form(action="/professional/update" method="post")
 						.input-field
 							select(multiple name="services")
-								option(disabled selected) Seleccione varios
+								option(disabled selected) Seleccione varios servicios.
 								each option in services
 									option(value="#{option._id}") #{option.name}
 						button.btn(type="submit") Actualizar
