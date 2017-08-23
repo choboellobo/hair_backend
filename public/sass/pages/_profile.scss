@@ -61,12 +61,10 @@
         }
         overflow: hidden;
         img {
-          filter: blur(0px);
           transition: all 500ms ease;
           &:hover {
-            transform: scale(1.2);
+            transform: scale(1.5);
             transition: all 500ms ease;
-            filter: blur(3px);
           }
         }
       }

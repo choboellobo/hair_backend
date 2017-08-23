@@ -76,12 +76,10 @@
     #profile #services .card .card-image span {
       pointer-events: none; }
     #profile #services .card .card-image img {
-      filter: blur(0px);
       transition: all 500ms ease; }
       #profile #services .card .card-image img:hover {
-        transform: scale(1.2);
-        transition: all 500ms ease;
-        filter: blur(3px); }
+        transform: scale(1.5);
+        transition: all 500ms ease; }
   #profile .card .card-image .top-fab {
     position: absolute;
     top: 1em;
