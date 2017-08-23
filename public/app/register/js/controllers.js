@@ -36,7 +36,7 @@ angular.module('register')
       vm.complete = false;
       vm.options = [
         {name: '¿Trabajas a domicilio?', icon: 'fa-home', model: 'home'},
-        {name: '¿Tienes un establecimiento?', icon: 'fa-building', model: 'store'},
+        {name: '¿Trabajas en algún local?', icon: 'fa-building', model: 'store'},
         {name: '¿Aceptas pagos con tarjeta?', icon: 'fa-credit-card-alt', model :'card'}
       ]
       vm.professional = {
