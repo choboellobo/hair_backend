@@ -2,7 +2,7 @@ var path = require('path'),
     rootPath = path.normalize(__dirname + '/..'),
     env = process.env.NODE_ENV || 'development',
     port = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 3000,
-    ip = process.env.OPENSHIFT_NODEJS_IP || process.env.IP || '127.0.0.1';
+    ip = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
     /* MONGODB RELEASE */
     var mongodb;
