@@ -8,8 +8,8 @@ var path = require('path'),
     var mongodb;
     if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
       mongodb = "mongodb://"+process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" + process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +process.env.OPENSHIFT_MONGODB_DB_HOST + ":" + process.env.OPENSHIFT_MONGODB_DB_PORT + "/" + process.env.OPENSHIFT_APP_NAME
-    }else if(process.MONGODB_URI){
-      mongodb = process.MONGODB_URI
+    }else if(process.env.MONGODB_URI){
+      mongodb = process.env.MONGODB_URI
     } else {
       mongodb = 'mongodb://localhost/hair';
     }
