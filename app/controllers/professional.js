@@ -66,12 +66,12 @@ const isLogIn = require('../helpers/islogin');
   /recovery_password
   */
   router.post('/recovery_password', function(req, res, next){
-    Professional.findOne({email: req.body.email},{id: 1, email: 1})
+    Professional.findOne({email: req.body.email},{id: 1, email: 1, first_name: 1})
                 .then(
                   professional => {
                     if(professional){
                       Mailer.recovery_password(
-                        professional.email,
+                        professional,
                         '/professional/recovery_password/'+ crypter.encrypt(professional.id)
                       ).then(
                         success => res.render('professional/login', {session: req.session, recovery_password: true}),

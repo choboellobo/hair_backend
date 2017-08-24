@@ -2,8 +2,10 @@ doctype html
 html
   head
   body
-    h2 Valida tu cuenta
-    p Para poder utilizar nuestra plataforma necesitamos verificar su identidad, porfavor pulse en el link de abajo para verificarla.
-    a(href="#{url}") #{url}
-    p
-      small Todos los derechos reservados.
+    div(style="font-family: Helvetica, Arial, sans-serif; text-align: left")
+      h3 Hola #{professional.first_name},
+      p Gracias por darte de alta en #[a(href="http://urbhair.com") urbhair.com], para verificar tu email pulsa en el enlace.
+      a(href="#{url}") #{url}
+      p Gracias, el equipo de urbhair.com
+      p
+        small Todos los derechos resevados
