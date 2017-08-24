@@ -20,7 +20,7 @@ class Mails {
   }
   validate_account(professional, url) {
     let mailOptions = {
-        from: '"Ana de urbhair.com" <app@urbhair.com>', // sender address
+        from: '"Ana de urbhair.com" <'+env.email.user+'>', // sender address
         to: professional.email, // list of receivers
         subject: 'Confirma tu email', // Subject line
         text: 'Este email no soporta texto plano, visualiza este email con un programa de correo', // plain text body
@@ -37,7 +37,7 @@ class Mails {
   recovery_password(professional, url) {
     // setup email data with unicode symbols
     let mailOptions = {
-        from: '"Ana de urbhair.com" <app@urbhair.com>', // sender address
+        from: '"Ana de urbhair.com" <'+env.email.user+'>', // sender address
         to: professional.email, // list of receivers
         subject: 'Puedes modificar tu contraseña aquí', // Subject line
         text: 'Este email no soporta texto plano, visualiza este email con un programa de correo', // plain text body
