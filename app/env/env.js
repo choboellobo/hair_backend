@@ -10,7 +10,9 @@ module.exports = {
     api_secret: process.env.CLOUDINARY_APISECRET || 'QIpKnaKaSgT6_X6TwxY3avsTfrQ'
   },
   email: {
-    user: process.env.MAIL_USER,
-    password: process.env.MAIL_PASSWORD
+    smtp: process.env.MAIL_SMTP || 'smtp.mailgun.org',
+    user: process.env.MAIL_USER ,
+    password: process.env.MAIL_PASSWORD,
+    domain: 'urbhair.com'
   }
 };
