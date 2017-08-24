@@ -9,16 +9,16 @@ block content
   //- Modal search
   .modal#search
     .modal-content
-      h5 Afina tu busqueda aquí
+      h5 Afina tu búsqueda aquí
       form.row(action="/")
         .col.s12.input-field
           input#where(type="text" name="w" value="#{query.w}" required)
           label(for="where") Ciudad
         .col.s12
           input.with-gap#male(type="radio" name="gender" value="male")
-          label(for="male") Peluquero
+          label(for="male") Hombre
           input.with-gap#female(type="radio" name="gender" value="female")
-          label(for="female") Peluquera
+          label(for="female") Mujer
         .col.s12.input-field
           select.icons(name="services")
             option(selected disabled ) Seleccione un servicio
@@ -92,11 +92,11 @@ mixin card(professional)
       .center-align.avatar
         a.tooltipped(href="/#{professional.slug}" data-position="top" data-tooltip="Accede a mi perfil")
           img.circle.responsive-img(src="#{professional.avatar}")
-      span.card-title #{professional.fullname}
+      span.card-title.letter-capitalize #{professional.fullname}
       if professional.description
         p #{professional.description}
       else
-        p Este usuario todavia no ha añadido una description sobre el mismo.
+        p Este usuario todavía no ha añadido una descripción sobre el mismo.
       p.center-align
         a.waves-effect.waves-light(href="/#{professional.slug}") Saber más acerca de mí
     if professional.services.length > 0

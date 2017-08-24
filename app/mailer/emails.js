@@ -18,15 +18,15 @@ class Mails {
       }
     });
   }
-  validate_account(to, url) {
+  validate_account(professional, url) {
     let mailOptions = {
-        from: '"UrbHair" <app@urbhair.com>', // sender address
-        to: to, // list of receivers
-        subject: 'Valida tu cuenta', // Subject line
+        from: '"Ana de urbhair.com" <app@urbhair.com>', // sender address
+        to: professional.email, // list of receivers
+        subject: 'Confirma tu email', // Subject line
         text: 'Este email no soporta texto plano, visualiza este email con un programa de correo', // plain text body
         html: null
     };
-    return this.getTemplate('validate_account', { url: env.host + url })
+    return this.getTemplate('validate_account', { url: env.host + url, professional: professional })
         .then(
           email => {
             mailOptions.html = email.html;
@@ -34,16 +34,16 @@ class Mails {
           }
         )
   }
-  recovery_password(to, url) {
+  recovery_password(professional, url) {
     // setup email data with unicode symbols
     let mailOptions = {
-        from: '"UrbHair" <app@urbhair.com>', // sender address
-        to: to, // list of receivers
+        from: '"Ana de urbhair.com" <app@urbhair.com>', // sender address
+        to: professional.email, // list of receivers
         subject: 'Puedes modificar tu contraseña aquí', // Subject line
         text: 'Este email no soporta texto plano, visualiza este email con un programa de correo', // plain text body
         html: null
     };
-    return this.getTemplate('recovery_password', {url: env.host + url })
+    return this.getTemplate('recovery_password', {url: env.host + url, professional: professional })
                 .then(
                   email => {
                     mailOptions.html = email.html
