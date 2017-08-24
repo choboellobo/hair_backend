@@ -132,7 +132,7 @@ block content
 		// div del nombre del perfil que se oculta en escritorio
 		.row.hide-on-large-only
 			.col.s12.center-align
-				h5.kurale-font #{professional.fullname}
+				h4.kurale-font.letter-capitalize #{professional.fullname}
 		.row
 			.col.s12.m8
 				.row
@@ -242,9 +242,8 @@ block content
 					.card.hoverable
 						.card-image
 							img(src="#{service.image}")
-						.card-content.center-align
-							span.card-title
-								strong #{service.name}
+							.card-title.shadow-text.kurale-font.truncate #{service.name}
+
 		//********* SECTION MIS TRABAJOS ****//
 		section.row.scrollspy#work
 			.col.s12

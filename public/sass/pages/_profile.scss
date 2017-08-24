@@ -55,7 +55,19 @@
   */
   #services {
     .card {
-      min-height: 350px;
+      .card-image {
+        span {
+          pointer-events: none;
+        }
+        overflow: hidden;
+        img {
+          transition: all 500ms ease;
+          &:hover {
+            transform: scale(1.5);
+            transition: all 500ms ease;
+          }
+        }
+      }
     }
   }
   .card{

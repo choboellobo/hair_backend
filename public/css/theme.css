@@ -71,8 +71,15 @@
         margin-left: 1em; }
         #profile nav .brand-logo .avatar + form label i {
           color: white !important; }
-  #profile #services .card {
-    min-height: 350px; }
+  #profile #services .card .card-image {
+    overflow: hidden; }
+    #profile #services .card .card-image span {
+      pointer-events: none; }
+    #profile #services .card .card-image img {
+      transition: all 500ms ease; }
+      #profile #services .card .card-image img:hover {
+        transform: scale(1.5);
+        transition: all 500ms ease; }
   #profile .card .card-image .top-fab {
     position: absolute;
     top: 1em;
