@@ -6,7 +6,7 @@ const path = require('path')
 class Mails {
   constructor() {
     this.transporter = nodemailer.createTransport({
-        host: 'smtp.urbhair.com',
+        host: env.email.smtp,
         port: 465,
         secure: true, // upgrade later with STARTTLS
         auth: {
