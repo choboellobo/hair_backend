@@ -68,7 +68,7 @@ var Mailer = require('../../mailer/emails');
 											.then(
 												newProfessional => {
 													// Send an email to validate
-													Mailer.validate_account(newProfessional.email, '/professional/validate/'+crypter.encrypt(newProfessional.id))
+													Mailer.validate_account(newProfessional, '/professional/validate/'+crypter.encrypt(newProfessional.id))
 													.then(success => {
 														// When email is already sent return JWT and DATA.
 														res.status(201).json({
