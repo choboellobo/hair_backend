@@ -1,5 +1,5 @@
 @charset "UTF-8";
-.kurale-font, #profile h5, #profile header h4, #notfound h1 {
+.kurale-font, #profile #modal-tutorial .carousel .carousel-item .container h4, #profile h5, #profile header h4, #notfound h1 {
   font-family: 'Kurale', serif; }
 
 .font-size-2x {
@@ -44,6 +44,17 @@
   /*
     Cards
   */ }
+  #profile #modal-tutorial .carousel {
+    height: 500px; }
+    #profile #modal-tutorial .carousel .carousel-item .container {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+      #profile #modal-tutorial .carousel .carousel-item .container i {
+        margin-bottom: 20px; }
+      #profile #modal-tutorial .carousel .carousel-item .container p {
+        font-weight: lighter; }
   #profile #btn-background {
     margin-bottom: -100px;
     margin-left: 20px; }
