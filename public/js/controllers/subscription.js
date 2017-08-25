@@ -1,6 +1,6 @@
 (function(){
   let stripe;
-  if(location.host == 'hair-chobo.rhcloud.com' || location.host == 'urbhair.com') stripe = Stripe('pk_live_cwAINftpXkXLIOEOepP7UqVL');
+  if(location.host == 'urbhair.herokuapp.com' || location.host == 'www.urbhair.com') stripe = Stripe('pk_live_cwAINftpXkXLIOEOepP7UqVL');
   else stripe = Stripe('pk_test_xzlKGfm0qMBrqy40YWFz4SHz');
   let elements = stripe.elements();
   // Create an instance of the card Element

@@ -82,224 +82,265 @@ block content
 	//**** NAVBAR *****//
 	include ../_navbar
 	// ****** PROFILE ******//
-	.container#profile
-		.row
-			.col.s12
-				if professional._id == session.professional
-					//****** Form subir background ********//
-					form.hide-on-med-and-down(action="/upload/background" method="post" id="form-background")
-						input(type="hidden" name="image")
-						a.btn-floating.btn-large.waves-effect.waves-light.light-green#btn-background(href="#modal-background")
-							i.fa.fa-pencil(aria-hidden="true")
-				//*************** HEADER ***************** //
-				if professional.background
-					header.background-image(style="background-image:url(#{professional.background.url})")
-						h4.white-text.shadow-text.hide-on-med-and-down.letter-capitalize #{professional.fullname}
-				else
-					header
-						h4.white-text.shadow-text.hide-on-med-and-down.letter-capitalize #{professional.fullname}
-				//*************** NAVBAR ***************** //
-				nav.transparent.z-depth-0
-					.nav-wrapper
-						a.button-collapse(href="#" data-activates="slide-out")
-							i.fa.fa-2x.fa-bars(aria-hidden="true")
-						a.brand-logo(href="#{ professional._id == session.professional ? '#modal-avatar': 'javascript:void()' }")
-							img.avatar.responsive-img(class="#{ professional._id == session.professional ? 'tooltipped': '' }" src="#{professional.avatar}" data-position="top" data-tooltip="<i class='fa fa-camera'></i> Cambia tu foto de perfil" data-html="true")
-							if professional._id == session.professional
-								//****** Form subir avatar ******//
-								form.valign-wrapper(action="/upload/avatar" method="post" id="form-upload-avatar")
-									input.hide(type="hidden" name="avatar")
-						ul#nav-mobile.right.hide-on-med-and-down
-							li
-								a(href="#services")
-									i.fa.fa-scissors.left(aria-hidden="true")
-									| Mis servicios
-							li
-								a(href="#work")
-									i.fa.fa-file-image-o.left(aria-hidden="true")
-									| Mis trabajos
-							if professional._id == session.professional
-								if professional.payments.plan
-									li
-										a(href="/professional/settings")
-											i.fa.fa-cog.left(aria-hidden="true")
-											| Gestiona tu suscripción
-								else
-									li
-										a(href="/subscription")
-											i.fa.fa-star.left(aria-hidden="true")
-											| Mejora tu cuenta
-		// div del nombre del perfil que se oculta en escritorio
-		.row.hide-on-large-only
-			.col.s12.center-align
-				h4.kurale-font.letter-capitalize #{professional.fullname}
-		.row
-			.col.s12.m8
-				.row
-					.col.s12
-						h5 Sobre mí
+	#profile
+		if professional._id == session.professional && !professional.payments.plan
+			//********* MODAL TUTORIAL ********//
+			.modal#modal-tutorial
+				.carousel.carousel-slider.white-text
+					.carousel-item.deep-purple.darken-1
+						.container
+							.col.s12.center-align
+								i.fa.fa-user-circle.fa-5x
+								h4 Personaliza tu perfil
+								p Los usuario con fondos y fotos de perfil dan más seguridad a los usuarios, así que te recomendamos que elijas una foto para tu perfil (pulsa sobre tu avatar para cambiarla) y elijas una imagen de fondo, pulsa en el icono #[i.fa.fa-pencil] situado encima de tu avatar.
+								button.btn.white.deep-purple-text.text-darken-1(next)
+									i.fa.fa-arrow-right.right
+									| Continua
+					.carousel-item.cyan.darken-4
+						.container
+							.col.s12.center-align
+								i.fa.fa-address-card.fa-5x
+								h4 Añade más información
+								p Tener a tus clientes bien informados es muy importante para tu éxito, así que no olvides añadir un párrafo sobre ti, tu horario de trabajo, y los servicios que ofreces (Corte de pelo, Barbería, Maquillaje etc)
+								button.btn.white.cyan-text.text-darken-4(next)
+									i.fa.fa-arrow-right.right
+									| Continua
+					.carousel-item.blue.darken-3
+						.container
+							.col.s12.center-align
+								i.fa.fa-camera.fa-5x
+								h4 Imágenes de tus trabajos
+								p Lo más importante, sube imagenes de tus trabajos para que todo el mundo pueda contemplar lo buen profesional que eres, recuerda eres importante por lo que eres y lo que haces, con tus fotos tus clientes o empresas pueden valorarte más.
+								button.btn.white.blue-text.text-darken-3(next)
+									i.fa.fa-arrow-right.right
+									| Continua
+					.carousel-item.red.darken-2
+						.container
+							.col.s12.center-align
+								i.fa.fa-rocket.fa-5x
+								h4 Mejora tu cuenta
+								p Si realmente quieres obtener muchas #[strong más visitas], poder #[strong subir imágenes ilimitadas] de tus trabajos, aparecer en los primeros resultados de las búsquedas, además de poder tener tu propio dominio en internet #[strong (www.tunombre.es)] y aparecer en nuestras campañas de marketing, conviértete en un cliente plus.
+								a.btn.white.red-text.text-darken-2(href="/subscription")
+									i.fa.fa-star.left
+									| Quiero ser plus
+		.container
+			.row
+				.col.s12
 					if professional._id == session.professional
-						.col.s12
-							//***** Form actualizar description *********//
-							form(action="/professional/update" method="post")
-								.input-field
-									textarea.materialize-textarea#description(required name="description" maxlenght="500" data-length="500") #{professional.description}
-									label(for="description") Escribe algo sobre ti.
-								button.btn(type="submit") Actualizar
+						//****** Form subir background ********//
+						form.hide-on-med-and-down(action="/upload/background" method="post" id="form-background")
+							input(type="hidden" name="image")
+							a.btn-floating.btn-large.waves-effect.waves-light.light-green#btn-background(href="#modal-background")
+								i.fa.fa-pencil(aria-hidden="true")
+					//*************** HEADER ***************** //
+					if professional.background
+						header.background-image(style="background-image:url(#{professional.background.url})")
+							h4.white-text.shadow-text.hide-on-med-and-down.letter-capitalize #{professional.fullname}
 					else
+						header
+							h4.white-text.shadow-text.hide-on-med-and-down.letter-capitalize #{professional.fullname}
+					//*************** NAVBAR ***************** //
+					nav.transparent.z-depth-0
+						.nav-wrapper
+							a.button-collapse(href="#" data-activates="slide-out")
+								i.fa.fa-2x.fa-bars(aria-hidden="true")
+							a.brand-logo(href="#{ professional._id == session.professional ? '#modal-avatar': 'javascript:void()' }")
+								img.avatar.responsive-img(class="#{ professional._id == session.professional ? 'tooltipped': '' }" src="#{professional.avatar}" data-position="top" data-tooltip="<i class='fa fa-camera'></i> Cambia tu foto de perfil" data-html="true")
+								if professional._id == session.professional
+									//****** Form subir avatar ******//
+									form.valign-wrapper(action="/upload/avatar" method="post" id="form-upload-avatar")
+										input.hide(type="hidden" name="avatar")
+							ul#nav-mobile.right.hide-on-med-and-down
+								li
+									a(href="#services")
+										i.fa.fa-scissors.left(aria-hidden="true")
+										| Mis servicios
+								li
+									a(href="#work")
+										i.fa.fa-file-image-o.left(aria-hidden="true")
+										| Mis trabajos
+								if professional._id == session.professional
+									if professional.payments.plan
+										li
+											a(href="/professional/settings")
+												i.fa.fa-cog.left(aria-hidden="true")
+												| Gestiona tu suscripción
+									else
+										li
+											a(href="/subscription")
+												i.fa.fa-star.left(aria-hidden="true")
+												| Mejora tu cuenta
+			// div del nombre del perfil que se oculta en escritorio
+			.row.hide-on-large-only
+				.col.s12.center-align
+					h4.kurale-font.letter-capitalize #{professional.fullname}
+			.row
+				.col.s12.m8
+					.row
 						.col.s12
-							if professional.description
-								p !{professional.description}
-							else
-								p Todavía no se ha escrito nada sobre este perfil
-				.row
-					.col.s12
-						//********** UL collections Datos de interes *****//
-						ul.collection.with-header
-							li.collection-header
-								h5 Datos de interés
-							li.collection-item.avatar
-								i.circle(class="fa fa-clock-o" aria-hidden="true")
-								span.title Horario
-								if professional.schedules
-									p #{professional.schedules}
+							h5 Sobre mí
+						if professional._id == session.professional
+							.col.s12
+								//***** Form actualizar description *********//
+								form(action="/professional/update" method="post")
+									.input-field
+										textarea.materialize-textarea#description(required name="description" maxlenght="500" data-length="500") #{professional.description}
+										label(for="description") Escribe algo sobre ti.
+									button.btn(type="submit") Actualizar
+						else
+							.col.s12
+								if professional.description
+									p !{professional.description}
 								else
-									p Todavía no han añadido un horario.
-							if professional._id == session.professional
+									p Todavía no se ha escrito nada sobre este perfil
+					.row
+						.col.s12
+							//********** UL collections Datos de interes *****//
+							ul.collection.with-header
+								li.collection-header
+									h5 Datos de interés
 								li.collection-item.avatar
-									i.circle(class="fa fa-pencil" aria-hidden="true")
-									// ******** Form actualizar schedule *******//
-									form(action="/professional/update" method="post")
-										.input-field
-											textarea.materialize-textarea(id="schedules" name="schedules" required maxlenght="200" data-length="200")
-											label(for="schedules") Actualiza tu horario
-										button.btn.waves-effect.waves-green(type="submit") Actualizar
-							li.collection-item.avatar
-								i.circle.fa.fa-phone(aria-hidden="true")
-								span.title Teléfono
-								p #{professional.phone}
+									i.circle(class="fa fa-clock-o" aria-hidden="true")
+									span.title Horario
+									if professional.schedules
+										p #{professional.schedules}
+									else
+										p Todavía no han añadido un horario.
 								if professional._id == session.professional
 									li.collection-item.avatar
 										i.circle(class="fa fa-pencil" aria-hidden="true")
-										//****** Form actualizar phone *****//
+										// ******** Form actualizar schedule *******//
 										form(action="/professional/update" method="post")
 											.input-field
-												input.validate(type="text" id="phone" name="phone" required pattern="^[9|6|7][0-9]{8}$")
-												label(for="phone" data-error="Escriba un teléfono valido") Actualiza el teléfono
+												textarea.materialize-textarea(id="schedules" name="schedules" required maxlenght="200" data-length="200")
+												label(for="schedules") Actualiza tu horario
 											button.btn.waves-effect.waves-green(type="submit") Actualizar
+								li.collection-item.avatar
+									i.circle.fa.fa-phone(aria-hidden="true")
+									span.title Teléfono
+									p #{professional.phone}
+									if professional._id == session.professional
+										li.collection-item.avatar
+											i.circle(class="fa fa-pencil" aria-hidden="true")
+											//****** Form actualizar phone *****//
+											form(action="/professional/update" method="post")
+												.input-field
+													input.validate(type="text" id="phone" name="phone" required pattern="^[9|6|7][0-9]{8}$")
+													label(for="phone" data-error="Escriba un teléfono valido") Actualiza el teléfono
+												button.btn.waves-effect.waves-green(type="submit") Actualizar
 
-			//************ CARD MAPA ***********//
-			if professional.address
-				.col.s12.m4
-					.card
-						.card-image
-							if professional.address.location
-								if professional.address.place
-									img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.place},#{professional.address.location},España&zoom=13&size=600x400&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
+				//************ CARD MAPA ***********//
+				if professional.address
+					.col.s12.m4
+						.card
+							.card-image
+								if professional.address.location
+									if professional.address.place
+										img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.place},#{professional.address.location},España&zoom=13&size=600x400&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
+									else
+										img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.location},España&zoom=13&size=600x400&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
 								else
-									img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{professional.address.location},España&zoom=13&size=600x400&maptype=roadmap&key=AIzaSyCiUw1uT1zwJSRV4d_qhclFC7BgM3mzRqQ")
-							else
-								img(src="https://thumb7.shutterstock.com/display_pic_with_logo/696460/520874077/stock-photo-portrait-confused-thinking-young-woman-bewildered-scratching-her-head-seeks-a-solution-looking-up-520874077.jpg")
-								span.card-title.shadow-text Sin datos de ubicación
-						if professional.address.location || professional.address.place
-							.card-content
-								if professional.options.store
-									p Ven a verme donde trabajo en #[strong #{professional.address.place} #{professional.address.location}]
-								else
-									p Presto servicios en la zona de #[strong #{professional.address.location}]
-						.card-action.center-align
-							small Pagos aceptados
-							br
-							i.margin-left-05em.tooltipped(class="fa fa-money fa-2x" aria-hidden="true"  data-position="bottom" data-delay="50" data-tooltip="Efectivo")
-							if professional.options.payments.card
-								i.margin-left-05em.tooltipped(class="fa fa-cc-visa fa-2x" aria-hidden="true"  data-position="bottom" data-delay="50" data-tooltip="Pago con Visa")
-								i.margin-left-05em.tooltipped(class="fa fa-cc-mastercard fa-2x" aria-hidden="true"  data-position="bottom" data-delay="50" data-tooltip="Pago con MasterCard")
-						if professional.options.home
+									img(src="https://thumb7.shutterstock.com/display_pic_with_logo/696460/520874077/stock-photo-portrait-confused-thinking-young-woman-bewildered-scratching-her-head-seeks-a-solution-looking-up-520874077.jpg")
+									span.card-title.shadow-text Sin datos de ubicación
+							if professional.address.location || professional.address.place
+								.card-content
+									if professional.options.store
+										p Ven a verme donde trabajo en #[strong #{professional.address.place} #{professional.address.location}]
+									else
+										p Presto servicios en la zona de #[strong #{professional.address.location}]
 							.card-action.center-align
-								.chip.black-text
-									i.fa.fa-home(aria-hidden="true")
-									| Trabajo a domicilio
-		//*********** SECTION MIS SERVICIOS *********//
-		section.row.scrollspy#services
-			.col.s12
-				h5 Mis servicios
-			if professional.services.length == 0
+								small Pagos aceptados
+								br
+								i.margin-left-05em.tooltipped(class="fa fa-money fa-2x" aria-hidden="true"  data-position="bottom" data-delay="50" data-tooltip="Efectivo")
+								if professional.options.payments.card
+									i.margin-left-05em.tooltipped(class="fa fa-cc-visa fa-2x" aria-hidden="true"  data-position="bottom" data-delay="50" data-tooltip="Pago con Visa")
+									i.margin-left-05em.tooltipped(class="fa fa-cc-mastercard fa-2x" aria-hidden="true"  data-position="bottom" data-delay="50" data-tooltip="Pago con MasterCard")
+							if professional.options.home
+								.card-action.center-align
+									.chip.black-text
+										i.fa.fa-home(aria-hidden="true")
+										| Trabajo a domicilio
+			//*********** SECTION MIS SERVICIOS *********//
+			section.row.scrollspy#services
 				.col.s12
-					span Todavía no hay ningún servicio.
-			if professional._id == session.professional
-				//********** FORM ELEGIR MIS SERVICIOS **********//
-				.col.s12
-					p Aquí puedes seleccionar los servicios realizas u ofreces, puedes seleccionar todos los que quieras. Es muy importante que selecciones alguno porque podrán encontrarte más fácilmente en las búsquedas.
-					form(action="/professional/update" method="post")
-						.input-field
-							select(multiple name="services")
-								option(disabled selected) Seleccione varios servicios.
-								each option in services
-									option(value="#{option._id}") #{option.name}
-						button.btn(type="submit") Actualizar
-			each service in professional.services
-				.col.s12.m4
-					.card.hoverable
-						.card-image
-							img(src="#{service.image}")
-							.card-title.shadow-text.kurale-font.truncate #{service.name}
+					h5 Mis servicios
+				if professional.services.length == 0
+					.col.s12
+						span Todavía no hay ningún servicio.
+				if professional._id == session.professional
+					//********** FORM ELEGIR MIS SERVICIOS **********//
+					.col.s12
+						p Aquí puedes seleccionar los servicios realizas u ofreces, puedes seleccionar todos los que quieras. Es muy importante que selecciones alguno porque podrán encontrarte más fácilmente en las búsquedas.
+						form(action="/professional/update" method="post")
+							.input-field
+								select(multiple name="services")
+									option(disabled selected) Seleccione varios servicios.
+									each option in services
+										option(value="#{option._id}") #{option.name}
+							button.btn(type="submit") Actualizar
+				each service in professional.services
+					.col.s12.m4
+						.card.hoverable
+							.card-image
+								img(src="#{service.image}")
+								.card-title.shadow-text.kurale-font.truncate #{service.name}
 
-		//********* SECTION MIS TRABAJOS ****//
-		section.row.scrollspy#work
-			.col.s12
-				h5 Mis trabajos
-			//******* Carrusel para móvil ********//
-			if professional.working_images.length > 0
-				.col.s12.hide-on-large-only
-					.carousel
-						each image in professional.working_images
-							a.carousel-item
-								img(src="#{image.url}")
-			//******** Cards para escritorio ********//
-			if professional.working_images.length == 0
+			//********* SECTION MIS TRABAJOS ****//
+			section.row.scrollspy#work
 				.col.s12
-					span Todavía no hay imagenes.
-			//******* CARD subir imagenes de trabajos **********//
-			if professional._id == session.professional
-				if professional.working_images.length < 6 || professional.payments.plan
-					.row
-						.col.s12.m4
-							.card
-								.card-content
-									form(action='/upload/working_images' method="post" enctype="multipart/form-data" id="working_images")
-										.file-field.input-field
-											.btn.waves-effect.waves-green
-												i.fa.fa-camera(aria-hidden="true")
-												input(type="file" accept="image/*" data-form="working_images" name="working_images" )
-											.file-path-wrapper
-												input.file-path.validate(type="text" placeholder="Sube una foto")
-				//******* CARD MEJORAR CUENTA **************//
-				if professional.working_images.length >= 6 && !professional.payments.plan
-					.row
-						.col.s12.m6
-							.card.hoverable
-								.card-image
-								.card-content
-									span.card-title Mejora tu cuenta
-									h5 Sólo cuentas #[strong Plus] puede subir ilimitadas imagenes.
-									p Hazte #[strong Plus] y podrás además de subir todas la images que quieras, mejorar tu visibilidad en los resultados de busqueda y más.
-								.card-action
-									a.btn.btn-large.waves-effect.waves-green(href="/subscription")
-										i.fa.fa-heart.left(aria-hidden="true")
-										| Quiero hacerme plus
-			.row.hide-on-med-and-down
-				.col.m4
-					each image,index in professional.working_images
-						if index%3 == 0
-							+card-image(image.url, image.public_id)
-				.col.m4
-					each image,index in professional.working_images
-						if index%3 == 1
-							+card-image(image.url, image.public_id)
-				.col.m4
-					each image,index in professional.working_images
-						if index%3 == 2
-							+card-image(image.url, image.public_id)
+					h5 Mis trabajos
+				//******* Carrusel para móvil ********//
+				if professional.working_images.length > 0
+					.col.s12.hide-on-large-only
+						.carousel
+							each image in professional.working_images
+								a.carousel-item
+									img(src="#{image.url}")
+				//******** Cards para escritorio ********//
+				if professional.working_images.length == 0
+					.col.s12
+						span Todavía no hay imagenes.
+				//******* CARD subir imagenes de trabajos **********//
+				if professional._id == session.professional
+					if professional.working_images.length < 6 || professional.payments.plan
+						.row
+							.col.s12.m4
+								.card
+									.card-content
+										form(action='/upload/working_images' method="post" enctype="multipart/form-data" id="working_images")
+											.file-field.input-field
+												.btn.waves-effect.waves-green
+													i.fa.fa-camera(aria-hidden="true")
+													input(type="file" accept="image/*" data-form="working_images" name="working_images" )
+												.file-path-wrapper
+													input.file-path.validate(type="text" placeholder="Sube una foto")
+					//******* CARD MEJORAR CUENTA **************//
+					if professional.working_images.length >= 6 && !professional.payments.plan
+						.row
+							.col.s12.m6
+								.card.hoverable
+									.card-image
+									.card-content
+										span.card-title Mejora tu cuenta
+										h5 Sólo cuentas #[strong Plus] puede subir ilimitadas imagenes.
+										p Hazte #[strong Plus] y podrás además de subir todas la images que quieras, mejorar tu visibilidad en los resultados de busqueda y más.
+									.card-action
+										a.btn.btn-large.waves-effect.waves-green(href="/subscription")
+											i.fa.fa-heart.left(aria-hidden="true")
+											| Quiero hacerme plus
+				.row.hide-on-med-and-down
+					.col.m4
+						each image,index in professional.working_images
+							if index%3 == 0
+								+card-image(image.url, image.public_id)
+					.col.m4
+						each image,index in professional.working_images
+							if index%3 == 1
+								+card-image(image.url, image.public_id)
+					.col.m4
+						each image,index in professional.working_images
+							if index%3 == 2
+								+card-image(image.url, image.public_id)
 	//**** Footer *****//
 	include ../_footer
 	//******* Javascript ********//

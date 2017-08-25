@@ -1,5 +1,6 @@
 (function() {
 
+  // MODAL PROFILE PICTURE
   $('#modal-avatar').modal({
     ready: function(){
       $('#modal-avatar input[type="file"]').on('change', function(e) {
@@ -20,6 +21,7 @@
       $('#crop-avatar').cropper('destroy');
 			$('#modal-avatar img').attr('src', null)
 			$('#modal-avatar form')[0].reset()
+      $('#modal-avatar form').show()
     }
   })
   $('#modal-avatar button[cut]').on('click', function() {
@@ -32,6 +34,7 @@
 			dismissible: false
 		});
 	})
+  // MODAL background
 	// Cut image background
 	$('#modal-background').modal({
 		ready: function(modal, trigger) {
@@ -53,6 +56,7 @@
 			$('#crop').cropper('destroy');
 			$('#modal-background img').attr('src', null)
 			$('#modal-background form')[0].reset()
+      $('#modal-background form').show()
 		}
 	});
 	$('#modal-background button[cut]').on('click', function() {
@@ -65,7 +69,7 @@
 			dismissible: false
 		});
 	})
-	// Upload new working images
+	// ****** Upload new working images   *******/
 	$('[type="file"]').on('change', function(e) {
 		let input = $(this)
 		let file = e.target.files[0];
@@ -84,14 +88,31 @@
 		}
 		reader.readAsDataURL(file)
 	})
-	// Materialize
+	//******  Materialize GET START *********//
 	$('.scrollspy').scrollSpy({
 		scrollOffset: 0
 	});
 	$('select').material_select();
 	$('.materialboxed').materialbox();
-	$('.carousel').carousel();
+	$('#work .carousel').carousel();
 	$(".button-collapse").sideNav({
 		closeOnClick: true,
 	});
+
+  /***** Slider tutorial *****/
+  let alreadyTutorial = JSON.parse(localStorage.getItem('tutorial'));
+  if(!alreadyTutorial){
+    $('#modal-tutorial').modal('open', {
+      complete: function(){
+        localStorage.setItem('tutorial', 'true');
+      }
+    })
+    $('#modal-tutorial .carousel.carousel-slider').carousel({fullWidth: true});
+
+    //** Change slider**//
+    $("#modal-tutorial button[next]").on('click', function(){
+      $('#modal-tutorial .carousel.carousel-slider').carousel('next')
+    })
+  }
+
 })()
