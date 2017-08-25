@@ -44,17 +44,19 @@
   /*
     Cards
   */ }
-  #profile #modal-tutorial .carousel {
-    height: 500px; }
-    #profile #modal-tutorial .carousel .carousel-item .container {
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center; }
-      #profile #modal-tutorial .carousel .carousel-item .container i {
-        margin-bottom: 20px; }
-      #profile #modal-tutorial .carousel .carousel-item .container p {
-        font-weight: lighter; }
+  #profile #modal-tutorial {
+    max-height: 100% !important; }
+    #profile #modal-tutorial .carousel {
+      height: 500px; }
+      #profile #modal-tutorial .carousel .carousel-item .container {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center; }
+        #profile #modal-tutorial .carousel .carousel-item .container i {
+          margin-bottom: 20px; }
+        #profile #modal-tutorial .carousel .carousel-item .container p {
+          font-weight: lighter; }
   #profile #btn-background {
     margin-bottom: -100px;
     margin-left: 20px; }
