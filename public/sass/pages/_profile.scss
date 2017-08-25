@@ -1,4 +1,27 @@
 #profile {
+  #modal-tutorial {
+
+    .carousel {
+      height: 500px;
+      .carousel-item {
+        .container {
+          height:100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          h4 {
+            @extend .kurale-font;
+          }
+          i {
+            margin-bottom: 20px;
+          }
+          p {
+            font-weight: lighter;
+          }
+        }
+      }
+    }
+  }
   h5 {
     @extend .kurale-font;
   }
