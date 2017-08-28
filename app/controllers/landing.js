@@ -2,7 +2,7 @@ let express = require('express');
 let router = express.Router();
 
 module.exports = function (app) {
-  app.use('/landing', router);
+  app.use('/ads', router);
 };
 
 router.get('/professional', function(req, res, next){

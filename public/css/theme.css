@@ -1,5 +1,5 @@
 @charset "UTF-8";
-.kurale-font, #profile h5, #profile header h4, #notfound h1 {
+.kurale-font, #profile #modal-tutorial .carousel .carousel-item .container h4, #profile h5, #profile header h4, #notfound h1 {
   font-family: 'Kurale', serif; }
 
 .font-size-2x {
@@ -44,6 +44,19 @@
   /*
     Cards
   */ }
+  #profile #modal-tutorial {
+    max-height: 100% !important; }
+    #profile #modal-tutorial .carousel {
+      height: 500px; }
+      #profile #modal-tutorial .carousel .carousel-item .container {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center; }
+        #profile #modal-tutorial .carousel .carousel-item .container i {
+          margin-bottom: 20px; }
+        #profile #modal-tutorial .carousel .carousel-item .container p {
+          font-weight: lighter; }
   #profile #btn-background {
     margin-bottom: -100px;
     margin-left: 20px; }
@@ -148,6 +161,30 @@
   background-image: url(/img/bank/subscription_thanks.jpg);
   background-attachment: fixed;
   background-position: top !important; }
+
+#ads-professional .valign-wrapper {
+  flex-flow: column; }
+
+@media (min-width: 600px) {
+  #ads-professional .valign-wrapper {
+    flex-flow: row; } }
+
+#ads-professional .divider {
+  margin: 1em 0; }
+
+#ads-professional .down {
+  position: absolute;
+  bottom: 1em;
+  width: 100%;
+  text-align: center; }
+  #ads-professional .down i {
+    animation: beating 3s ease infinite;
+    cursor: pointer; }
+
+#ads-professional .parallax {
+  background: black; }
+  #ads-professional .parallax img {
+    opacity: .6; }
 
 body {
   background-color: #e9ebee; }

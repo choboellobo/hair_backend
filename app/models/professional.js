@@ -24,6 +24,7 @@ var ProfessionalSchema = new Schema({
 			message: 'Email incorrecto'
 		}
 	},
+	visits: {type: Number, default: 0},
   schedules: {
     type: String
   },
