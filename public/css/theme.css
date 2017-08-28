@@ -162,6 +162,30 @@
   background-attachment: fixed;
   background-position: top !important; }
 
+#ads-professional .valign-wrapper {
+  flex-flow: column; }
+
+@media (min-width: 600px) {
+  #ads-professional .valign-wrapper {
+    flex-flow: row; } }
+
+#ads-professional .divider {
+  margin: 1em 0; }
+
+#ads-professional .down {
+  position: absolute;
+  bottom: 1em;
+  width: 100%;
+  text-align: center; }
+  #ads-professional .down i {
+    animation: beating 3s ease infinite;
+    cursor: pointer; }
+
+#ads-professional .parallax {
+  background: black; }
+  #ads-professional .parallax img {
+    opacity: .6; }
+
 body {
   background-color: #e9ebee; }
 

@@ -17,7 +17,7 @@ const Subscription = require('../../models/subscription');
   router.post('/webhooks', function(req, res, next) {
     console.log(req.body.type)
     stripe.events.retrieve(req.body.id, function(err, event){
-      if(err) return next() //return res.status(401).end()
+      if(err) return res.status(401).end()
       next()
     })
   }, function(req, res, next){
@@ -29,7 +29,7 @@ const Subscription = require('../../models/subscription');
         .catch(error => res.json(error))
     }
     // Stripe event custormer.subscription
-    if(req.body.type.includes('customer.subscription.')){
+    else if(req.body.type.includes('customer.subscription.')){
       // Update professional payments;
       let professionalPromise = Professional.updatePaymentsPlan(req.body)
       let subscriptionPromise = Subscription.updateSubscription(req.body.data.object.id)
@@ -38,5 +38,7 @@ const Subscription = require('../../models/subscription');
           ([professional, subscription]) => res.status(200).end()
         )
         .catch(error => next(error))
+    }else {
+      res.status(200).end()
     }
   })
