@@ -1,3 +1,72 @@
 extends ../layout
+block seo
+  title Registrate gratis en UrbHair y obtén tu perfil profesional gratis.
+  meta(name="description" content="Únete a UrbHair y tendrás un perfil online gratuito. Sube imágenes de tu trabajo y tus clientes o empresas verán tu talento y no te dejarán escapar")
 block content
-  h1 professional
+  #ads-professional
+    .parallax-container.fullscreen.valign-wrapper
+      .down
+        a(href="#down")
+          i.fa.fa-arrow-circle-down.fa-3x.white-text.tooltipped(data-tooltip="¿Quieres saber porque debes unirte a urbhair?" data-position="right")
+      .container
+        .row.valign-wrapper
+          .col.s12.m7.shadow-text.white-text
+            h1.kurale-font Crea tu perfil gratuitamente.
+            p Únete a UrbHair y tendrás un perfil online gratuito. Sube imágenes de tu trabajo y tus clientes o empresas verán tu talento y no te dejarán escapar
+          .col.s12.m4.offset-m1.center-align
+            .card.hoverable
+              .card-content
+                p.center-align
+                  img(src="/img/logo.png" width="75")
+                  .divider
+                span.card-title Únete a #[strong UrbHair]
+                p Registrate gratis ahora, solo necesitas una cuenta de correo.
+              .card-action.center-align
+                a.btn(href="/register")
+                  i.fa.fa-star.left
+                  | Registrate
+      .parallax
+        img(src="/img/bank/shutterstock_518189275.jpg")
+    .container.scrollspy#down
+      .row
+        .col.s12.center-align
+          h1.kurale-font ¿Por qué debes unirte con nosotros?
+        .row
+          .col.s12.m4
+            .card.hoverable
+              .card-image
+                img(src="/img/bank/take_away.jpg")
+              .card-content
+                span.card-title ¿Trabajas a domicilio?
+                p Si visitas a tus clientes a casa, esta plataforma te permitirá obtener más clientes, ya que nos enfocamos en tus clientes te conozcan por esto.
+          .col.s12.m4
+            .card.hoverable
+              .card-image
+                img(src="/img/bank/working.jpg")
+              .card-content
+                span.card-title Ten tu propio espacio online
+                p Te proporcionamos un espacio online donde poder promocionarte, puedes compartir tu dirección en las redes sociales y así multiplicar tu presencia en internet.
+          .col.s12.m4
+            .card.hoverable
+              .card-image
+                img(src="/img/bank/makeup_artist.jpg")
+              .card-content
+                span.card-title Gana reputación como profesional
+                p Puedes subir imágenes de tu trabajo y así tus clientes y empresas verán el talento que tienes.
+      .row.valign-wrapper
+        .col.s12.m4
+          .card
+            .card-image
+              img(src="/img/perfil-example.png")
+        .col.s12.m7.offset-m1.center-align
+          h3.kurale-font Así puede ser tu carta de presentación
+          p Podrás añadir un fondo, una foto de tu perfil, una descripción sobre ti, tu trabajo, lo que quieras, además de añadir los servicios que ofreces.
+          .divider.margin-top-2em
+          h5 ¿Quieres un perfil así ahora?
+          .center-align
+            a.btn(href="/register")
+              i.fa.fa-star.left
+              | Registrate gratis
+  script.
+    $('.parallax').parallax();
+    $('.scrollspy').scrollSpy();

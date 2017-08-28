@@ -1,0 +1,29 @@
+#ads-professional {
+  .valign-wrapper{
+    flex-flow: column;
+  }
+  @media (min-width: 600px){
+    .valign-wrapper {
+      flex-flow: row;
+    }
+  }
+  .divider {
+    margin: 1em 0;
+  }
+  .down {
+    position: absolute;
+    bottom: 1em;
+    width: 100%;
+    text-align: center;
+    i {
+      animation: beating 3s ease infinite;
+      cursor: pointer;
+    }
+  }
+  .parallax {
+    background: black;
+    img {
+      opacity: .6;
+    }
+  }
+}
