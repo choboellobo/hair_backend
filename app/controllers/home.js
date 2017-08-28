@@ -2,6 +2,7 @@ let express = require('express');
 let router = express.Router();
 let Professional = require('../models/professional');
 let Service = require('../models/service');
+let Logs = require('../models/logs');
 let crypter = require('../helpers/crypto');
 
 module.exports = function (app) {
@@ -21,7 +22,7 @@ router.get('/', function (req, res, next) {
     Professional.find(
       query,
       {slug: 1, avatar: 1, first_name: 1, last_name: 1, background: 1, gender: 1, services: 1, options: 1, description: 1, phone: 1, payments: 1})
-      .sort({'payments.plan': -1, 'created_at': 1})
+      .sort({'payments.plan': -1, 'visits': -1})
       .populate('services')
       .then(
         professionals => {
@@ -37,6 +38,8 @@ router.get('/', function (req, res, next) {
   GET /:slug
 */
 router.get('/:slug', function (req, res, next) {
+  //Logs
+  Logs.visit(req.params.slug, req.connection.remoteAddress)
   // Looking for a professional by slug
   Professional.findOne({slug: req.params.slug, active: true},{password: 0}).populate('services')
   .then(
@@ -68,7 +71,7 @@ router.get('/busco/:query', function(req, res, next){
       Professional.find(
         {'address.location': regExpLocation, services: service._id, active:true},
         {slug: 1, avatar: 1, first_name: 1, last_name: 1, background: 1, gender: 1, services: 1, options: 1, description: 1, phone: 1, payments: 1})
-        .sort({'payments.plan': -1, 'created_at': 1})
+        .sort({'payments.plan': -1, 'visits': -1})
         .populate('services')
         .then(professionals => {
           Service.find().then(
