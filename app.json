@@ -1,0 +1,47 @@
+{
+  "name": "hair_backend",
+  "scripts": {
+  },
+  "env": {
+    "CLOUDINARY_APIKEY": {
+      "required": true
+    },
+    "CLOUDINARY_APISECRET": {
+      "required": true
+    },
+    "CLOUDINARY_CLOUDNAME": {
+      "required": true
+    },
+    "HOST": {
+      "required": true
+    },
+    "MAIL_PASSWORD": {
+      "required": true
+    },
+    "MAIL_SMTP": {
+      "required": true
+    },
+    "MAIL_USER": {
+      "required": true
+    },
+    "MONGODB_URI": {
+      "required": true
+    },
+    "PLATFORM": {
+      "required": true
+    },
+    "STRIPE_KEY": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+    "mongolab"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
