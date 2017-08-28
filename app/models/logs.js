@@ -6,7 +6,8 @@ let LogsSchema = new Schema(
   {
     type: {type: String},
     who: {type: String},
-    ip: {type: String}
+    ip: {type: String},
+    created_at: {type: Date}
   },
   {
     timestamps: {
