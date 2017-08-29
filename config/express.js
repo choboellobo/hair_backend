@@ -78,14 +78,10 @@ module.exports = function(app, config) {
       });
   });
 
-  if(process.env.PLATFORM == 'heroku'){
+
     app.listen(config.port, function () {
       console.log('Express server listening on port ' + config.port);
     });
-  }else {
-    app.listen(config.port, config.ip, function () {
-      console.log('Express server listening on port ' + config.port);
-    });
-  }
+
 
 };
