@@ -8,6 +8,9 @@
     "test": "mocha test/ -w",
     "postinstall": "./node_modules/bower/bin/bower install"
   },
+  "pre-commit":{
+    "test"
+  },
   "engines": {
     "node": ">= 6.6.0",
     "npm": ">= 3.0.0"
@@ -45,6 +48,7 @@
     "gulp-ruby-sass": "^2.0.1",
     "gulp-sass": "^3.1.0",
     "mocha": "^3.4.2",
+    "pre-commit": "^1.2.2",
     "supertest": "^3.0.0",
     "supertest-as-promised": "^4.0.2"
   }
