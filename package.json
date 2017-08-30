@@ -8,9 +8,9 @@
     "test": "mocha test/ -w",
     "postinstall": "./node_modules/bower/bin/bower install"
   },
-  "pre-commit":{
+  "pre-commit":[
     "test"
-  },
+  ],
   "engines": {
     "node": ">= 6.6.0",
     "npm": ">= 3.0.0"
