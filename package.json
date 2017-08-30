@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "mocha test/ -w",
+    "test": "mocha test/",
+    "test:watch": "mocha test/ -w",
     "postinstall": "./node_modules/bower/bin/bower install"
   },
   "pre-commit":[
