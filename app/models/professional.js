@@ -28,7 +28,6 @@ var ProfessionalSchema = new Schema({
   schedules: {
     type: String
   },
-  slug: {type: String},
   gender: {
     type: String,
     required: true,
