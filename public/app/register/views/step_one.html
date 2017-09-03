@@ -35,6 +35,19 @@
           <input type="date" id="birthday" name="birthday" required class="datepicker" materialize-datepicker ng-model="vm.professional.birthday">
           <label for="birthday">Fecha de nacimiento</label>
         </div>
+        <div class="col s12 input-field">
+          <input type="text" id="address" ng-keyup="vm.getAddress(vm.address)" ng-model="vm.address">
+          <label for="address">
+            <span>¿En que ciudad vives?</span>
+          </label>
+          <div class="row" ng-if="vm.addressResults">
+            <div class="col s12">
+              <div class="collection">
+                <a href="#" ng-click="vm.setAddress(item);" class="collection-item" ng-repeat="item in vm.addressResults">{{item.formatted_address}}</a>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="row">
           <div class="col s12">
             <input type="radio" id="female" name="gender" required value="female" class="with-gap" ng-model="vm.professional.gender">
@@ -59,7 +72,7 @@
           <div class="card-panel red white-text" ng-show="vm.error">
             {{vm.error}}
           </div>
-          <button ng-class="{'rubberBand animated' : form.$valid}" ng-disabled="form.$invalid || vm.loading" class="btn" ng-click="vm.registerProfessional()">
+          <button ng-class="{'rubberBand animated' : (form.$valid && vm.complete)}" ng-disabled="(form.$invalid || !vm.complete) || vm.loading" class="btn" ng-click="vm.registerProfessional()">
             <i class="fa fa-paper-plane-o left" aria-hidden="true"></i>
             Registrarse
           </button>
