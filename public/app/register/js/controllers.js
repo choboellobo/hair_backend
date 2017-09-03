@@ -1,6 +1,7 @@
 angular.module('register')
 .controller('step_one', function($scope, api, $state){
   let vm = this;
+      vm.complete = false;
       vm.loading = false
       vm.professional = {
         first_name: null,
@@ -10,7 +11,31 @@ angular.module('register')
         birthday: null,
         gender: null,
         phone: null,
-        avatar: null
+        avatar: null,
+        address: {}
+      }
+      vm.getAddress = address => {
+        vm.addressResults = null;
+        if(address.length > 5) {
+          api.googleAddress(address).then(
+            res => vm.addressResults = res.data.results
+          )
+        }else {
+          vm.complete = false
+        }
+      }
+      vm.setAddress = item => {
+        vm.addressResults = null;
+        vm.address = item.formatted_address;
+        vm.professional.address = {}
+        vm.professional.address.coordinates = item.geometry.location;
+        for(let place of item.address_components){
+          if( place.types[0] == 'street_number') vm.professional.address.number = place.long_name
+          if( place.types[0] == 'route') vm.professional.address.place = place.long_name
+          if( place.types[0] == 'locality') vm.professional.address.location = place.long_name
+          if( place.types[0] == 'postal_code') vm.professional.address.postal_code = place.long_name
+        }
+        vm.complete = true;
       }
       vm.registerProfessional = () => {
         vm.loading = !vm.loading;
@@ -73,6 +98,9 @@ angular.module('register')
         vm.complete = true;
       }
       vm.updateProfessional = () => {
+        // If there is not any changes.
+        if(!vm.professional.options.home && !vm.professional.options.store ) return $state.go('step_final')
+
         if(vm.professional.address.number) vm.professional.address.place = vm.professional.address.place + ' ' +vm.professional.address.number
         vm.professional.options.payments.card = vm.professional.options.card;
         api.updateProfessional(vm.professional)

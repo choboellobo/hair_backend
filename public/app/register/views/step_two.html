@@ -4,7 +4,6 @@
       <div class="col s12">
         <h5>Da más información a tus clientes</h5>
         <p>A tus cliente les gusta saber si trabajas a domicilio o si trabajas en algún local.</p>
-        <p>Si estas buscando trabajo, indica la ciudad donde vives y así las empresas te podrán encontrar facilmente.</p>
       </div>
       <div class="col s12 m6" ng-repeat="option in vm.options">
         <div class="card">
@@ -23,12 +22,13 @@
         </div>
       </div>
     </div>
-    <div class="row">
+
+    <div class="row" ng-if="vm.professional.options.store || vm.professional.options.home">
       <div class="col s12 input-field">
         <input type="text" id="address" ng-keyup="vm.getAddress(vm.address)" ng-model="vm.address">
         <label for="address">
           <span ng-show="vm.professional.options.store">Si trabajas en un local indicanos la dirección exacta</span>
-          <span ng-hide="vm.professional.options.store">Indicanos en que ciudad vives.</span>
+          <span ng-hide="vm.professional.options.store">Si trabajas a domicilio indicanos en que ciudad</span>
         </label>
         <div class="row" ng-if="vm.addressResults">
           <div class="col s12">
@@ -41,7 +41,7 @@
     </div>
     <div class="row">
       <div class="col s12">
-        <button ng-class="{'rubberBand animated' : vm.complete}" ng-disabled="!vm.complete" class="btn" ng-click="vm.updateProfessional()">
+        <button  ng-disabled="((vm.professional.options.store || vm.professional.options.home) && !vm.complete)" class="btn" ng-click="vm.updateProfessional()">
           <i class="fa fa-paper-plane-o left" aria-hidden="true"></i>
           Terminar registro
         </button>
