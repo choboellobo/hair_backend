@@ -30,10 +30,11 @@ angular.module('register')
         vm.professional.address = {}
         vm.professional.address.coordinates = item.geometry.location;
         for(let place of item.address_components){
-          if( place.types[0] == 'street_number') vm.professional.address.number = place.long_name
-          if( place.types[0] == 'route') vm.professional.address.place = place.long_name
-          if( place.types[0] == 'locality') vm.professional.address.location = place.long_name
-          if( place.types[0] == 'postal_code') vm.professional.address.postal_code = place.long_name
+          if( place.types.includes('street_number')) vm.professional.address.number = place.long_name
+          if( place.types.includes('route')) vm.professional.address.place = place.long_name
+          if( place.types.includes('locality')) vm.professional.address.location = place.long_name
+          if( place.types.includes('administrative_area_level_4')) vm.professional.address.location = place.long_name
+          if( place.types.includes('postal_code')) vm.professional.address.postal_code = place.long_name
         }
         vm.complete = true;
       }
@@ -90,10 +91,11 @@ angular.module('register')
         vm.professional.address = {}
         vm.professional.address.coordinates = item.geometry.location;
         for(let place of item.address_components){
-          if( place.types[0] == 'street_number') vm.professional.address.number = place.long_name
-          if( place.types[0] == 'route') vm.professional.address.place = place.long_name
-          if( place.types[0] == 'locality') vm.professional.address.location = place.long_name
-          if( place.types[0] == 'postal_code') vm.professional.address.postal_code = place.long_name
+          if( place.types.includes('street_number')) vm.professional.address.number = place.long_name
+          if( place.types.includes('route')) vm.professional.address.place = place.long_name
+          if( place.types.includes('locality')) vm.professional.address.location = place.long_name
+          if( place.types.includes('administrative_area_level_4')) vm.professional.address.location = place.long_name
+          if( place.types.includes('postal_code')) vm.professional.address.postal_code = place.long_name
         }
         vm.complete = true;
       }
