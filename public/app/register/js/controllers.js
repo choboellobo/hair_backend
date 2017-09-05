@@ -1,5 +1,5 @@
 angular.module('register')
-.controller('step_one', function($scope, api, $state){
+.controller('step_one', function($scope, api, $state, $email, $rootScope){
   let vm = this;
       vm.complete = false;
       vm.loading = false
@@ -30,22 +30,40 @@ angular.module('register')
         vm.professional.address = {}
         vm.professional.address.coordinates = item.geometry.location;
         for(let place of item.address_components){
-          if( place.types[0] == 'street_number') vm.professional.address.number = place.long_name
-          if( place.types[0] == 'route') vm.professional.address.place = place.long_name
-          if( place.types[0] == 'locality') vm.professional.address.location = place.long_name
-          if( place.types[0] == 'postal_code') vm.professional.address.postal_code = place.long_name
+          if( place.types.includes('street_number')) vm.professional.address.number = place.long_name
+          if( place.types.includes('route')) vm.professional.address.place = place.long_name
+          if( place.types.includes('locality')) vm.professional.address.location = place.long_name
+          if( place.types.includes('administrative_area_level_4')) vm.professional.address.location = place.long_name
+          if( place.types.includes('postal_code')) vm.professional.address.postal_code = place.long_name
         }
         vm.complete = true;
       }
       vm.registerProfessional = () => {
         vm.loading = !vm.loading;
         vm.professional.gender == 'male' ? vm.professional.avatar = '/img/avatar_man.png' : vm.professional.avatar = '/img/avatar_woman.png'
-        api.createProfessional(vm.professional)
+        if(checkEmail(vm.professional.email)){
+          $email.check(vm.professional.email).then(
+            success => {
+              if(success.data.mx_found && success.data.smtp_check && success.data.score > 0.5){
+                vm.professional.active = true;
+                createProfessional();
+              }else {
+                vm.error = "No podemos verificar la existencia de este email, prueba con otro."
+              }
+            }
+          )
+        }else {
+          createProfessional();
+        }
+        /* Method to create a professional */
+        function createProfessional(){
+          api.createProfessional(vm.professional)
             .then(
               success => {
                 vm.loading = !vm.loading;
                 sessionStorage.setItem('token', success.data.token);
                 sessionStorage.setItem('professional_id', success.data.professional.id)
+                $rootScope.professional = success.data.professional;
                 $state.go('step_two');
               },
               error => {
@@ -54,9 +72,21 @@ angular.module('register')
                 else vm.error = "Hubo un error intentalo de nuevo más tarde"
               }
             )
+        }
+
+      }
+      checkEmail = function(email){
+        let domain = ['@hotmail', '@live', '@outlook'];
+        for(let i in domain ){
+          if(email.includes(domain[i])){
+            return true;
+            break;
+          }
+        }
+        return false;
       }
 })
-.controller('step_two', function(api, $state){
+.controller('step_two', function(api, $state, $rootScope){
   let vm = this;
       vm.complete = false;
       vm.options = [
@@ -90,14 +120,16 @@ angular.module('register')
         vm.professional.address = {}
         vm.professional.address.coordinates = item.geometry.location;
         for(let place of item.address_components){
-          if( place.types[0] == 'street_number') vm.professional.address.number = place.long_name
-          if( place.types[0] == 'route') vm.professional.address.place = place.long_name
-          if( place.types[0] == 'locality') vm.professional.address.location = place.long_name
-          if( place.types[0] == 'postal_code') vm.professional.address.postal_code = place.long_name
+          if( place.types.includes('street_number')) vm.professional.address.number = place.long_name
+          if( place.types.includes('route')) vm.professional.address.place = place.long_name
+          if( place.types.includes('locality')) vm.professional.address.location = place.long_name
+          if( place.types.includes('administrative_area_level_4')) vm.professional.address.location = place.long_name
+          if( place.types.includes('postal_code')) vm.professional.address.postal_code = place.long_name
         }
         vm.complete = true;
       }
       vm.updateProfessional = () => {
+        if($rootScope.professional.active) return window.location.href = "/professional/login";
         // If there is not any changes.
         if(!vm.professional.options.home && !vm.professional.options.store ) return $state.go('step_final')
 
