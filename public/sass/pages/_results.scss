@@ -1,4 +1,7 @@
 #results {
+  .blur {
+    filter: blur(3px);
+  }
   .not-results {
     @media (min-width: 600px) {
       height: 100vh;
