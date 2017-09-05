@@ -16,3 +16,9 @@ angular.module('register')
     return $http.patch('/api/professional/'+ id, professional, config )
   }
 })
+.service('$email', function($http){
+  this.check = email => {
+    let url = `http://apilayer.net/api/check?access_key=a0757d2087e67642f5baf292e389b968&email=${email}&smtp=1&format=1`
+    return $http.get(url);
+  }
+})
