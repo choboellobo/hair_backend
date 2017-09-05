@@ -102,6 +102,9 @@
   overflow: hidden;
   min-height: 200px; }
 
+#results .blur {
+  filter: blur(3px); }
+
 @media (min-width: 600px) {
   #results .not-results {
     height: 100vh; } }
