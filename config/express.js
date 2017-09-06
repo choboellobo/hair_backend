@@ -25,9 +25,9 @@ module.exports = (app, config) => {
 	// session
 	app.use(session({
 			secret: 'keyboard cat',
-			resave: false,
+			resave: true,
 			saveUninitialized: false,
-			cookie: { secure: 'auto' }
+			cookie: { secure: 'auto', maxAge: 60000000000 }
 	}))
 
 	// app.use(favicon(config.root + '/public/img/favicon.ico'));
