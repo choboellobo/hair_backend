@@ -1,5 +1,5 @@
 const express = require('express');
-let router = express.Router();
+const router = express.Router();
 const Plan = require('../models/plan');
 const Professional = require('../models/professional')
 const Subscription = require('../models/subscription')
@@ -12,7 +12,7 @@ module.exports = function (app) {
 /*
   List plans
 */
-router.get('/', isLogIn, function(req, res, next){
+router.get('/', isLogIn, (req, res, next) => {
   let promiseProfessional = Professional.findById(req.session.professional, {password: 0})
   let promisePlan = Plan.find({valid: true})
   let promiseSubscription = Subscription.find({professional: req.session.professional, status: 'active'})
@@ -26,7 +26,7 @@ router.get('/', isLogIn, function(req, res, next){
 /*
   Render a form to put your credit card.
 */
-router.get('/:id', isLogIn, function(req, res, next){
+router.get('/:id', isLogIn, (req, res, next) => {
   Plan.findById(req.params.id)
       .then(
         plan => {
@@ -38,7 +38,7 @@ router.get('/:id', isLogIn, function(req, res, next){
 /*
   Form to send to stripe token and user.
 */
-router.post('/', isLogIn, function(req, res, next){
+router.post('/', isLogIn, (req, res, next) => {
   // First we find a professional
   Professional.findById(req.session.professional)
         .then(
@@ -82,7 +82,7 @@ router.post('/', isLogIn, function(req, res, next){
 
     })
   }
-}, function(error, req,res, next){
+}, (error, req,res, next) => {
   // If there are any errors render the same view with errors
   Plan.findById(req.body.plan_id)
       .then(
@@ -96,7 +96,7 @@ router.post('/', isLogIn, function(req, res, next){
   GET /thanks
 
 */
-router.get('/thanks/:id', isLogIn, function(req, res, next){
+router.get('/thanks/:id', isLogIn, (req, res, next) => {
   Subscription.findOne({platform_id: req.params.id})
     .then(subscription => {
       req.session.plan = 'plus'

@@ -1,5 +1,5 @@
 const express = require('express');
-let router = express.Router();
+const router = express.Router();
 const Plan = require('../models/plan');
 
 module.exports = function (app) {

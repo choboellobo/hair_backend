@@ -1,8 +1,8 @@
-var express = require('express'),
-  router = express.Router(),
-  mongoose = require('mongoose'),
-  Service = require("../../models/service"),
-	jwt = require("../../helpers/jwt");
+const express = require('express');
+const router = express.Router();
+const mongoose = require('mongoose');
+const Service = require("../../models/service");
+const jwt = require("../../helpers/jwt");
 
 module.exports = function (app) {
   app.use('/api/service', router);
@@ -12,7 +12,7 @@ module.exports = function (app) {
   authorization: true
   return {services: Array<Object>}
 ******/
-router.get("/", jwt.middleware, function(jwt_data, req, res, next){
+router.get("/", jwt.middleware, (jwt_data, req, res, next) => {
 	Service.find()
 				 .then(s => res.status(200).json(s))
 				 .catch(error => res.status(400).json({error: true, catch: error}))
@@ -22,7 +22,7 @@ router.get("/", jwt.middleware, function(jwt_data, req, res, next){
   authorization: true
   return {service: Object}
 ******/
-router.get("/:id", jwt.middleware, function(jwt_data, req, res, next){
+router.get("/:id", jwt.middleware, (jwt_data, req, res, next) => {
 	Service.findById(req.params.id)
 				 .then(s => res.status(200).json(s))
 				 .catch(error => res.status(400).json({error: true, catch: error}))

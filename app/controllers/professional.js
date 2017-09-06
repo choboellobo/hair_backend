@@ -1,5 +1,5 @@
 const  express = require('express');
-let	router = express.Router();
+const	router = express.Router();
 const	Professional = require('../models/professional');
 const Subscription = require('../models/subscription');
 const Service = require('../models/service');
@@ -17,7 +17,7 @@ const isLogIn = require('../helpers/islogin');
   POST
   UPDATE ANY FIELD OF PROFFESSIONAL.
 */
-  router.post('/update', function(req, res, next){
+  router.post('/update', (req, res, next) => {
     let p = req.session.professional
     Professional.update({_id: p}, {$set: req.body})
                 .then(
@@ -28,8 +28,8 @@ const isLogIn = require('../helpers/islogin');
   /*
     GET /LOGOUT
   */
-  router.get('/logout', function(req, res, next) {
-    req.session.destroy(function(err) {
+  router.get('/logout', (req, res, next) => {
+    req.session.destroy(err =>  {
       if(err) return next(err);
       res.redirect('/professional/login')
     })
@@ -38,13 +38,13 @@ const isLogIn = require('../helpers/islogin');
   /*
     GET /login
   */
-  router.get('/login', function(req, res, next) {
+  router.get('/login', (req, res, next) => {
     res.render('professional/login', {session: req.session})
   })
   /*
     POST /login
   */
-  router.post('/login', function(req, res, next){
+  router.post('/login', (req, res, next) => {
     Professional.findOne({email: req.body.email, password: crypter.encrypt(req.body.password)})
                 .then(
                   professional => {
@@ -65,7 +65,7 @@ const isLogIn = require('../helpers/islogin');
   POST
   /recovery_password
   */
-  router.post('/recovery_password', function(req, res, next){
+  router.post('/recovery_password', (req, res, next) => {
     Professional.findOne({email: req.body.email},{id: 1, email: 1, first_name: 1})
                 .then(
                   professional => {
@@ -89,11 +89,11 @@ const isLogIn = require('../helpers/islogin');
   GET
   /recovery_password/:hash
   */
-  router.get('/recovery_password/:hash', function(req, res, next){
+  router.get('/recovery_password/:hash', (req, res, next) => {
     res.render('professional/recovery_password', {session:req.session, hash: req.params.hash})
   })
 
-  router.post('/recovery_password/:hash', function(req, res, next){
+  router.post('/recovery_password/:hash', (req, res, next) => {
     let password = crypter.encrypt(req.body.password);
     let professional_id;
     try{
@@ -112,7 +112,7 @@ const isLogIn = require('../helpers/islogin');
 
 // ******************** VALIDATE ACCOUNT ***************
 
-router.get('/validate/:hash', function(req, res, next){
+router.get('/validate/:hash', (req, res, next) => {
   let id;
   try {
     id = crypter.decrypt(req.params.hash)
@@ -132,7 +132,7 @@ router.get('/validate/:hash', function(req, res, next){
     )
 })
 /** SETTINGS **/
-router.get('/settings', isLogIn, function(req, res, next){
+router.get('/settings', isLogIn, (req, res, next) => {
   Subscription.find({professional: req.session.professional}).sort({created_at: -1}).populate('plan')
     .then(subscriptions => {
       if(subscriptions.length > 0){
@@ -154,7 +154,7 @@ router.get('/settings', isLogIn, function(req, res, next){
       }
     })
 })
-router.post('/settings/subscriptions', function(req, res, next){
+router.post('/settings/subscriptions', (req, res, next) => {
   Subscription.cancelSubscription(req.body.id)
     .then(
       confirm => res.redirect('/professional/settings')
