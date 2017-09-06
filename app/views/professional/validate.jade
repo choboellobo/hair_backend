@@ -1,18 +1,48 @@
 extends ../layout
 block seo
-  title Cambia tu contraseña
+  title Hemos verificado tu cuenta de email.
 block content
   include ../_navbar
-  .container
-    .row.fullscreen.valign-wrapper
-      .col.s12
-        .row
-          .col.s12.center-align
-            i.fa.fa-check-square-o.fa-5x(aria-hidden="true")
-            h3 Enhorabuena!
-            h5 Hemos verificado tu cuenta de email, ya puedes acceder tu perfil.
-        .row
-          .col.s12.center-align
+  .container#results
+    .row
+      .col.s12.m4.center-align
+        h5.kurale-font Éste es tu perfil
+        p Hemos verificado tu email, termina tu registro incluyendo otros datos importantes de tu perfil.
+    .row
+      .col.s12.m4
+        +card(professional)
+      .col.s12.m4
+        - var user1 = {fullname: 'Marta Paz Pérez', slug: '#', payments: {plan: null}, options: {home: false}, avatar: '/img/avatar_woman.png'}
+        +card(user1, 'blur')
+      .col.s12.m4
+        - var user2 = {fullname: 'Pedro Fermin Flores', slug: '#', payments: {plan: null}, options: {home: false}, avatar: '/img/avatar_man.png'}
+        +card(user2, 'blur')
+    mixin card(professional, blur)
+      .card.hoverable(class="#{blur}")
+        .card-image
+          if professional.payments.plan == 'plus'
+            i.fa.fa-heart.fa-2x.beats.pink-text(aria-hidden="true")
+          if professional.background
+            img(src="#{professional.background.url}")
+          else
+            .gradiant
+          a.tooltipped.btn-floating.halfway-fab.waves-effect.waves-light.blue(href="tel:#{professional.phone}" data-tooltip="Llamame al: #{professional.phone}")
+            i.fa.fa-phone(aria-hidden="true")
+        .card-content
+          .center-align.avatar
+            a.tooltipped(href="/#{professional.slug}" data-position="top" data-tooltip="Accede a mi perfil")
+              img.circle.responsive-img(src="#{professional.avatar}")
+          span.card-title.letter-capitalize #{professional.fullname}
+          if professional.description
+            p #{professional.description}
+          else
+            p Este usuario todavía no ha añadido una descripción sobre el mismo.
+        if !blur
+          .card-action.center-align
             a.btn(href="/#{professional.slug}")
-              i.fa.fa-user-circle-o.left(aria-hidden="true")
-              | Accede a tu perfil
+              | Completa tu perfil
+        if professional.options.home
+          .card-action.center-align
+            .chip.black-text
+              i.fa.fa-home(aria-hidden="true")
+              | Trabajo a domicilio

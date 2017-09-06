@@ -24,7 +24,7 @@ block content
 				a
 					span.shadow-text.white-text.name #{professional.fullname}
 				a
-					span.shadow-text.white-text.email #{professional.email}
+					span.shadow-text.white-text.email #{professional.slug}
 		li
 			a(href="#services")
 				i.fa.fa-scissors.left(aria-hidden="true")
@@ -123,6 +123,9 @@ block content
 								a.btn.white.red-text.text-darken-2(href="/subscription")
 									i.fa.fa-star.left
 									| Quiero ser plus
+								button.btn.white.red-text.text-darken-2.margin-left-05em.modal-close
+									i.fa.fa-sign-out.left
+									| Salir
 		.container
 			.row
 				.col.s12
