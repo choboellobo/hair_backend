@@ -1,12 +1,12 @@
-let express = require('express');
-let router = express.Router();
-let Professional = require('../models/professional');
-let crypter = require('../helpers/crypto');
-let cloudinary = require('cloudinary');
-let multer  = require('multer')
-let upload = multer({ dest: 'files/' })
-let fs = require('fs')
-let env = require('../env/env')
+const express = require('express');
+const router = express.Router();
+const Professional = require('../models/professional');
+const crypter = require('../helpers/crypto');
+const cloudinary = require('cloudinary');
+const multer  = require('multer')
+const upload = multer({ dest: 'files/' })
+const fs = require('fs')
+const env = require('../env/env')
 
 cloudinary.config({
   cloud_name: env.cloudinary.cloud_name,
@@ -21,12 +21,12 @@ module.exports = function (app) {
 /*
  DELETE A IMAGE FROM cloudinary AND MONGODB
 */
-router.get('/working_images/:id/delete', function(req, res, next) {
+router.get('/working_images/:id/delete', (req, res, next) => {
   let p = req.session.professional;
   if(!p) return res.redirect('/login');
   Professional.findById(p).then(
     result => {
-      let images = result.working_images.filter(function(elem){
+      let images = result.working_images.filter(elem => {
         return elem.public_id !== req.params.id
       })
       result.working_images = images;
@@ -45,13 +45,13 @@ router.get('/working_images/:id/delete', function(req, res, next) {
 /*
   UPLOAD IMAGE TO cloudinary AND MONGODB
 */
-router.post('/working_images', upload.single('working_images'), function(req, res ,next){
+router.post('/working_images', upload.single('working_images'), (req, res ,next) => {
   let p = req.session.professional;
   if(!p) return res.redirect('/login');
   Professional.findById(p).then(
     result => {
       // Upload file to cloudinary
-      cloudinary.uploader.upload(req.file.path, function(image) {
+      cloudinary.uploader.upload(req.file.path, (image) => {
         // When the image is already in cloudinary, push de object to array professional working_images
         result.working_images.unshift(image)
         result.save().then(
@@ -69,14 +69,14 @@ router.post('/working_images', upload.single('working_images'), function(req, re
 /*
   UPLOAD IMAGE AVATAR TO cloudinary AND MONGODB
 */
-router.post('/avatar', function(req, res ,next){
+router.post('/avatar', (req, res ,next) => {
   let p = req.session.professional;
   if(!p) return res.redirect('/login');
   let img = req.body.avatar;
   Professional.findById(p).then(
     result => {
       // Upload file to cloudinary
-      cloudinary.uploader.upload(img, function(image) {
+      cloudinary.uploader.upload(img, (image) => {
         // When the image is already in cloudinary, push de object to array professional working_images
         result.avatar = image.url
         result.save().then(
@@ -92,7 +92,7 @@ router.post('/avatar', function(req, res ,next){
 /*
   UPLOAD background
 */
-router.post('/background', function(req, res, next){
+router.post('/background', (req, res, next) => {
   let p = req.session.professional;
   let img = req.body.image;
   Professional.findById(p).then(
@@ -104,7 +104,7 @@ router.post('/background', function(req, res, next){
           }
         )
       }
-      cloudinary.uploader.upload(img, function(image) {
+      cloudinary.uploader.upload(img, (image) => {
         professional.background = image;
         professional.save().then(
           res.redirect(`/${req.session.slug}`)

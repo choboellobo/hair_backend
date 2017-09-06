@@ -7,9 +7,9 @@ let crypter = require("../app/helpers/crypto");
 request = request(app);
 
 describe("************ Test Admin Model", ()=> {
-	describe("POST /admin/login", ()=>{
+	describe("POST /api/admin/login", ()=>{
 		it("Should return a token if email and password are correct", done => {
-			request.post("/admin/login")
+			request.post("/api/admin/login")
 							.send({
 								email: "test@test.es",
 								password: "111111"

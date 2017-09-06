@@ -1,17 +1,18 @@
-let express = require('express');
-let router = express.Router();
-let Professional = require('../models/professional');
-let Service = require('../models/service');
-let Logs = require('../models/logs');
-let crypter = require('../helpers/crypto');
+const express = require('express');
+const router = express.Router();
+const Professional = require('../models/professional');
+const Service = require('../models/service');
+const Logs = require('../models/logs');
+const crypter = require('../helpers/crypto');
 
 module.exports = function (app) {
   app.use('/', router);
 };
+
 /*
   GET / --- home ---
 */
-router.get('/', function (req, res, next) {
+router.get('/', (req, res, next) => {
   if(Object.keys(req.query).length == 0) {
     res.render('index');
   }else {
@@ -37,7 +38,7 @@ router.get('/', function (req, res, next) {
 /*
   GET /:slug
 */
-router.get('/:slug', function (req, res, next) {
+router.get('/:slug', (req, res, next) => {
   //Logs
   Logs.visit(req.params.slug, req.connection.remoteAddress)
   // Looking for a professional by slug
@@ -57,7 +58,7 @@ router.get('/:slug', function (req, res, next) {
 });
 
 /** CUSTOMER FILTERS ***/
-router.get('/busco/:query', function(req, res, next){
+router.get('/busco/:query', (req, res, next) => {
   let what = req.params.query.split("-");
   let location = what[2]
   let profession = what[0]
@@ -85,6 +86,6 @@ router.get('/busco/:query', function(req, res, next){
   )
 })
 
-router.get('/aviso-legal', function(req, res, next){
+router.get('/aviso-legal', (req, res, next) => {
   res.render('legal');
 })

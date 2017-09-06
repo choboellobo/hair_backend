@@ -1,10 +1,10 @@
-let express = require('express');
-let router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 module.exports = function (app) {
   app.use('/ads', router);
 };
 
-router.get('/professional', function(req, res, next){
+router.get('/professional', (req, res, next) => {
   res.render('landing/professional')
 })
