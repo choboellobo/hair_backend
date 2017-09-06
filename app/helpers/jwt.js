@@ -3,11 +3,10 @@ const jwt = require('jsonwebtoken');
 const jwt_key = process.env.JWT_KEY || env.jwt_key;
 
 let jwt_obj = {
-	generate: function(obj){
-		var obj =  obj ||  {};
+	generate: (obj = {}) =>{
 		return jwt.sign(obj, jwt_key );
 	},
-	decode: function(token) {
+	decode: (token) =>  {
 		return new Promise((resolve, reject)=>{
 			if(!token) return reject({error:true, message: "Not token sent"})
 			jwt.verify(token, jwt_key, function(err, decoded) {
@@ -16,7 +15,7 @@ let jwt_obj = {
 			});
 		})
 	},
-	middleware: function(req, res, next) {
+	middleware: (req, res, next) => {
 		let token = req.headers.authorization;
 		jwt_obj.decode(token)
 			.then(
@@ -26,7 +25,7 @@ let jwt_obj = {
 				res.status(401).json({error: true, message: "Error decode JWT"})
 			})
 	},
-	middleware_admin: function(req, res, next) {
+	middleware_admin: (req, res, next) => {
 		let token = req.headers.authorization;
 		jwt_obj.decode(token)
 			.then(
