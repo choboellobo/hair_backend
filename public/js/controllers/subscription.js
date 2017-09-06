@@ -14,6 +14,7 @@
         // Inform the user if there was an error
         var errorElement = document.getElementById('stripe-card-errors');
         errorElement.textContent = result.error.message;
+        errorElement.parentElement.classList.remove('hide')
         buttonPay.classList.add('disabled')
         $('#preloader').modal('close');
       } else {
@@ -39,6 +40,4 @@
       buttonPay.classList.remove('disabled')
     }
   });
-
-
 })()
