@@ -14,8 +14,7 @@ const Subscription = require('../../models/subscription');
     POST /webhooks
     Mandatory event Object Stripe
   */
-  router.post('/webhooks', function(req, res, next) {
-    console.log(req.body.type)
+  router.post('/webhooks', (req, res, next) => {
     stripe.events.retrieve(req.body.id, function(err, event){
       if(err) return res.status(401).end()
       next()

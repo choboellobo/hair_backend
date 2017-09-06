@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var mongoosePaginate = require('mongoose-paginate');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const mongoosePaginate = require('mongoose-paginate');
 const env = require('../env/env');
 const stripe = require('stripe')(env.stripe_key);
 mongoosePaginate.paginate.options = {
@@ -11,13 +11,13 @@ mongoosePaginate.paginate.options = {
 	}
 };
 
-var ProfessionalSchema = new Schema({
+let ProfessionalSchema = new Schema({
 	email: {
 		type: String,
 		required: true,
 		unique: true,
 		validate: {
-			validator: function (email) {
+			validator:  (email) => {
 				var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 				return re.test(email);
 			},
@@ -108,9 +108,6 @@ var ProfessionalSchema = new Schema({
 			type: Number
 		}
 	},
-	working_place: {
-		type: Array
-	},
 	type: {
 		type: String,
 		default: 'professional'
@@ -133,6 +130,7 @@ var ProfessionalSchema = new Schema({
 	}
 });
 ProfessionalSchema.plugin(mongoosePaginate);
+/**** VIRTUALS *******/
 ProfessionalSchema.virtual('fullname')
 .get(function () {
 	return this.first_name + ' ' + this.last_name;
@@ -159,7 +157,6 @@ ProfessionalSchema.statics.createStripeCustomer = function(options){
 }
 
 ProfessionalSchema.statics.updatePaymentUser = function(id, stripe_token){
-  console.log("User ya tiene card")
   return new Promise((resolve, reject)=>{
     this.findById(id).then(
       professional => {

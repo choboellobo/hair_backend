@@ -1,9 +1,10 @@
-var express = require('express'),
-	router = express.Router(),
-	Professional = require('../../models/professional'),
-	crypter = require('../../helpers/crypto'),
-	jwt = require('../../helpers/jwt');
-var Mailer = require('../../mailer/emails');
+const express = require('express');
+const router = express.Router();
+const Professional = require('../../models/professional');
+const crypter = require('../../helpers/crypto');
+const jwt = require('../../helpers/jwt');
+const Mailer = require('../../mailer/emails');
+
 	module.exports = function (app) {
 		app.use('/api/professional', router);
 	};
@@ -12,7 +13,7 @@ var Mailer = require('../../mailer/emails');
 		Mandatory {email: String, password: String}
 		return 200 {token: String, {professional: Object}}
 	******/
-	router.post('/login', function (req, res, next){
+	router.post('/login',  (req, res, next) => {
 		Professional.findOne({email: req.body.email, password: crypter.encrypt(req.body.password)})
 			.then(p => {
 				if (!p) return res.status(400).json({error: true, message: 'Email o contraseña erroneos'});
@@ -28,7 +29,7 @@ var Mailer = require('../../mailer/emails');
 		Filter allowed throw query params: active, first_name, last_name, working_place and page
 		return 200 { professional: Object}
 	******/
-	router.get('/', jwt.middleware, function (jwt_data, req, res, next) {
+	router.get('/', jwt.middleware,  (jwt_data, req, res, next) =>  {
 		let query = {};
 		let options = {select: {password: 0}};
 		req.query.active ? query.active = req.query.active : null;
@@ -53,7 +54,7 @@ var Mailer = require('../../mailer/emails');
 		Mandatory ProfessionalModel
 		return  201 {professional: Object}
 	******/
-	router.post('/', function (req, res, next) {
+	router.post('/',  (req, res, next) => {
 		// Find if professional exists
 		Professional.findOne({email: req.body.email})
 								.then(
@@ -82,7 +83,7 @@ var Mailer = require('../../mailer/emails');
 								)
 	});
 
-	router.patch('/:id', jwt.middleware, function (jwt_data, req, res, next) {
+	router.patch('/:id', jwt.middleware,  (jwt_data, req, res, next) =>  {
 		let professional = req.params.id;
 		let data = req.body;
 		if (jwt_data._id !== professional && jwt_data.type !== 'admin') return res.status(401).json({error: true, message: 'Only an admin or the same professional can update.'});

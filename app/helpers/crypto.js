@@ -1,18 +1,18 @@
-var env = require('../env/env');
-var crypto = require('crypto'),
-    algorithm = 'aes-256-ctr',
-    password = env.crypto_key;
+const env = require('../env/env');
+const crypto = require('crypto');
+const algorithm = 'aes-256-ctr';
+const password = env.crypto_key;
 
 module.exports = {
-	encrypt: function(text){
-	  var cipher = crypto.createCipher(algorithm,password)
-	  var crypted = cipher.update(text,'utf8','hex')
+	encrypt: (text) => {
+	  let cipher = crypto.createCipher(algorithm,password)
+	  let crypted = cipher.update(text,'utf8','hex')
 	  crypted += cipher.final('hex');
 	  return crypted;
 	},
-	decrypt: function(text){
-	  var decipher = crypto.createDecipher(algorithm,password)
-	  var dec = decipher.update(text,'hex','utf8')
+	decrypt: (text) => {
+	  let decipher = crypto.createDecipher(algorithm,password)
+	  let dec = decipher.update(text,'hex','utf8')
 	  dec += decipher.final('utf8');
 	  return dec;
 	}
