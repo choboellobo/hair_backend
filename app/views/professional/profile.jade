@@ -263,6 +263,22 @@ block content
 									.chip.black-text
 										i.fa.fa-home(aria-hidden="true")
 										| Trabajo a domicilio
+							if professional._id == session.professional
+								.card-action
+									p Aquí puedes modificar el estado de varios parametros de tu perfil.
+									form(action="/professional/update"  method="post" id="form-options")
+										.switch
+											label
+												input(type="hidden" name="options.home" value="#{professional.options.home}")
+												input(type="checkbox" data-name="options.home")&attributes({'checked': professional.options.home})
+												span.lever
+												| Trabajo a domicilio
+										.switch
+											label
+												input(type="hidden" name="options.payments.card" value="#{professional.options.payments.card}")
+												input(type="checkbox" data-name="options.payments.card")&attributes({'checked': professional.options.payments.card})
+												span.lever
+												| Acepto pagos con tarjeta
 			//*********** SECTION MIS SERVICIOS *********//
 			section.row.scrollspy#services
 				.col.s12

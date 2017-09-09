@@ -115,4 +115,14 @@
     })
   }
 
+  /*** Form options ****/
+  $("#form-options input[type='checkbox']").on("change", function(){
+      if ($(this).is(':checked')) {
+        $('[name="'+$(this).data('name')+'"]').attr('value', 'true');
+      } else {
+        $('[name="'+$(this).data('name')+'"]').attr('value', 'false');
+      }
+      $("#form-options").submit()
+  })
+
 })()
